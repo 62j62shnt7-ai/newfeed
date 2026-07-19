@@ -26,8 +26,6 @@ jobs:
       - name: Run scraper
         env:
           OMDB_API_KEY: ${{ secrets.OMDB_API_KEY }}
-          FEED_URL: ${{ vars.FEED_URL }}
-          MAX_PAGES: ${{ vars.MAX_PAGES }}
         run: python scripts/scrape.py
 
       - name: Commit updated data
