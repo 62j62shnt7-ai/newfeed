@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-07-19T19:42:25.876442+00:00",
+  "last_updated": "2026-07-19T19:55:39.690326+00:00",
   "movies": [
     {
       "guid": "https://www.scnsrc.me/?p=540506",
@@ -1002,5 +1002,7 @@
       "plot": "Detective Enola Holmes heads to Malta, where her aspirations merge in her most complex and dangerous case yet.",
       "date_added": "2026-07-19T19:42:24.575809+00:00"
     }
-  ]
+  ],
+  "watchlist": [],
+  "excluded": []
 }
