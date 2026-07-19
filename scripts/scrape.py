@@ -226,12 +226,16 @@ def load_existing():
             return json.loads(DATA_PATH.read_text())
         except Exception:
             pass
-    return {"last_updated": None, "movies": []}
-
+    return {"last_updated": None, "movies": [], "watchlist": [], "excluded": []}
 
 def save(store):
     DATA_PATH.parent.mkdir(parents=True, exist_ok=True)
     store["last_updated"] = datetime.now(timezone.utc).isoformat()
+    # If the database store doesn't have these arrays initialization parameters, preserve them empty
+    if "watchlist" not in store:
+        store["watchlist"] = []
+    if "excluded" not in store:
+        store["excluded"] = []
     DATA_PATH.write_text(json.dumps(store, indent=2, ensure_ascii=False))
 
 
