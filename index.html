@@ -77,6 +77,22 @@
     font-family:'IBM Plex Mono',monospace;
     font-size:12px;
     color:var(--muted);
+    text-align: right;
+  }
+  .backup-btn{
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    color: var(--gold);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 6px;
+    display: inline-block;
+  }
+  .backup-btn:hover{
+    background: var(--line);
   }
 
   nav.tabs{
@@ -271,7 +287,9 @@
     <h1>SCENE REEL</h1>
     <div class="tagline">auto-tracked from your RSS feed · enriched via OMDb</div>
   </div>
-  <div id="lastUpdated">loading…</div>
+  <div id="lastUpdated">
+    <div>loading…</div>
+  </div>
 </header>
 <div class="sprocket"></div>
 
@@ -299,7 +317,7 @@
   <div class="empty" id="empty" style="display:none;"></div>
 </main>
 
-<footer>Data updates automatically via a scheduled GitHub Action. Watchlist / excluded are stored only in this browser.</footer>
+<footer>Data updates automatically via a scheduled GitHub Action. You can export unified tracking configurations to sync status globally.</footer>
 
 <script>
 const LS_WATCHLIST = 'reel_watchlist';
@@ -307,18 +325,44 @@ const LS_EXCLUDED = 'reel_excluded';
 
 const state = {
   movies: [],
+  last_updated: null,
   tab: 'library',
   search: '',
   sort: 'date',
   genre: '',
   minRating: 0,
-  watchlist: new Set(JSON.parse(localStorage.getItem(LS_WATCHLIST) || '[]')),
-  excluded: new Set(JSON.parse(localStorage.getItem(LS_EXCLUDED) || '[]')),
+  watchlist: new Set(),
+  excluded: new Set(),
 };
+
+function loadLocalState() {
+  const localW = JSON.parse(localStorage.getItem(LS_WATCHLIST) || '[]');
+  const localE = JSON.parse(localStorage.getItem(LS_EXCLUDED) || '[]');
+  localW.forEach(id => state.watchlist.add(id));
+  localE.forEach(id => state.excluded.add(id));
+}
 
 function persist(){
   localStorage.setItem(LS_WATCHLIST, JSON.stringify([...state.watchlist]));
   localStorage.setItem(LS_EXCLUDED, JSON.stringify([...state.excluded]));
+}
+
+function downloadBackup() {
+  const payload = {
+    last_updated: state.last_updated,
+    movies: state.movies,
+    watchlist: [...state.watchlist],
+    excluded: [...state.excluded]
+  };
+  const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'movies.json';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
 }
 
 function ratingVal(r){
@@ -334,6 +378,7 @@ function populateGenres(){
     }
   });
   const sel = document.getElementById('genre');
+  sel.innerHTML = '<option value="">All genres</option>';
   [...genres].sort().forEach(g => {
     const opt = document.createElement('option');
     opt.value = g; opt.textContent = g;
@@ -470,13 +515,29 @@ document.getElementById('minRating').addEventListener('input', e => {
   render();
 });
 
+loadLocalState();
+
 fetch('data/movies.json?_=' + Date.now())
   .then(r => r.json())
   .then(data => {
     state.movies = data.movies || [];
-    document.getElementById('lastUpdated').textContent = data.last_updated
-      ? 'Last updated: ' + new Date(data.last_updated).toLocaleString()
-      : 'Not yet run';
+    state.last_updated = data.last_updated;
+    
+    // Seed from the JSON configuration if available
+    if (data.watchlist && Array.isArray(data.watchlist)) {
+      data.watchlist.forEach(id => state.watchlist.add(id));
+    }
+    if (data.excluded && Array.isArray(data.excluded)) {
+      data.excluded.forEach(id => state.excluded.add(id));
+    }
+    persist(); // Sync and merge choices back to local browser storage
+
+    const luDiv = document.getElementById('lastUpdated');
+    luDiv.innerHTML = `
+      <div>${data.last_updated ? 'Last updated: ' + new Date(data.last_updated).toLocaleString() : 'Not yet run'}</div>
+      <button class="backup-btn" onclick="downloadBackup()">📥 Export JSON Configuration</button>
+    `;
+    
     populateGenres();
     render();
   })
