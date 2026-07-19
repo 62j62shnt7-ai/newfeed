@@ -2,8 +2,14 @@ name: Update movie feed
 
 on:
   schedule:
-    - cron: "0 7 * * *"   # daily at 07:00 UTC — adjust as you like
-  workflow_dispatch:       # lets you trigger it manually from the Actions tab
+    - cron: '0 7 * * *'
+  workflow_dispatch:
+    inputs:
+      max_pages:
+        description: 'Number of pages to scrape'
+        required: true
+        default: '5'
+        type: string
 
 permissions:
   contents: write
@@ -12,26 +18,41 @@ jobs:
   scrape:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v5
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
+          python-version: '3.10'
+          cache: 'pip' # Automatically caches pip dependencies based on requirements.txt
+
+      # Cache Playwright browsers so they don't download every time (~70-100MB)
+      - name: Cache Playwright Binaries
+        id: playwright-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ hashFiles('scripts/requirements.txt') }}
 
       - name: Install dependencies
         run: |
           pip install -r scripts/requirements.txt
-          playwright install --with-deps chromium
+
+      # Only install Playwright if the cache missed
+      - name: Install Playwright Browser
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: playwright install chromium
 
       - name: Run scraper
         env:
           OMDB_API_KEY: ${{ secrets.OMDB_API_KEY }}
+          MAX_PAGES: ${{ inputs.max_pages || '5' }}
         run: python scripts/scrape.py
 
-      - name: Commit updated data
+      - name: Commit and push changes
         run: |
-          git config user.name "movie-tracker-bot"
-          git config user.email "actions@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add data/movies.json
-          git diff --cached --quiet || git commit -m "Update movie data"
-          git push
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Automated feed update: $(date -u)" && git push)
