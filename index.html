@@ -1,0 +1,492 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Scene Reel — Movie Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#121214;
+    --surface:#1b1b1e;
+    --surface-2:#232326;
+    --line:#312f2a;
+    --text:#ece7dd;
+    --muted:#8f8a80;
+    --gold:#e8b33d;
+    --gold-dim:#8a6a24;
+    --exclude:#b5484d;
+    --radius:10px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;}
+
+  /* ---- sprocket strip (signature element) ---- */
+  .sprocket{
+    height:18px;
+    background:
+      repeating-linear-gradient(90deg,
+        var(--surface-2) 0 14px,
+        var(--bg) 14px 28px);
+    position:relative;
+    border-bottom:1px solid var(--line);
+    border-top:1px solid var(--line);
+  }
+  .sprocket::before,.sprocket::after{
+    content:"";
+    position:absolute;
+    top:50%;
+    left:0; right:0;
+    height:8px;
+    transform:translateY(-50%);
+    background-image:radial-gradient(circle, var(--bg) 3.5px, transparent 3.6px);
+    background-size:28px 8px;
+    background-repeat:repeat-x;
+  }
+
+  header{
+    padding:28px 32px 18px;
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:12px;
+  }
+  header h1{
+    font-family:'Bebas Neue',sans-serif;
+    letter-spacing:3px;
+    font-size:40px;
+    margin:0;
+    color:var(--gold);
+  }
+  header .tagline{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    color:var(--muted);
+    margin-top:4px;
+  }
+  #lastUpdated{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    color:var(--muted);
+  }
+
+  nav.tabs{
+    display:flex;
+    gap:4px;
+    padding:0 32px;
+    border-bottom:1px solid var(--line);
+  }
+  nav.tabs button{
+    background:none;
+    border:none;
+    color:var(--muted);
+    font-family:'Inter';
+    font-weight:600;
+    font-size:14px;
+    padding:12px 16px;
+    cursor:pointer;
+    border-bottom:2px solid transparent;
+  }
+  nav.tabs button.active{
+    color:var(--gold);
+    border-bottom-color:var(--gold);
+  }
+
+  .filters{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    padding:16px 32px;
+    align-items:center;
+  }
+  .filters input[type=text]{
+    flex:1;
+    min-width:180px;
+  }
+  .filters input, .filters select{
+    background:var(--surface);
+    border:1px solid var(--line);
+    color:var(--text);
+    padding:8px 10px;
+    border-radius:6px;
+    font-family:'Inter';
+    font-size:13px;
+  }
+  .filters label{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    color:var(--muted);
+    display:flex;
+    align-items:center;
+    gap:6px;
+  }
+
+  main{
+    padding:8px 32px 60px;
+  }
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
+    gap:16px;
+  }
+
+  .card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+    transition:transform .12s ease, border-color .12s ease;
+  }
+  .card:hover{
+    transform:translateY(-2px);
+    border-color:var(--gold-dim);
+  }
+  .poster{
+    width:100%;
+    aspect-ratio:2/3;
+    object-fit:cover;
+    background:var(--surface-2);
+    display:block;
+  }
+  .poster.placeholder{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:38px;
+    color:var(--line);
+  }
+  .card-body{
+    padding:12px 14px 14px;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    flex:1;
+  }
+  .card h3{
+    font-family:'Bebas Neue',sans-serif;
+    font-size:20px;
+    letter-spacing:1px;
+    margin:0;
+    line-height:1.15;
+  }
+  .card h3 .year{
+    color:var(--muted);
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13px;
+    letter-spacing:0;
+  }
+  .chips{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+  }
+  .chip{
+    background:var(--surface-2);
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:3px 6px;
+    color:var(--muted);
+  }
+  .chip.rating{ color:var(--gold); border-color:var(--gold-dim); }
+
+  details.synopsis{
+    font-size:12.5px;
+    color:var(--muted);
+    margin-top:2px;
+  }
+  details.synopsis summary{
+    cursor:pointer;
+    color:var(--text);
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+  }
+  details.synopsis p{ margin:6px 0 0; line-height:1.4; }
+
+  .actions{
+    margin-top:auto;
+    display:flex;
+    gap:6px;
+    padding-top:8px;
+  }
+  .actions button, .actions a{
+    flex:1;
+    text-align:center;
+    background:var(--surface-2);
+    border:1px solid var(--line);
+    color:var(--text);
+    padding:7px 6px;
+    border-radius:6px;
+    font-size:12px;
+    cursor:pointer;
+    text-decoration:none;
+    font-family:'Inter';
+  }
+  .actions button.watch.on{
+    background:var(--gold);
+    color:#181510;
+    border-color:var(--gold);
+  }
+  .actions button.exclude:hover{
+    border-color:var(--exclude);
+    color:var(--exclude);
+  }
+  .actions button.restore{
+    background:var(--gold-dim);
+    color:#181510;
+  }
+
+  .empty{
+    color:var(--muted);
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13px;
+    padding:60px 0;
+    text-align:center;
+  }
+
+  footer{
+    padding:24px 32px 40px;
+    color:var(--muted);
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>SCENE REEL</h1>
+    <div class="tagline">auto-tracked from your RSS feed · enriched via OMDb</div>
+  </div>
+  <div id="lastUpdated">loading…</div>
+</header>
+<div class="sprocket"></div>
+
+<nav class="tabs">
+  <button data-tab="library" class="active">Library <span id="countLibrary"></span></button>
+  <button data-tab="watchlist">Watchlist <span id="countWatchlist"></span></button>
+  <button data-tab="excluded">Excluded <span id="countExcluded"></span></button>
+</nav>
+
+<div class="filters">
+  <input type="text" id="search" placeholder="🔍 Search title…">
+  <select id="sort">
+    <option value="date">Date added (newest)</option>
+    <option value="rating">IMDb rating (highest)</option>
+    <option value="title">Title (A–Z)</option>
+  </select>
+  <select id="genre"><option value="">All genres</option></select>
+  <label>Min rating <span id="minRatingVal">0</span>
+    <input type="range" id="minRating" min="0" max="10" step="0.5" value="0">
+  </label>
+</div>
+
+<main>
+  <div class="grid" id="grid"></div>
+  <div class="empty" id="empty" style="display:none;"></div>
+</main>
+
+<footer>Data updates automatically via a scheduled GitHub Action. Watchlist / excluded are stored only in this browser.</footer>
+
+<script>
+const LS_WATCHLIST = 'reel_watchlist';
+const LS_EXCLUDED = 'reel_excluded';
+
+const state = {
+  movies: [],
+  tab: 'library',
+  search: '',
+  sort: 'date',
+  genre: '',
+  minRating: 0,
+  watchlist: new Set(JSON.parse(localStorage.getItem(LS_WATCHLIST) || '[]')),
+  excluded: new Set(JSON.parse(localStorage.getItem(LS_EXCLUDED) || '[]')),
+};
+
+function persist(){
+  localStorage.setItem(LS_WATCHLIST, JSON.stringify([...state.watchlist]));
+  localStorage.setItem(LS_EXCLUDED, JSON.stringify([...state.excluded]));
+}
+
+function ratingVal(r){
+  const v = parseFloat(r);
+  return isNaN(v) ? 0 : v;
+}
+
+function populateGenres(){
+  const genres = new Set();
+  state.movies.forEach(m => {
+    if (m.genre && m.genre !== 'Unknown') {
+      m.genre.split(',').forEach(g => genres.add(g.trim()));
+    }
+  });
+  const sel = document.getElementById('genre');
+  [...genres].sort().forEach(g => {
+    const opt = document.createElement('option');
+    opt.value = g; opt.textContent = g;
+    sel.appendChild(opt);
+  });
+}
+
+function applyFiltersSort(list){
+  let rows = list;
+  if (state.search.trim()){
+    const q = state.search.trim().toLowerCase();
+    rows = rows.filter(m => m.title.toLowerCase().includes(q));
+  }
+  if (state.minRating > 0){
+    rows = rows.filter(m => ratingVal(m.rating) >= state.minRating);
+  }
+  if (state.genre){
+    rows = rows.filter(m => (m.genre || '').includes(state.genre));
+  }
+  if (state.sort === 'rating'){
+    rows = [...rows].sort((a,b) => ratingVal(b.rating) - ratingVal(a.rating));
+  } else if (state.sort === 'title'){
+    rows = [...rows].sort((a,b) => a.title.localeCompare(b.title));
+  } else {
+    rows = [...rows].sort((a,b) => new Date(b.date_added) - new Date(a.date_added));
+  }
+  return rows;
+}
+
+function cardHTML(m, scope){
+  const posterHTML = m.poster
+    ? `<img class="poster" src="${m.poster}" alt="" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'poster placeholder',textContent:'🎬'}))">`
+    : `<div class="poster placeholder">🎬</div>`;
+
+  const inWatchlist = state.watchlist.has(m.guid);
+  const isExcluded = state.excluded.has(m.guid);
+
+  let actionsHTML = '';
+  if (scope === 'excluded'){
+    actionsHTML = `<button class="restore" data-action="restore" data-guid="${m.guid}">↺ Restore</button>`;
+  } else {
+    actionsHTML = `
+      <button class="watch ${inWatchlist ? 'on' : ''}" data-action="watch" data-guid="${m.guid}">
+        ${inWatchlist ? '★ Watchlisted' : '☆ Watchlist'}
+      </button>
+      <button class="exclude" data-action="exclude" data-guid="${m.guid}">🚫 Exclude</button>
+      ${m.imdb_id ? `<a href="https://www.imdb.com/title/${m.imdb_id}/" target="_blank" rel="noopener">IMDb</a>` : ''}
+    `;
+  }
+
+  return `
+    <div class="card">
+      ${posterHTML}
+      <div class="card-body">
+        <h3>${m.title} <span class="year">${m.year || ''}</span></h3>
+        <div class="chips">
+          <span class="chip rating">⭐ ${m.rating || 'N/A'}</span>
+          <span class="chip">${m.genre || 'Unknown'}</span>
+          <span class="chip">${m.runtime || 'Unknown'}</span>
+        </div>
+        ${m.plot ? `<details class="synopsis"><summary>Synopsis</summary><p>${m.plot}</p></details>` : ''}
+        <div class="actions">${actionsHTML}</div>
+      </div>
+    </div>
+  `;
+}
+
+function render(){
+  const grid = document.getElementById('grid');
+  const empty = document.getElementById('empty');
+
+  let base;
+  if (state.tab === 'library'){
+    base = state.movies.filter(m => !state.watchlist.has(m.guid) && !state.excluded.has(m.guid));
+  } else if (state.tab === 'watchlist'){
+    base = state.movies.filter(m => state.watchlist.has(m.guid) && !state.excluded.has(m.guid));
+  } else {
+    base = state.movies.filter(m => state.excluded.has(m.guid));
+  }
+
+  const rows = applyFiltersSort(base);
+
+  document.getElementById('countLibrary').textContent =
+    `(${state.movies.filter(m => !state.watchlist.has(m.guid) && !state.excluded.has(m.guid)).length})`;
+  document.getElementById('countWatchlist').textContent =
+    `(${state.movies.filter(m => state.watchlist.has(m.guid) && !state.excluded.has(m.guid)).length})`;
+  document.getElementById('countExcluded').textContent =
+    `(${state.movies.filter(m => state.excluded.has(m.guid)).length})`;
+
+  if (!rows.length){
+    grid.style.display = 'none';
+    empty.style.display = 'block';
+    empty.textContent = state.movies.length
+      ? 'No movies match your filters.'
+      : 'No movies yet — the next scheduled run will populate this.';
+    return;
+  }
+  grid.style.display = 'grid';
+  empty.style.display = 'none';
+  grid.innerHTML = rows.map(m => cardHTML(m, state.tab)).join('');
+}
+
+document.addEventListener('click', e => {
+  const btn = e.target.closest('button[data-action]');
+  if (!btn) return;
+  const guid = btn.dataset.guid;
+  if (btn.dataset.action === 'watch'){
+    state.watchlist.has(guid) ? state.watchlist.delete(guid) : state.watchlist.add(guid);
+  } else if (btn.dataset.action === 'exclude'){
+    state.excluded.add(guid);
+    state.watchlist.delete(guid);
+  } else if (btn.dataset.action === 'restore'){
+    state.excluded.delete(guid);
+  }
+  persist();
+  render();
+});
+
+document.querySelectorAll('nav.tabs button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('nav.tabs button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    state.tab = btn.dataset.tab;
+    render();
+  });
+});
+
+document.getElementById('search').addEventListener('input', e => { state.search = e.target.value; render(); });
+document.getElementById('sort').addEventListener('change', e => { state.sort = e.target.value; render(); });
+document.getElementById('genre').addEventListener('change', e => { state.genre = e.target.value; render(); });
+document.getElementById('minRating').addEventListener('input', e => {
+  state.minRating = parseFloat(e.target.value);
+  document.getElementById('minRatingVal').textContent = state.minRating;
+  render();
+});
+
+fetch('data/movies.json?_=' + Date.now())
+  .then(r => r.json())
+  .then(data => {
+    state.movies = data.movies || [];
+    document.getElementById('lastUpdated').textContent = data.last_updated
+      ? 'Last updated: ' + new Date(data.last_updated).toLocaleString()
+      : 'Not yet run';
+    populateGenres();
+    render();
+  })
+  .catch(() => {
+    document.getElementById('lastUpdated').textContent = 'Could not load data/movies.json';
+    document.getElementById('empty').style.display = 'block';
+    document.getElementById('empty').textContent = 'Could not load movie data.';
+    document.getElementById('grid').style.display = 'none';
+  });
+</script>
+
+</body>
+</html>
