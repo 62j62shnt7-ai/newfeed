@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-07-21T09:24:36.339718+00:00",
+  "last_updated": "2026-07-22T09:24:02.053862+00:00",
   "movies": [
     {
       "guid": "https://www.scnsrc.me/?p=540506",
@@ -3250,6 +3250,32 @@
       "imdb_id": "tt36639420",
       "plot": "A man's journey through life, marked by various names and labels, leads him to unexpected success while confronting modern social issues and personal struggles along the way.",
       "date_added": "2026-07-20T09:54:13.316560+00:00"
+    },
+    {
+      "guid": "https://www.scnsrc.me/?p=540821",
+      "slug": "elizeshadowsofawoman",
+      "title": "Elize Shadows of a Woman",
+      "year": "2026",
+      "rating": "N/A",
+      "poster": "https://i.postimg.cc/TP7dHsBT/Elize-Shadows-of-a-Woman.jpg",
+      "genre": "Unknown",
+      "runtime": "Unknown",
+      "imdb_id": null,
+      "plot": "",
+      "date_added": "2026-07-22T09:23:50.160285+00:00"
+    },
+    {
+      "guid": "https://www.scnsrc.me/?p=540789",
+      "slug": "mygrandfathercharlesmanson",
+      "title": "My Grandfather Charles Manson",
+      "year": "2026",
+      "rating": "N/A",
+      "poster": "https://i.postimg.cc/MK1Sb1v8/My-Grandfather-Charles-Manson-2026-1080p-WEB-h264-GRACE.jpg",
+      "genre": "Unknown",
+      "runtime": "Unknown",
+      "imdb_id": null,
+      "plot": "",
+      "date_added": "2026-07-22T09:23:50.554896+00:00"
     }
   ],
   "watchlist": [
