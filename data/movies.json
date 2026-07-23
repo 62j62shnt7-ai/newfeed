@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-07-22T09:24:02.053862+00:00",
+  "last_updated": "2026-07-23T09:22:21.983972+00:00",
   "movies": [
     {
       "guid": "https://www.scnsrc.me/?p=540506",
@@ -3276,6 +3276,71 @@
       "imdb_id": null,
       "plot": "",
       "date_added": "2026-07-22T09:23:50.554896+00:00"
+    },
+    {
+      "guid": "https://www.scnsrc.me/?p=540890",
+      "slug": "thedebtcollector",
+      "title": "The Debt Collector",
+      "year": "2026",
+      "rating": "N/A",
+      "poster": "https://i.postimg.cc/ncsTDYRL/The-Debt-Collector.jpg",
+      "genre": "Action, Crime, Thriller",
+      "runtime": "N/A",
+      "imdb_id": "tt39749953",
+      "plot": "Haunted by guilt after prison, a former debt collector races against a terminal illness, returning to his old world to avenge loan shark victims.",
+      "date_added": "2026-07-23T09:22:09.233074+00:00"
+    },
+    {
+      "guid": "https://www.scnsrc.me/?p=540887",
+      "slug": "loveinslowmotion",
+      "title": "Love in Slow Motion",
+      "year": "2026",
+      "rating": "N/A",
+      "poster": "https://i.postimg.cc/5NHpCq7N/Love-in-Slow-Motion.jpg",
+      "genre": "Unknown",
+      "runtime": "Unknown",
+      "imdb_id": null,
+      "plot": "",
+      "date_added": "2026-07-23T09:22:09.604118+00:00"
+    },
+    {
+      "guid": "https://www.scnsrc.me/?p=540882",
+      "slug": "atoxiclovestory",
+      "title": "A Toxic Love Story",
+      "year": "2026",
+      "rating": "5.5",
+      "poster": "https://i.postimg.cc/ZRF2XFkM/A-Toxic-Love-Story.jpg",
+      "genre": "Romance",
+      "runtime": "85 min",
+      "imdb_id": "tt41437333",
+      "plot": "It follows the story of Vandana, whose marriage unravels due to betrayal and dangerous choices, leading to a \"poisonous\" love story.",
+      "date_added": "2026-07-23T09:22:10.047448+00:00"
+    },
+    {
+      "guid": "https://www.scnsrc.me/?p=540855",
+      "slug": "motorcity",
+      "title": "Motor City",
+      "year": "2025",
+      "rating": "5.8",
+      "poster": "https://i.postimg.cc/fR04wwWz/Motor-City-2025-720p-CAM-H264-Cinema-City.jpg",
+      "genre": "Action, Crime, Drama",
+      "runtime": "103 min",
+      "imdb_id": "tt2012616",
+      "plot": "In 1970s Detroit, John Miller falls for a local gangster's girl. In retaliation, the gangster enacts a frame job to send the innocent man to prison. Life ruined, Miller plots a revenge campaign against the man who took his girl away.",
+      "date_added": "2026-07-23T09:22:10.472909+00:00"
+    },
+    {
+      "guid": "https://www.scnsrc.me/?p=540850",
+      "slug": "suzzannawitchcraft",
+      "title": "Suzzanna Witchcraft",
+      "year": "2026",
+      "rating": "N/A",
+      "poster": "https://i.postimg.cc/vBfwX0nQ/Suzzanna-Santet-Dosa-Di-Atas-Dosa-2026.jpg",
+      "genre": "Unknown",
+      "runtime": "Unknown",
+      "imdb_id": null,
+      "plot": "",
+      "date_added": "2026-07-23T09:22:10.833864+00:00"
     }
   ],
   "watchlist": [
