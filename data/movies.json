@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-07-23T09:22:21.983972+00:00",
+  "last_updated": "2026-07-24T09:17:04.385648+00:00",
   "movies": [
     {
       "guid": "https://www.scnsrc.me/?p=540506",
@@ -3341,6 +3341,58 @@
       "imdb_id": null,
       "plot": "",
       "date_added": "2026-07-23T09:22:10.833864+00:00"
+    },
+    {
+      "guid": "https://www.scnsrc.me/?p=540993",
+      "slug": "thetruthers",
+      "title": "The Truthers",
+      "year": "2026",
+      "rating": "N/A",
+      "poster": "https://i.postimg.cc/ZqrpPfHd/The-Truthers-2026.jpg",
+      "genre": "Drama, Thriller",
+      "runtime": "N/A",
+      "imdb_id": "tt41111628",
+      "plot": "Ruth, a 30-year-old woman who has been estranged from her family for some time, returns home when her mother dies under strange circumstances. There, she is reunited with her father, Martín, who since retiring seems to have become...",
+      "date_added": "2026-07-24T09:16:53.685983+00:00"
+    },
+    {
+      "guid": "https://www.scnsrc.me/?p=540989",
+      "slug": "72hours",
+      "title": "72 Hours",
+      "year": "2026",
+      "rating": "4.0",
+      "poster": "https://i.postimg.cc/0NpDGtnS/72H.jpg",
+      "genre": "Action, Thriller",
+      "runtime": "87 min",
+      "imdb_id": "tt23802194",
+      "plot": "Two brothers, one an FBI agent and the other an international money launderer, put aside their differences and band together to save their family by going after a perilous extraction deep in kingpin territory.",
+      "date_added": "2026-07-24T09:16:54.125108+00:00"
+    },
+    {
+      "guid": "https://www.scnsrc.me/?p=540987",
+      "slug": "heartstopperendingonahi",
+      "title": "Heartstopper Ending on a Hi",
+      "year": "2026",
+      "rating": "N/A",
+      "poster": "https://i.postimg.cc/CKybqyGJ/Heartstopper-Ending-on-a-Hi-2026.jpg",
+      "genre": "Unknown",
+      "runtime": "Unknown",
+      "imdb_id": null,
+      "plot": "",
+      "date_added": "2026-07-24T09:16:54.498421+00:00"
+    },
+    {
+      "guid": "https://www.scnsrc.me/?p=540971",
+      "slug": "thedink",
+      "title": "The Dink",
+      "year": "2026",
+      "rating": "N/A",
+      "poster": "https://i.postimg.cc/rpMJkb99/The-Dink-2026-1080p-WEB-h264-ETHEL.jpg",
+      "genre": "Comedy",
+      "runtime": "N/A",
+      "imdb_id": "tt33499146",
+      "plot": "A washed-up tennis pro tries to save a club by reluctantly playing pickleball to earn his father's respect.",
+      "date_added": "2026-07-24T09:16:54.942455+00:00"
     }
   ],
   "watchlist": [
