@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-07-24T09:17:04.385648+00:00",
+  "last_updated": "2026-07-25T08:57:30.508275+00:00",
   "movies": [
     {
       "guid": "https://www.scnsrc.me/?p=540506",
@@ -3393,6 +3393,45 @@
       "imdb_id": "tt33499146",
       "plot": "A washed-up tennis pro tries to save a club by reluctantly playing pickleball to earn his father's respect.",
       "date_added": "2026-07-24T09:16:54.942455+00:00"
+    },
+    {
+      "guid": "https://www.scnsrc.me/?p=541046",
+      "slug": "herprivatehell",
+      "title": "Her Private Hell",
+      "year": "2026",
+      "rating": "3.8",
+      "poster": "https://img2.pixhost.cc/images/9595/751972395_her-private-hell-2026-1080p-webrip-x264-dks.jpg",
+      "genre": "Crime, Drama, Horror",
+      "runtime": "109 min",
+      "imdb_id": "tt36629665",
+      "plot": "A hypnotic, unhinged thriller with an original story promising plenty of glamour, sex, and violence.",
+      "date_added": "2026-07-25T08:57:18.857892+00:00"
+    },
+    {
+      "guid": "https://www.scnsrc.me/?p=541043",
+      "slug": "avataraangthelastairbender",
+      "title": "Avatar Aang The Last Airbender",
+      "year": "2026",
+      "rating": "N/A",
+      "poster": "https://img2.pixhost.cc/images/9595/751971154_avatar-aang-the-last-airbender-2026-1080p-amzn-web-dl-ddp5-1-h-264-n1h4l.jpg",
+      "genre": "Animation, Action, Adventure",
+      "runtime": "99 min",
+      "imdb_id": "tt18259538",
+      "plot": "Avatar Aang, the world's last Airbender, learns of an ancient power that could save his culture from extinction. With the help of his friends, he embarks on a global quest to find it before it falls into the wrong hands.",
+      "date_added": "2026-07-25T08:57:19.327367+00:00"
+    },
+    {
+      "guid": "https://www.scnsrc.me/?p=541020",
+      "slug": "pinocchiounstrung",
+      "title": "Pinocchio Unstrung",
+      "year": "2026",
+      "rating": "7.6",
+      "poster": "https://img2.pixhost.cc/images/9577/751857060_pinocchio-unstrung-2026-720p-ts-h264-cinemacity.jpg",
+      "genre": "Fantasy, Horror, Thriller",
+      "runtime": "82 min",
+      "imdb_id": "tt30887701",
+      "plot": "A dark coming-of-age reimagining of Pinocchio, this unsettling tale follows the iconic puppet's disturbing journey toward becoming real.",
+      "date_added": "2026-07-25T08:57:19.793943+00:00"
     }
   ],
   "watchlist": [
