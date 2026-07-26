@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-07-25T08:57:30.508275+00:00",
+  "last_updated": "2026-07-26T09:09:03.368085+00:00",
   "movies": [
     {
       "guid": "https://www.scnsrc.me/?p=540506",
@@ -3432,6 +3432,32 @@
       "imdb_id": "tt30887701",
       "plot": "A dark coming-of-age reimagining of Pinocchio, this unsettling tale follows the iconic puppet's disturbing journey toward becoming real.",
       "date_added": "2026-07-25T08:57:19.793943+00:00"
+    },
+    {
+      "guid": "https://www.scnsrc.me/?p=541088",
+      "slug": "sourparty",
+      "title": "Sour Party",
+      "year": "2023",
+      "rating": "N/A",
+      "poster": "https://img2.pixhost.cc/images/9600/752040419_sour-party-2023-720p-web-h264-cinemacity.jpg",
+      "genre": "Comedy",
+      "runtime": "N/A",
+      "imdb_id": "tt19393664",
+      "plot": "Sour Party follows Gwen and James, two broke, flailing 30-somethings on a quest to scrounge money from a collection of low lives and failed artists in an attempt to show up to Gwen's sister's baby shower with a proper gift.",
+      "date_added": "2026-07-26T09:08:52.776261+00:00"
+    },
+    {
+      "guid": "https://www.scnsrc.me/?p=541072",
+      "slug": "cruelhands",
+      "title": "Cruel Hands",
+      "year": "2026",
+      "rating": "8.0",
+      "poster": "https://img2.pixhost.cc/images/9600/752040416_cruel-hands-2026-720p-web-h264-cinemacity.jpg",
+      "genre": "Horror, Thriller",
+      "runtime": "76 min",
+      "imdb_id": "tt31116756",
+      "plot": "A mother and her son hideout in an abandoned farm, on the run from an abusive husband. Taking place during the 2019 bushfires, as emergency service struggle to track down the missing family, Dai begins to uncover not all is as it ...",
+      "date_added": "2026-07-26T09:08:53.214282+00:00"
     }
   ],
   "watchlist": [
