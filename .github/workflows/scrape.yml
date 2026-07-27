@@ -10,6 +10,11 @@ on:
         required: true
         default: '5'
         type: string
+      refetch:
+        description: 'Re-fetch metadata for existing movies in data/movies.json'
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: write
@@ -48,6 +53,7 @@ jobs:
         env:
           OMDB_API_KEY: ${{ secrets.OMDB_API_KEY }}
           MAX_PAGES: ${{ inputs.max_pages || '5' }}
+          REFETCH: ${{ inputs.refetch || 'false' }}
         run: python scripts/scrape.py
 
       - name: Commit and push changes
