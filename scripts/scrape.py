@@ -12,6 +12,7 @@ No database, no local chromedriver management: Playwright manages its own
 browser binary, so there's nothing to detect, download, or code-sign.
 """
 
+import argparse
 import json
 import os
 import re
@@ -94,27 +95,60 @@ def fetch_movie_metadata(title, year=None):
         if not query:
             return None
 
-        resp = requests.get(
-            OMDB_API_URL,
-            params={"apikey": OMDB_API_KEY, "s": query, "type": "movie"},
-            timeout=20,
-        )
-        data = resp.json()
+        req_year_str = str(year).strip() if year else None
 
-        if data.get("Response") != "True":
-            return None
+        # 1. Try direct title lookup with exact year if year is provided
+        if req_year_str:
+            try:
+                resp = requests.get(
+                    OMDB_API_URL,
+                    params={"apikey": OMDB_API_KEY, "t": query, "y": req_year_str, "type": "movie"},
+                    timeout=20,
+                )
+                details = resp.json()
+                if details.get("Response") == "True" and details.get("imdbID"):
+                    cand_year = details.get("Year", "")
+                    if req_year_str in cand_year:
+                        return {
+                            "rating": details.get("imdbRating", "N/A"),
+                            "genre": details.get("Genre", "Unknown"),
+                            "runtime": details.get("Runtime", "Unknown"),
+                            "poster": details.get("Poster"),
+                            "imdb_id": details.get("imdbID"),
+                            "plot": details.get("Plot", ""),
+                        }
+            except Exception as e:
+                log(f"OMDb direct lookup error for '{title}' ({req_year_str}): {e}")
 
-        results = data.get("Search", [])
+        # 2. Search OMDb using year filter
+        params = {"apikey": OMDB_API_KEY, "s": query, "type": "movie"}
+        if req_year_str:
+            params["y"] = req_year_str
+
+        results = []
+        try:
+            resp = requests.get(OMDB_API_URL, params=params, timeout=20)
+            data = resp.json()
+            if data.get("Response") == "True" and data.get("Search"):
+                results = data.get("Search", [])
+        except Exception as e:
+            log(f"OMDb search error for '{title}' (y={req_year_str}): {e}")
+
         if not results:
             return None
 
+        # 3. Score candidates with strict year filtering
         normalized_query = normalize_title(query)
         best_match, best_score = None, -1
 
         for result in results:
             candidate_title = result.get("Title", "")
-            candidate_year = result.get("Year", "")
+            candidate_year_raw = result.get("Year", "")
             normalized_candidate = normalize_title(candidate_title)
+
+            # Strict year check: candidate MUST contain requested year if specified
+            if req_year_str and req_year_str not in candidate_year_raw:
+                continue
 
             score = 0
             if normalized_candidate == normalized_query:
@@ -124,8 +158,7 @@ def fetch_movie_metadata(title, year=None):
                 or normalized_candidate in normalized_query
             ):
                 score += 50
-            if year and str(year) in candidate_year:
-                score += 25
+
             if result.get("Type") == "movie":
                 score += 10
 
@@ -133,7 +166,7 @@ def fetch_movie_metadata(title, year=None):
                 best_score, best_match = score, result
 
         if not best_match:
-            best_match = results[0]
+            return None
 
         imdb_id = best_match.get("imdbID")
         if not imdb_id:
@@ -312,10 +345,47 @@ def process_feed(payload, store, seen_keys):
 
 
 def main():
+    parser = argparse.ArgumentParser(description="Movie RSS Tracker Scraper")
+    parser.add_argument(
+        "--refetch",
+        action="store_true",
+        help="Re-fetch OMDb metadata for existing movies in data/movies.json",
+    )
+    args = parser.parse_args()
+
+    refetch = args.refetch or os.environ.get("REFETCH", "").lower() in ("true", "1", "yes")
+
     if not OMDB_API_KEY:
         log("WARNING: OMDB_API_KEY not set — metadata will be skipped.")
 
     store = load_existing()
+
+    if refetch:
+        log(f"Refetch mode enabled — re-evaluating OMDb metadata for {len(store['movies'])} existing movie(s)...")
+        updated_count = 0
+        for i, m in enumerate(store["movies"]):
+            clean_title = m.get("title", "")
+            year = m.get("year")
+            if not clean_title:
+                continue
+            log(f"[{i+1}/{len(store['movies'])}] Refetching: {clean_title} ({year})...")
+            metadata = fetch_movie_metadata(clean_title, year)
+            if metadata:
+                m["rating"] = metadata.get("rating", "N/A")
+                m["genre"] = metadata.get("genre", "Unknown")
+                m["runtime"] = metadata.get("runtime", "Unknown")
+                m["imdb_id"] = metadata.get("imdb_id")
+                m["plot"] = metadata.get("plot", "")
+                if metadata.get("poster") and metadata.get("poster") != "N/A":
+                    m["poster"] = metadata.get("poster")
+                updated_count += 1
+                log(f"  -> Updated: {clean_title} ({year}) | IMDb {m['rating']} | ID: {m['imdb_id']}")
+            else:
+                log(f"  -> No valid OMDb match found for {clean_title} ({year}).")
+            time.sleep(0.3)
+        save(store)
+        log(f"Refetch complete. Re-evaluated {updated_count}/{len(store['movies'])} movies.")
+
     seen_keys = {(m["slug"], m["year"]) for m in store["movies"]}
 
     session = create_session(FEED_URL)
