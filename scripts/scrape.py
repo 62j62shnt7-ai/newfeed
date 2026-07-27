@@ -103,7 +103,7 @@ def fetch_movie_metadata(title, year=None):
                 resp = requests.get(
                     OMDB_API_URL,
                     params={"apikey": OMDB_API_KEY, "t": query, "y": req_year_str, "type": "movie"},
-                    timeout=5,
+                    timeout=20,
                 )
                 details = resp.json()
                 if details.get("Response") == "True" and details.get("imdbID"):
@@ -127,7 +127,7 @@ def fetch_movie_metadata(title, year=None):
 
         results = []
         try:
-            resp = requests.get(OMDB_API_URL, params=params, timeout=5)
+            resp = requests.get(OMDB_API_URL, params=params, timeout=20)
             data = resp.json()
             if data.get("Response") == "True" and data.get("Search"):
                 results = data.get("Search", [])
@@ -175,7 +175,7 @@ def fetch_movie_metadata(title, year=None):
         details_resp = requests.get(
             OMDB_API_URL,
             params={"apikey": OMDB_API_KEY, "i": imdb_id},
-            timeout=5,
+            timeout=20,
         )
         details = details_resp.json()
 
@@ -196,31 +196,6 @@ def fetch_movie_metadata(title, year=None):
         return None
 
 
-def fetch_by_imdb_id(imdb_id, year=None):
-    try:
-        resp = requests.get(
-            OMDB_API_URL,
-            params={"apikey": OMDB_API_KEY, "i": imdb_id},
-            timeout=5,
-        )
-        details = resp.json()
-        if details.get("Response") == "True":
-            cand_year = details.get("Year", "")
-            if year and str(year) not in cand_year:
-                return None
-            return {
-                "rating": details.get("imdbRating", "N/A"),
-                "genre": details.get("Genre", "Unknown"),
-                "runtime": details.get("Runtime", "Unknown"),
-                "poster": details.get("Poster"),
-                "imdb_id": details.get("imdbID"),
-                "plot": details.get("Plot", ""),
-            }
-    except Exception:
-        pass
-    return None
-
-
 # =========================================================
 # BROWSER SESSION (Playwright — installs/manages its own browser)
 # =========================================================
@@ -239,8 +214,8 @@ def create_session(feed_url):
         page = context.new_page()
 
         log("Opening browser to pass bot check...")
-        page.goto(feed_url, timeout=30000, wait_until="domcontentloaded")
-        time.sleep(3)  # let any JS challenge resolve
+        page.goto(feed_url, timeout=60000)
+        time.sleep(12)  # let any JS challenge resolve
 
         cookies = context.cookies()
         user_agent = page.evaluate("() => navigator.userAgent")
@@ -388,15 +363,13 @@ def main():
     if refetch:
         log(f"Refetch mode enabled — re-evaluating OMDb metadata for {len(store['movies'])} existing movie(s)...")
         updated_count = 0
-        total_movies = len(store["movies"])
         for i, m in enumerate(store["movies"]):
             clean_title = m.get("title", "")
             year = m.get("year")
-            metadata = None
-            if m.get("imdb_id"):
-                metadata = fetch_by_imdb_id(m["imdb_id"], year)
-            if not metadata:
-                metadata = fetch_movie_metadata(clean_title, year)
+            if not clean_title:
+                continue
+            log(f"[{i+1}/{len(store['movies'])}] Refetching: {clean_title} ({year})...")
+            metadata = fetch_movie_metadata(clean_title, year)
             if metadata:
                 m["rating"] = metadata.get("rating", "N/A")
                 m["genre"] = metadata.get("genre", "Unknown")
@@ -406,19 +379,12 @@ def main():
                 if metadata.get("poster") and metadata.get("poster") != "N/A":
                     m["poster"] = metadata.get("poster")
                 updated_count += 1
+                log(f"  -> Updated: {clean_title} ({year}) | IMDb {m['rating']} | ID: {m['imdb_id']}")
             else:
-                # Reset metadata if strict year match fails so old mismatched IMDb link is cleared
-                m["rating"] = "N/A"
-                m["genre"] = "Unknown"
-                m["runtime"] = "Unknown"
-                m["imdb_id"] = None
-                m["plot"] = ""
-
-            if (i + 1) % 25 == 0 or (i + 1) == total_movies:
-                log(f"Refetch progress: [{i+1}/{total_movies}] processed ({updated_count} matched)")
-            time.sleep(0.05)
+                log(f"  -> No valid OMDb match found for {clean_title} ({year}).")
+            time.sleep(0.3)
         save(store)
-        log(f"Refetch complete. Re-evaluated {updated_count}/{total_movies} movies.")
+        log(f"Refetch complete. Re-evaluated {updated_count}/{len(store['movies'])} movies.")
 
     seen_keys = {(m["slug"], m["year"]) for m in store["movies"]}
 
