@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-07-27T17:16:14.362006+00:00",
+  "last_updated": "2026-07-28T09:32:49.023653+00:00",
   "movies": [
     {
       "guid": "https://www.scnsrc.me/?p=540506",
@@ -3458,6 +3458,19 @@
       "imdb_id": "tt31116756",
       "plot": "A mother and her son hideout in an abandoned farm, on the run from an abusive husband. Taking place during the 2019 bushfires, as emergency service struggle to track down the missing family, Dai begins to uncover not all is as it ...",
       "date_added": "2026-07-26T09:08:53.214282+00:00"
+    },
+    {
+      "guid": "https://www.scnsrc.me/?p=541263",
+      "slug": "leviticus",
+      "title": "Leviticus",
+      "year": "2026",
+      "rating": "5.3",
+      "poster": "https://images.scnsrc.me/images/2026/07/27/93797693351e96dd3aba6172173176a3.jpg",
+      "genre": "Horror, Romance, Sci-Fi",
+      "runtime": "88 min",
+      "imdb_id": "tt39143902",
+      "plot": "Two teenage boys must escape a violent entity that takes the form of the person they desire most - each other.",
+      "date_added": "2026-07-28T09:32:38.952685+00:00"
     }
   ],
   "watchlist": [
