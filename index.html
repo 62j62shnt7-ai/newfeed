@@ -819,7 +819,13 @@ async function commitToGitHubRepo(token, repoPath, branch = "main", silent = fal
 
     if (!putRes.ok) {
       const err = await putRes.json().catch(() => ({}));
-      throw new Error(err.message || `HTTP ${putRes.status}`);
+      let msg = err.message || `HTTP ${putRes.status}`;
+      if (putRes.status === 403 || putRes.status === 404 || msg.includes("Resource not accessible")) {
+        msg += " — Permission Missing!\n\n🔑 How to Fix:\n" +
+               "• Fine-Grained PAT (github_pat_...): Go to GitHub Settings -> Developer Settings -> Personal access tokens -> Edit Token -> Repository permissions -> Set 'Contents' to 'Read and write'.\n" +
+               "• Classic PAT (ghp_...): Ensure the 'repo' scope is checked when creating the token.";
+      }
+      throw new Error(msg);
     }
 
     updateGistSyncStatus("Synced", "synced");
@@ -840,6 +846,7 @@ async function commitToGitHubRepo(token, repoPath, branch = "main", silent = fal
         msgEl.style.display = "block";
         msgEl.style.background = "rgba(248, 81, 73, 0.2)";
         msgEl.style.color = "#f85149";
+        msgEl.style.whiteSpace = "pre-wrap";
         msgEl.textContent = `Repo Commit Error: ${err.message}`;
       }
     }
