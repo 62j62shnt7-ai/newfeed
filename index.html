@@ -95,6 +95,66 @@
     background: var(--line);
   }
 
+  /* ---- Gist Cloud Sync Styles ---- */
+  dialog#gistSyncDialog {
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 20px;
+    max-width: 520px;
+    width: 92%;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  }
+  dialog#gistSyncDialog::backdrop {
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+  }
+  .dialog-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+  }
+  .dialog-heading h3 {
+    margin: 0;
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 1px;
+    font-size: 24px;
+    color: var(--gold);
+  }
+  .icon-button {
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-size: 18px;
+    cursor: pointer;
+  }
+  .sync-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 6px;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 600;
+    margin-left: 4px;
+    background: var(--line);
+    color: var(--muted);
+    transition: all 0.2s ease;
+  }
+  .sync-pill.synced { background: rgba(46, 160, 67, 0.2); color: #3fb950; }
+  .sync-pill.syncing { background: rgba(56, 139, 253, 0.2); color: #58a6ff; animation: pulseSync 1.2s infinite; }
+  .sync-pill.error { background: rgba(248, 81, 73, 0.2); color: #f85149; }
+  .sync-pill.unsaved { background: rgba(210, 153, 34, 0.2); color: #d29922; }
+
+  @keyframes pulseSync {
+    0% { opacity: 0.6; }
+    50% { opacity: 1; }
+    100% { opacity: 0.6; }
+  }
+
   nav.tabs{
     display:flex;
     gap:4px;
@@ -287,8 +347,11 @@
     <h1>SCENE REEL</h1>
     <div class="tagline">auto-tracked from your RSS feed · enriched via OMDb</div>
   </div>
-  <div id="lastUpdated">
-    <div>loading…</div>
+  <div style="display: flex; align-items: flex-end; gap: 12px; flex-wrap: wrap;">
+    <button class="backup-btn" id="gistSyncBtn" type="button" style="margin-top: 0;">☁️ Cloud Sync <span class="sync-pill" id="gistSyncStatus">Setup</span></button>
+    <div id="lastUpdated">
+      <div>loading…</div>
+    </div>
   </div>
 </header>
 <div class="sprocket"></div>
@@ -322,6 +385,9 @@
 <script>
 const LS_WATCHLIST = 'reel_watchlist';
 const LS_EXCLUDED = 'reel_excluded';
+const LS_GIST_TOKEN = 'reel_gist_token';
+const LS_GIST_ID = 'reel_gist_id';
+const LS_GIST_AUTOSYNC = 'reel_gist_autosync';
 
 const state = {
   movies: [],
@@ -345,6 +411,7 @@ function loadLocalState() {
 function persist(){
   localStorage.setItem(LS_WATCHLIST, JSON.stringify([...state.watchlist]));
   localStorage.setItem(LS_EXCLUDED, JSON.stringify([...state.excluded]));
+  triggerAutoGistSync();
 }
 
 function downloadBackup() {
@@ -515,7 +582,649 @@ document.getElementById('minRating').addEventListener('input', e => {
   render();
 });
 
+// --- GitHub Gist Cloud Sync Engine ---
+let gistSyncDebounceTimer = null;
+
+function getGistConfig() {
+  const token = localStorage.getItem(LS_GIST_TOKEN) || "";
+  const gistId = localStorage.getItem(LS_GIST_ID) || "";
+  const autoSyncRaw = localStorage.getItem(LS_GIST_AUTOSYNC);
+  const autoSync = autoSyncRaw === null ? true : autoSyncRaw === "true";
+  return { token: token.trim(), gistId: gistId.trim(), autoSync };
+}
+
+function updateGistSyncStatus(statusText, className) {
+  const pill = document.getElementById("gistSyncStatus");
+  if (!pill) return;
+  pill.textContent = statusText;
+  pill.className = `sync-pill ${className || ""}`;
+}
+
+function getFullReelPayload() {
+  return {
+    app: "scene-reel",
+    exportedAt: new Date().toISOString(),
+    data: {
+      watchlist: [...state.watchlist],
+      excluded: [...state.excluded]
+    }
+  };
+}
+
+function applyIncomingReelData(incoming) {
+  if (!incoming || typeof incoming !== "object") return;
+  let updatedAny = false;
+
+  if (Array.isArray(incoming.watchlist)) {
+    const currentW = JSON.stringify([...state.watchlist].sort());
+    const incomingW = JSON.stringify([...incoming.watchlist].sort());
+    if (currentW !== incomingW) {
+      state.watchlist.clear();
+      incoming.watchlist.forEach((id) => state.watchlist.add(id));
+      localStorage.setItem(LS_WATCHLIST, JSON.stringify([...state.watchlist]));
+      updatedAny = true;
+    }
+  }
+
+  if (Array.isArray(incoming.excluded)) {
+    const currentE = JSON.stringify([...state.excluded].sort());
+    const incomingE = JSON.stringify([...incoming.excluded].sort());
+    if (currentE !== incomingE) {
+      state.excluded.clear();
+      incoming.excluded.forEach((id) => state.excluded.add(id));
+      localStorage.setItem(LS_EXCLUDED, JSON.stringify([...state.excluded]));
+      updatedAny = true;
+    }
+  }
+
+  if (updatedAny) {
+    render();
+  }
+}
+
+function findBudgetFileInGist(gistFiles) {
+  if (!gistFiles) return null;
+  if (gistFiles["movies.json"]) return gistFiles["movies.json"];
+  if (gistFiles["scene-reel.json"]) return gistFiles["scene-reel.json"];
+  const fileKeys = Object.keys(gistFiles);
+  const jsonKey = fileKeys.find((k) => k.endsWith(".json"));
+  if (jsonKey) return gistFiles[jsonKey];
+  if (fileKeys.length > 0) return gistFiles[fileKeys[0]];
+  return null;
+}
+
+async function pushToGist(token, gistId, silent = false, force = false) {
+  if (!token || !gistId) {
+    if (!silent) alert("Please enter both a GitHub PAT token and a Gist ID.");
+    return false;
+  }
+
+  const localHasData = state.watchlist.size > 0 || state.excluded.size > 0;
+  if (!localHasData && !force) {
+    try {
+      const checkRes = await fetch(`https://api.github.com/gists/${gistId}`, {
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Accept": "application/vnd.github+json"
+        }
+      });
+      if (checkRes.ok) {
+        const gistData = await checkRes.json();
+        const budgetFile = findBudgetFileInGist(gistData.files);
+        if (budgetFile && budgetFile.content) {
+          const payload = JSON.parse(budgetFile.content);
+          const incoming = payload && typeof payload === "object" ? (payload.data || payload) : null;
+          const cloudHasData = incoming && (
+            (incoming.watchlist && incoming.watchlist.length > 0) ||
+            (incoming.excluded && incoming.excluded.length > 0)
+          );
+          if (cloudHasData) {
+            return await pullFromGist(token, gistId, silent);
+          }
+        }
+      }
+    } catch (e) {
+      console.warn("Safety check failed:", e);
+    }
+  }
+
+  updateGistSyncStatus("Syncing...", "syncing");
+
+  try {
+    const payload = getFullReelPayload();
+    const res = await fetch(`https://api.github.com/gists/${gistId}`, {
+      method: "PATCH",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Accept": "application/vnd.github+json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        description: "Scene Reel Movie Tracker Data",
+        files: {
+          "scene-reel.json": {
+            content: JSON.stringify(payload, null, 2)
+          }
+        }
+      })
+    });
+
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.message || `HTTP ${res.status}`);
+    }
+
+    updateGistSyncStatus("Synced", "synced");
+    const msgEl = document.getElementById("gistSyncMessage");
+    if (msgEl && !silent) {
+      msgEl.style.display = "block";
+      msgEl.style.background = "rgba(46, 160, 67, 0.2)";
+      msgEl.style.color = "#3fb950";
+      msgEl.textContent = "Successfully saved and pushed watchlist to GitHub Gist!";
+    }
+    return true;
+  } catch (err) {
+    console.error("Gist push failed:", err);
+    updateGistSyncStatus("Error", "error");
+    if (!silent) {
+      const msgEl = document.getElementById("gistSyncMessage");
+      if (msgEl) {
+        msgEl.style.display = "block";
+        msgEl.style.background = "rgba(248, 81, 73, 0.2)";
+        msgEl.style.color = "#f85149";
+        msgEl.textContent = `Sync Error: ${err.message}`;
+      }
+    }
+    return false;
+  }
+}
+
+async function pullFromGist(token, gistId, silent = false) {
+  if (!token || !gistId) {
+    if (!silent) alert("Please enter both a GitHub PAT token and a Gist ID.");
+    return false;
+  }
+
+  updateGistSyncStatus("Pulling...", "syncing");
+
+  try {
+    const res = await fetch(`https://api.github.com/gists/${gistId}`, {
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Accept": "application/vnd.github+json"
+      }
+    });
+
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.message || `HTTP ${res.status}`);
+    }
+
+    const gistData = await res.json();
+    const budgetFile = findBudgetFileInGist(gistData.files);
+    if (!budgetFile || !budgetFile.content) {
+      throw new Error("No valid JSON file found in this Gist.");
+    }
+
+    const payload = JSON.parse(budgetFile.content);
+    const incoming = payload && typeof payload === "object" ? (payload.data || payload) : null;
+    if (!incoming || typeof incoming !== "object") {
+      throw new Error("Invalid format inside Gist.");
+    }
+
+    applyIncomingReelData(incoming);
+    updateGistSyncStatus("Synced", "synced");
+    return true;
+  } catch (err) {
+    console.error("Gist pull failed:", err);
+    updateGistSyncStatus("Error", "error");
+    if (!silent) {
+      const msgEl = document.getElementById("gistSyncMessage");
+      if (msgEl) {
+        msgEl.style.display = "block";
+        msgEl.style.background = "rgba(248, 81, 73, 0.2)";
+        msgEl.style.color = "#f85149";
+        msgEl.textContent = `Pull Error: ${err.message}`;
+      }
+    }
+    return false;
+  }
+}
+
+async function findUserGists(token) {
+  if (!token) return [];
+  try {
+    const res = await fetch("https://api.github.com/gists?per_page=100", {
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Accept": "application/vnd.github+json"
+      }
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.message || `HTTP ${res.status}`);
+    }
+    const gists = await res.json();
+    return gists.filter((g) => {
+      if (!g.files) return false;
+      const fileNames = Object.keys(g.files);
+      return fileNames.some((name) => name.includes("scene-reel") || name.includes("movie"));
+    });
+  } catch (e) {
+    console.error("Failed to fetch user Gists:", e);
+    throw e;
+  }
+}
+
+async function createPrivateGist(token) {
+  if (!token) {
+    alert("Please enter a GitHub Personal Access Token first.");
+    return null;
+  }
+
+  updateGistSyncStatus("Creating...", "syncing");
+
+  try {
+    const payload = getFullReelPayload();
+    const res = await fetch("https://api.github.com/gists", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Accept": "application/vnd.github+json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        description: "Scene Reel Movie Tracker Data (Private)",
+        public: false,
+        files: {
+          "scene-reel.json": {
+            content: JSON.stringify(payload, null, 2)
+          }
+        }
+      })
+    });
+
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.message || `HTTP ${res.status}`);
+    }
+
+    const created = await res.json();
+    updateGistSyncStatus("Synced", "synced");
+    return created.id;
+  } catch (err) {
+    console.error("Failed to create Gist:", err);
+    updateGistSyncStatus("Error", "error");
+    alert(`Failed to create Gist: ${err.message}`);
+    return null;
+  }
+}
+
+function triggerAutoGistSync() {
+  const { token, gistId, autoSync } = getGistConfig();
+  if (!token || !gistId || !autoSync) {
+    if (token && gistId) {
+      updateGistSyncStatus("Ready", "");
+    } else {
+      updateGistSyncStatus("Setup", "");
+    }
+    return;
+  }
+
+  updateGistSyncStatus("Unsaved", "unsaved");
+  if (gistSyncDebounceTimer) clearTimeout(gistSyncDebounceTimer);
+  gistSyncDebounceTimer = setTimeout(() => {
+    pushToGist(token, gistId, true);
+  }, 2500);
+}
+
+async function inspectGistData() {
+  const tokenInput = document.getElementById("gistTokenInput");
+  const gistIdInput = document.getElementById("gistIdInput");
+  const token = (tokenInput ? tokenInput.value.trim() : "") || getGistConfig().token;
+  const gistId = (gistIdInput ? gistIdInput.value.trim() : "") || getGistConfig().gistId;
+  const inspectorBox = document.getElementById("gistInspectorBox");
+  const detailsEl = document.getElementById("gistInspectorDetails");
+
+  if (!inspectorBox || !detailsEl) return;
+  inspectorBox.style.display = "block";
+
+  if (!token || !gistId) {
+    detailsEl.style.color = "#d29922";
+    detailsEl.textContent = "Please enter both Personal Access Token and Gist ID above first.";
+    return;
+  }
+
+  detailsEl.style.color = "var(--muted)";
+  detailsEl.textContent = "Fetching Gist status from GitHub API...";
+
+  try {
+    const res = await fetch(`https://api.github.com/gists/${gistId}`, {
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Accept": "application/vnd.github+json"
+      }
+    });
+
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.message || `HTTP ${res.status}`);
+    }
+
+    const gistData = await res.json();
+    const budgetFile = findBudgetFileInGist(gistData.files);
+
+    if (!budgetFile || !budgetFile.content) {
+      detailsEl.style.color = "#f85149";
+      detailsEl.textContent = "⚠️ Gist found, but contains no valid json file.";
+      return;
+    }
+
+    let payload;
+    try {
+      payload = JSON.parse(budgetFile.content);
+    } catch (e) {
+      detailsEl.style.color = "#f85149";
+      detailsEl.textContent = "⚠️ Gist file found, but JSON parsing failed.";
+      return;
+    }
+
+    const incoming = payload && typeof payload === "object" ? (payload.data || payload) : null;
+    if (!incoming || typeof incoming !== "object") {
+      detailsEl.style.color = "#f85149";
+      detailsEl.textContent = "⚠️ Gist JSON structure does not match expected format.";
+      return;
+    }
+
+    const watchCount = Array.isArray(incoming.watchlist) ? incoming.watchlist.length : 0;
+    const exclCount = Array.isArray(incoming.excluded) ? incoming.excluded.length : 0;
+    const exportTime = payload.exportedAt ? new Date(payload.exportedAt).toLocaleString() : "Unknown date";
+
+    detailsEl.style.color = "var(--text)";
+    detailsEl.innerHTML = `
+      <ul style="margin: 4px 0 0; padding-left: 18px;">
+        <li><strong>File Name:</strong> ${(budgetFile.filename || "scene-reel.json")} (${(budgetFile.size / 1024).toFixed(1)} KB)</li>
+        <li><strong>Export Date:</strong> ${exportTime}</li>
+        <li><strong>Watchlist Movies:</strong> ${watchCount} items</li>
+        <li><strong>Excluded Movies:</strong> ${exclCount} items</li>
+      </ul>
+    `;
+  } catch (err) {
+    console.error("Gist inspection failed:", err);
+    detailsEl.style.color = "#f85149";
+    detailsEl.textContent = `Error connecting to Gist: ${err.message}`;
+  }
+}
+
+function setupGistSyncEventListeners() {
+  const on = (id, event, handler) => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener(event, handler);
+  };
+
+  on("gistSyncBtn", "click", () => {
+    const dialog = document.getElementById("gistSyncDialog");
+    if (!dialog) return;
+
+    const { token, gistId, autoSync } = getGistConfig();
+    const tokenInput = document.getElementById("gistTokenInput");
+    const gistIdInput = document.getElementById("gistIdInput");
+    const autoSyncCheckbox = document.getElementById("gistAutoSyncCheckbox");
+    const msgEl = document.getElementById("gistSyncMessage");
+
+    if (tokenInput) tokenInput.value = token;
+    if (gistIdInput) gistIdInput.value = gistId;
+    if (autoSyncCheckbox) autoSyncCheckbox.checked = autoSync;
+    if (msgEl) msgEl.style.display = "none";
+
+    dialog.showModal();
+    if (token && gistId) {
+      inspectGistData();
+    }
+  });
+
+  on("gistFindBtn", "click", async () => {
+    const tokenInput = document.getElementById("gistTokenInput");
+    const token = tokenInput ? tokenInput.value.trim() : "";
+    const msgEl = document.getElementById("gistSyncMessage");
+
+    if (!token) {
+      alert("Please paste your GitHub Personal Access Token (PAT) first.");
+      return;
+    }
+
+    if (msgEl) {
+      msgEl.style.display = "block";
+      msgEl.style.background = "rgba(56, 139, 253, 0.2)";
+      msgEl.style.color = "#58a6ff";
+      msgEl.textContent = "🔍 Searching your GitHub account for existing Scene Reel Gists...";
+    }
+
+    try {
+      const foundGists = await findUserGists(token);
+      if (foundGists.length === 0) {
+        if (msgEl) {
+          msgEl.style.display = "block";
+          msgEl.style.background = "rgba(210, 153, 34, 0.2)";
+          msgEl.style.color = "#d29922";
+          msgEl.textContent = "No existing Scene Reel Gist found under this token. Click 'Auto-Create Gist' below!";
+        }
+        return;
+      }
+
+      const bestGist = foundGists[0];
+      const gistIdInput = document.getElementById("gistIdInput");
+      if (gistIdInput) gistIdInput.value = bestGist.id;
+
+      localStorage.setItem(LS_GIST_TOKEN, token);
+      localStorage.setItem(LS_GIST_ID, bestGist.id);
+      localStorage.setItem(LS_GIST_AUTOSYNC, "true");
+
+      if (msgEl) {
+        msgEl.style.display = "block";
+        msgEl.style.background = "rgba(46, 160, 67, 0.2)";
+        msgEl.style.color = "#3fb950";
+        msgEl.textContent = `Found Cloud Gist (ID: ${bestGist.id})! Downloading data now...`;
+      }
+
+      await inspectGistData();
+      await pullFromGist(token, bestGist.id, false);
+    } catch (err) {
+      if (msgEl) {
+        msgEl.style.display = "block";
+        msgEl.style.background = "rgba(248, 81, 73, 0.2)";
+        msgEl.style.color = "#f85149";
+        msgEl.textContent = `Error searching Gists: ${err.message}. Make sure token has 'gist' permission.`;
+      }
+    }
+  });
+
+  on("gistInspectBtn", "click", () => {
+    inspectGistData();
+  });
+
+  on("gistPushBtn", "click", async () => {
+    const tokenInput = document.getElementById("gistTokenInput");
+    const gistIdInput = document.getElementById("gistIdInput");
+    const autoSyncCheckbox = document.getElementById("gistAutoSyncCheckbox");
+
+    const token = tokenInput ? tokenInput.value.trim() : "";
+    const gistId = gistIdInput ? gistIdInput.value.trim() : "";
+    const autoSync = autoSyncCheckbox ? autoSyncCheckbox.checked : true;
+
+    if (!token || !gistId) {
+      alert("Please provide both PAT token and Gist ID, or click 'Auto-Create Gist'.");
+      return;
+    }
+
+    localStorage.setItem(LS_GIST_TOKEN, token);
+    localStorage.setItem(LS_GIST_ID, gistId);
+    localStorage.setItem(LS_GIST_AUTOSYNC, String(autoSync));
+
+    await pushToGist(token, gistId, false, true);
+  });
+
+  on("gistShareBtn", "click", (e) => {
+    e.preventDefault();
+    const gistIdInput = document.getElementById("gistIdInput");
+    const gistId = (gistIdInput ? gistIdInput.value.trim() : "") || getGistConfig().gistId;
+
+    if (!gistId) {
+      alert("No Gist ID found. Please create or enter a Gist ID first.");
+      return;
+    }
+
+    const shareUrl = `${window.location.origin}${window.location.pathname}#gist=${encodeURIComponent(gistId)}`;
+    const shareBtn = document.getElementById("gistShareBtn");
+    const originalText = shareBtn ? shareBtn.textContent : "🔗 Copy Sync Link";
+
+    const copyToClipboard = (text) => {
+      if (navigator.clipboard && window.isSecureContext) {
+        return navigator.clipboard.writeText(text);
+      } else {
+        const textarea = document.createElement("textarea");
+        textarea.value = text;
+        textarea.style.position = "fixed";
+        textarea.style.opacity = "0";
+        document.body.appendChild(textarea);
+        textarea.focus();
+        textarea.select();
+        try {
+          const successful = document.execCommand("copy");
+          document.body.removeChild(textarea);
+          return successful ? Promise.resolve() : Promise.reject(new Error("execCommand failed"));
+        } catch (err) {
+          document.body.removeChild(textarea);
+          return Promise.reject(err);
+        }
+      }
+    };
+
+    copyToClipboard(shareUrl)
+      .then(() => {
+        if (shareBtn) shareBtn.textContent = "Copied! ✓";
+        const msgEl = document.getElementById("gistSyncMessage");
+        if (msgEl) {
+          msgEl.style.display = "block";
+          msgEl.style.background = "rgba(46, 160, 67, 0.2)";
+          msgEl.style.color = "#3fb950";
+          msgEl.textContent = "🔗 Sync Link copied to clipboard! Open on your other device to connect.";
+        }
+        setTimeout(() => {
+          if (shareBtn) shareBtn.textContent = originalText;
+        }, 3000);
+      })
+      .catch(() => {
+        prompt("Copy this Sync Link for your other devices:", shareUrl);
+      });
+  });
+
+  on("gistPullBtn", "click", async () => {
+    const { token, gistId } = getGistConfig();
+    if (!token || !gistId) {
+      alert("Please enter and save your PAT token and Gist ID first.");
+      return;
+    }
+    await pullFromGist(token, gistId, false);
+  });
+
+  on("gistCreateBtn", "click", async () => {
+    const tokenInput = document.getElementById("gistTokenInput");
+    const token = tokenInput ? tokenInput.value.trim() : "";
+    if (!token) {
+      alert("Please enter your GitHub Personal Access Token first.");
+      return;
+    }
+
+    const createdId = await createPrivateGist(token);
+    if (createdId) {
+      const gistIdInput = document.getElementById("gistIdInput");
+      if (gistIdInput) gistIdInput.value = createdId;
+
+      localStorage.setItem(LS_GIST_TOKEN, token);
+      localStorage.setItem(LS_GIST_ID, createdId);
+      localStorage.setItem(LS_GIST_AUTOSYNC, "true");
+
+      const msgEl = document.getElementById("gistSyncMessage");
+      if (msgEl) {
+        msgEl.style.display = "block";
+        msgEl.style.background = "rgba(46, 160, 67, 0.2)";
+        msgEl.style.color = "#3fb950";
+        msgEl.textContent = `Private Gist created successfully! (ID: ${createdId})`;
+      }
+    }
+  });
+
+  on("gistDisconnectBtn", "click", () => {
+    localStorage.removeItem(LS_GIST_TOKEN);
+    localStorage.removeItem(LS_GIST_ID);
+    localStorage.removeItem(LS_GIST_AUTOSYNC);
+    sessionStorage.removeItem("reel_gist_auto_pulled");
+
+    const tokenInput = document.getElementById("gistTokenInput");
+    const gistIdInput = document.getElementById("gistIdInput");
+    if (tokenInput) tokenInput.value = "";
+    if (gistIdInput) gistIdInput.value = "";
+
+    updateGistSyncStatus("Setup", "");
+
+    const msgEl = document.getElementById("gistSyncMessage");
+    if (msgEl) {
+      msgEl.style.display = "block";
+      msgEl.style.background = "rgba(210, 153, 34, 0.2)";
+      msgEl.style.color = "#d29922";
+      msgEl.textContent = "Disconnected from GitHub Gist.";
+    }
+  });
+}
+
+function initGistSync() {
+  if (window.location.hash) {
+    const hashParams = new URLSearchParams(window.location.hash.slice(1));
+    const urlGistId = hashParams.get("gist");
+    if (urlGistId) {
+      localStorage.setItem(LS_GIST_ID, urlGistId.trim());
+      history.replaceState(null, "", window.location.pathname + window.location.search);
+
+      setTimeout(() => {
+        const dialog = document.getElementById("gistSyncDialog");
+        if (dialog) {
+          const tokenInput = document.getElementById("gistTokenInput");
+          const gistIdInput = document.getElementById("gistIdInput");
+          const msgEl = document.getElementById("gistSyncMessage");
+
+          if (gistIdInput) gistIdInput.value = urlGistId.trim();
+          const { token } = getGistConfig();
+          if (tokenInput) tokenInput.value = token;
+
+          if (msgEl) {
+            msgEl.style.display = "block";
+            msgEl.style.background = "rgba(56, 139, 253, 0.2)";
+            msgEl.style.color = "#58a6ff";
+            msgEl.textContent = "Gist ID detected from Sync Link! Enter your GitHub PAT token to connect.";
+          }
+          dialog.showModal();
+        }
+      }, 300);
+    }
+  }
+
+  setupGistSyncEventListeners();
+
+  const { token, gistId } = getGistConfig();
+  if (token && gistId) {
+    updateGistSyncStatus("Synced", "synced");
+    if (!sessionStorage.getItem("reel_gist_auto_pulled")) {
+      sessionStorage.setItem("reel_gist_auto_pulled", "true");
+      pullFromGist(token, gistId, true);
+    }
+  } else {
+    updateGistSyncStatus("Setup", "");
+  }
+}
+
 loadLocalState();
+initGistSync();
 
 fetch('data/movies.json?_=' + Date.now())
   .then(r => r.json())
@@ -548,6 +1257,59 @@ fetch('data/movies.json?_=' + Date.now())
     document.getElementById('grid').style.display = 'none';
   });
 </script>
+
+<dialog id="gistSyncDialog">
+  <div class="dialog-heading">
+    <h3>☁️ GitHub Gist Cloud Sync</h3>
+    <button class="icon-button" type="button" onclick="document.getElementById('gistSyncDialog').close()">x</button>
+  </div>
+  <p style="margin: 8px 0 16px; color: var(--muted); font-size: 13px; line-height: 1.5;">
+    Sync your movie watchlists & excluded movies across all your devices using a private GitHub Gist.
+    <strong style="display:block; margin-top: 4px; color: var(--text);">💡 On a new device/browser?</strong> Paste your Token & click "Find My Gist" to connect automatically.
+  </p>
+  <form id="gistSyncForm" style="display: flex; flex-direction: column; gap: 14px;">
+    <label style="display: flex; flex-direction: column; gap: 4px; font-size: 13px; font-weight: 600;">
+      GitHub Personal Access Token (PAT)
+      <div style="display: flex; gap: 8px; margin-top: 4px;">
+        <input type="password" id="gistTokenInput" placeholder="ghp_xxxxxxxxxxxx or github_pat_xxxx" autocomplete="off" style="flex: 1; padding: 8px; border-radius: 6px; border: 1px solid var(--line); background: var(--surface-2); color: var(--text);">
+        <button class="backup-btn" id="gistFindBtn" type="button" style="white-space: nowrap; padding: 8px 12px;">🔍 Find My Gist</button>
+      </div>
+      <small style="color: var(--muted); font-weight: normal; margin-top: 4px;">
+        Need a token? Go to GitHub Settings &rarr; Developer Settings &rarr; Personal access tokens (check 'gist' scope).
+      </small>
+    </label>
+    <label style="display: flex; flex-direction: column; gap: 4px; font-size: 13px; font-weight: 600;">
+      Gist ID
+      <input type="text" id="gistIdInput" placeholder="Auto-filled when clicking 'Find My Gist'..." autocomplete="off" style="padding: 8px; border-radius: 6px; border: 1px solid var(--line); background: var(--surface-2); color: var(--text);">
+      <small style="color: var(--muted); font-weight: normal; margin-top: 4px;">
+        Already have a Gist ID? Paste it here or click "Find My Gist" above.
+      </small>
+    </label>
+    <label style="display: flex; align-items: center; gap: 8px; font-weight: normal; cursor: pointer; font-size: 13px;">
+      <input type="checkbox" id="gistAutoSyncCheckbox" checked>
+      <span>Auto-sync watchlist changes to cloud in background</span>
+    </label>
+    <div id="gistInspectorBox" style="display: none; background: var(--surface-2); padding: 12px; border-radius: 8px; border: 1px solid var(--line); font-size: 12px; line-height: 1.6;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+        <strong style="color: var(--text);">☁️ Cloud Gist Status</strong>
+        <button class="backup-btn" id="gistInspectBtn" type="button" style="padding: 2px 8px; font-size: 11px;">🔍 Check Cloud Data</button>
+      </div>
+      <div id="gistInspectorDetails" style="color: var(--muted);">Click "Check Cloud Data" to inspect what's currently saved in your Gist.</div>
+    </div>
+    <div id="gistSyncMessage" style="font-size: 13px; display: none; padding: 10px; border-radius: 6px;"></div>
+    <div class="dialog-actions" style="display: flex; flex-wrap: wrap; gap: 8px; justify-content: space-between; margin-top: 8px;">
+      <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+        <button class="backup-btn" id="gistCreateBtn" type="button">Auto-Create Gist</button>
+        <button class="backup-btn" id="gistShareBtn" type="button" title="Copy URL link with Gist ID">🔗 Copy Sync Link</button>
+        <button class="backup-btn" id="gistDisconnectBtn" type="button" style="color: var(--exclude);">Disconnect</button>
+      </div>
+      <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+        <button class="backup-btn" id="gistPullBtn" type="button" title="Download Cloud data to this browser">⬇️ Download Cloud Data</button>
+        <button class="backup-btn" id="gistPushBtn" type="button" style="background: var(--gold); color: #121214; font-weight: 600;" title="Upload this browser's data to Cloud">⬆️ Upload Local Data</button>
+      </div>
+    </div>
+  </form>
+</dialog>
 
 </body>
 </html>
