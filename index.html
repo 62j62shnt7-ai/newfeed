@@ -846,7 +846,13 @@ async function createPrivateGist(token) {
 
     if (!res.ok) {
       const err = await res.json().catch(() => ({}));
-      throw new Error(err.message || `HTTP ${res.status}`);
+      let msg = err.message || `HTTP ${res.status}`;
+      if (res.status === 401 || res.status === 403 || res.status === 404 || msg.includes("Resource not accessible")) {
+        msg += "\n\n🔑 GitHub Token Requirement:\n" +
+               "• Classic Token (ghp_...): Ensure the 'gist' checkbox is checked.\n" +
+               "• Fine-Grained Token (github_pat_...): Under 'Account Permissions', set 'Gists' to 'Read and write'.";
+      }
+      throw new Error(msg);
     }
 
     const created = await res.json();
@@ -855,7 +861,7 @@ async function createPrivateGist(token) {
   } catch (err) {
     console.error("Failed to create Gist:", err);
     updateGistSyncStatus("Error", "error");
-    alert(`Failed to create Gist: ${err.message}`);
+    alert(`Failed to create Gist:\n${err.message}`);
     return null;
   }
 }
