@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-07-28T09:32:49.023653+00:00",
+  "last_updated": "2026-07-29T09:34:43.529275+00:00",
   "movies": [
     {
       "guid": "https://www.scnsrc.me/?p=540506",
@@ -3471,6 +3471,32 @@
       "imdb_id": "tt39143902",
       "plot": "Two teenage boys must escape a violent entity that takes the form of the person they desire most - each other.",
       "date_added": "2026-07-28T09:32:38.952685+00:00"
+    },
+    {
+      "guid": "https://www.scnsrc.me/?p=541494",
+      "slug": "thedevilsmouth",
+      "title": "The Devils Mouth",
+      "year": "2026",
+      "rating": "N/A",
+      "poster": "https://images.scnsrc.me/images/2026/07/29/0e3d07b506d13241c28d78d7f4e45b6b.jpg",
+      "genre": "Unknown",
+      "runtime": "Unknown",
+      "imdb_id": null,
+      "plot": "",
+      "date_added": "2026-07-29T09:34:31.713788+00:00"
+    },
+    {
+      "guid": "https://www.scnsrc.me/?p=541423",
+      "slug": "thegentlemanthief",
+      "title": "The Gentleman Thief",
+      "year": "2026",
+      "rating": "N/A",
+      "poster": "https://images.scnsrc.me/images/2026/07/29/67f53eb9bc9fc279e723bce0b6387a2f.jpg",
+      "genre": "Unknown",
+      "runtime": "Unknown",
+      "imdb_id": null,
+      "plot": "",
+      "date_added": "2026-07-29T09:34:32.184837+00:00"
     }
   ],
   "watchlist": [
