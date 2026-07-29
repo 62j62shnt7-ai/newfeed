@@ -256,20 +256,28 @@ def fetch_feed(session, base_url, page_number):
 def load_existing():
     if DATA_PATH.exists():
         try:
-            return json.loads(DATA_PATH.read_text())
-        except Exception:
-            pass
+            store = json.loads(DATA_PATH.read_text())
+            if not isinstance(store, dict):
+                store = {}
+            store.setdefault("movies", [])
+            store.setdefault("watchlist", [])
+            store.setdefault("excluded", [])
+            return store
+        except Exception as e:
+            log(f"Error reading existing data/movies.json: {e}")
     return {"last_updated": None, "movies": [], "watchlist": [], "excluded": []}
 
 def save(store):
     DATA_PATH.parent.mkdir(parents=True, exist_ok=True)
     store["last_updated"] = datetime.now(timezone.utc).isoformat()
-    # If the database store doesn't have these arrays initialization parameters, preserve them empty
-    if "watchlist" not in store:
+    if "watchlist" not in store or not isinstance(store["watchlist"], list):
         store["watchlist"] = []
-    if "excluded" not in store:
+    if "excluded" not in store or not isinstance(store["excluded"], list):
         store["excluded"] = []
+    if "movies" not in store or not isinstance(store["movies"], list):
+        store["movies"] = []
     DATA_PATH.write_text(json.dumps(store, indent=2, ensure_ascii=False))
+
 
 
 def process_feed(payload, store, seen_keys):

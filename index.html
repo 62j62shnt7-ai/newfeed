@@ -348,7 +348,7 @@
     <div class="tagline">auto-tracked from your RSS feed · enriched via OMDb</div>
   </div>
   <div style="display: flex; align-items: flex-end; gap: 12px; flex-wrap: wrap;">
-    <button class="backup-btn" id="gistSyncBtn" type="button" style="margin-top: 0;">☁️ Cloud Sync <span class="sync-pill" id="gistSyncStatus">Setup</span></button>
+    <button class="backup-btn" id="gistSyncBtn" type="button" style="margin-top: 0;">☁️ Cloud & Repo Sync <span class="sync-pill" id="gistSyncStatus">Setup</span></button>
     <div id="lastUpdated">
       <div>loading…</div>
     </div>
@@ -384,12 +384,11 @@
 
 <dialog id="gistSyncDialog">
   <div class="dialog-heading">
-    <h3>☁️ GitHub Gist Cloud Sync</h3>
+    <h3>☁️ Cloud & Repository Sync</h3>
     <button class="icon-button" type="button" onclick="document.getElementById('gistSyncDialog').close()">x</button>
   </div>
   <p style="margin: 8px 0 16px; color: var(--muted); font-size: 13px; line-height: 1.5;">
-    Sync your movie watchlists & excluded movies across all your devices using a private GitHub Gist.
-    <strong style="display:block; margin-top: 4px; color: var(--text);">💡 On a new device/browser?</strong> Paste your Token & click "Find My Gist" to connect automatically.
+    Sync your movie watchlists & excluded movies via GitHub Gist, or update <code>data/movies.json</code> directly in your GitHub repository or local codebase.
   </p>
   <form id="gistSyncForm" style="display: flex; flex-direction: column; gap: 14px;">
     <label style="display: flex; flex-direction: column; gap: 4px; font-size: 13px; font-weight: 600;">
@@ -399,20 +398,35 @@
         <button class="backup-btn" id="gistFindBtn" type="button" style="white-space: nowrap; padding: 8px 12px;">🔍 Find My Gist</button>
       </div>
       <small style="color: var(--muted); font-weight: normal; margin-top: 4px;">
-        Need a token? Go to GitHub Settings &rarr; Developer Settings &rarr; Personal access tokens (check 'gist' scope).
+        Need a token? GitHub Settings &rarr; Developer Settings &rarr; Personal access tokens ('gist' scope for Gists, 'repo' or 'contents:write' scope for committing to data/movies.json directly).
       </small>
     </label>
-    <label style="display: flex; flex-direction: column; gap: 4px; font-size: 13px; font-weight: 600;">
-      Gist ID
-      <input type="text" id="gistIdInput" placeholder="Auto-filled when clicking 'Find My Gist'..." autocomplete="off" style="padding: 8px; border-radius: 6px; border: 1px solid var(--line); background: var(--surface-2); color: var(--text);">
-      <small style="color: var(--muted); font-weight: normal; margin-top: 4px;">
-        Already have a Gist ID? Paste it here or click "Find My Gist" above.
-      </small>
-    </label>
-    <label style="display: flex; align-items: center; gap: 8px; font-weight: normal; cursor: pointer; font-size: 13px;">
-      <input type="checkbox" id="gistAutoSyncCheckbox" checked>
-      <span>Auto-sync watchlist changes to cloud in background</span>
-    </label>
+
+    <div style="background: var(--surface-2); padding: 12px; border-radius: 8px; border: 1px solid var(--line); display: flex; flex-direction: column; gap: 10px;">
+      <strong style="color: var(--text); font-size: 13px;">🐙 GitHub Repository Sync (data/movies.json)</strong>
+      <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+        <input type="text" id="repoNameInput" placeholder="owner/repository (e.g. username/scene-reel)" autocomplete="off" style="flex: 2; min-width: 180px; padding: 8px; border-radius: 6px; border: 1px solid var(--line); background: var(--surface-1); color: var(--text); font-size: 12px;">
+        <input type="text" id="repoBranchInput" placeholder="Branch (main)" value="main" autocomplete="off" style="flex: 1; min-width: 80px; padding: 8px; border-radius: 6px; border: 1px solid var(--line); background: var(--surface-1); color: var(--text); font-size: 12px;">
+        <button class="backup-btn" id="repoCommitBtn" type="button" style="background: var(--accent); color: #fff; font-weight: 600; white-space: nowrap; padding: 8px 12px;">💾 Commit to Repo</button>
+      </div>
+      <label style="display: flex; align-items: center; gap: 8px; font-weight: normal; cursor: pointer; font-size: 12px; color: var(--muted);">
+        <input type="checkbox" id="repoAutoSyncCheckbox">
+        <span>Auto-commit watchlist/exclusions directly to <code>data/movies.json</code> in GitHub repo</span>
+      </label>
+    </div>
+
+    <div style="background: var(--surface-2); padding: 12px; border-radius: 8px; border: 1px solid var(--line); display: flex; flex-direction: column; gap: 10px;">
+      <strong style="color: var(--text); font-size: 13px;">☁️ GitHub Gist Sync</strong>
+      <label style="display: flex; flex-direction: column; gap: 4px; font-size: 12px; font-weight: 600;">
+        Gist ID
+        <input type="text" id="gistIdInput" placeholder="Auto-filled when clicking 'Find My Gist'..." autocomplete="off" style="padding: 8px; border-radius: 6px; border: 1px solid var(--line); background: var(--surface-1); color: var(--text);">
+      </label>
+      <label style="display: flex; align-items: center; gap: 8px; font-weight: normal; cursor: pointer; font-size: 12px; color: var(--muted);">
+        <input type="checkbox" id="gistAutoSyncCheckbox" checked>
+        <span>Auto-sync watchlist changes to Gist</span>
+      </label>
+    </div>
+
     <div id="gistInspectorBox" style="display: none; background: var(--surface-2); padding: 12px; border-radius: 8px; border: 1px solid var(--line); font-size: 12px; line-height: 1.6;">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
         <strong style="color: var(--text);">☁️ Cloud Gist Status</strong>
@@ -420,7 +434,9 @@
       </div>
       <div id="gistInspectorDetails" style="color: var(--muted);">Click "Check Cloud Data" to inspect what's currently saved in your Gist.</div>
     </div>
+
     <div id="gistSyncMessage" style="font-size: 13px; display: none; padding: 10px; border-radius: 6px;"></div>
+
     <div class="dialog-actions" style="display: flex; flex-wrap: wrap; gap: 8px; justify-content: space-between; margin-top: 8px;">
       <div style="display: flex; gap: 8px; flex-wrap: wrap;">
         <button class="backup-btn" id="gistCreateBtn" type="button">Auto-Create Gist</button>
@@ -428,6 +444,7 @@
         <button class="backup-btn" id="gistDisconnectBtn" type="button" style="color: var(--exclude);">Disconnect</button>
       </div>
       <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+        <button class="backup-btn" id="saveLocalFileBtn" type="button" onclick="saveToLocalFile()" title="Save directly to data/movies.json on disk">💾 Save Local File</button>
         <button class="backup-btn" id="gistPullBtn" type="button" title="Download Cloud data to this browser">⬇️ Download Cloud Data</button>
         <button class="backup-btn" id="gistPushBtn" type="button" style="background: var(--gold); color: #121214; font-weight: 600;" title="Upload this browser's data to Cloud">⬆️ Upload Local Data</button>
       </div>
@@ -441,6 +458,9 @@ const LS_EXCLUDED = 'reel_excluded';
 const LS_GIST_TOKEN = 'reel_gist_token';
 const LS_GIST_ID = 'reel_gist_id';
 const LS_GIST_AUTOSYNC = 'reel_gist_autosync';
+const LS_REPO_NAME = 'reel_repo_name';
+const LS_REPO_BRANCH = 'reel_repo_branch';
+const LS_REPO_AUTOSYNC = 'reel_repo_autosync';
 
 const state = {
   movies: [],
@@ -467,13 +487,43 @@ function persist(){
   triggerAutoGistSync();
 }
 
-function downloadBackup() {
-  const payload = {
-    last_updated: state.last_updated,
-    movies: state.movies,
+function getFullMoviesJsonPayload() {
+  return {
+    last_updated: state.last_updated || new Date().toISOString(),
+    movies: state.movies || [],
     watchlist: [...state.watchlist],
     excluded: [...state.excluded]
   };
+}
+
+async function saveToLocalFile() {
+  const payload = getFullMoviesJsonPayload();
+  const jsonString = JSON.stringify(payload, null, 2);
+
+  if ('showSaveFilePicker' in window) {
+    try {
+      const handle = await window.showSaveFilePicker({
+        suggestedName: 'movies.json',
+        types: [{
+          description: 'JSON Files',
+          accept: { 'application/json': ['.json'] }
+        }]
+      });
+      const writable = await handle.createWritable();
+      await writable.write(jsonString);
+      await writable.close();
+      alert('Successfully saved to local data/movies.json!');
+      return;
+    } catch (err) {
+      if (err.name === 'AbortError') return;
+      console.warn('showSaveFilePicker error, falling back to download:', err);
+    }
+  }
+  downloadBackup();
+}
+
+function downloadBackup() {
+  const payload = getFullMoviesJsonPayload();
   const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
@@ -635,7 +685,7 @@ document.getElementById('minRating').addEventListener('input', e => {
   render();
 });
 
-// --- GitHub Gist Cloud Sync Engine ---
+// --- GitHub Gist & Repository Cloud Sync Engine ---
 let gistSyncDebounceTimer = null;
 
 function getGistConfig() {
@@ -644,6 +694,21 @@ function getGistConfig() {
   const autoSyncRaw = localStorage.getItem(LS_GIST_AUTOSYNC);
   const autoSync = autoSyncRaw === null ? true : autoSyncRaw === "true";
   return { token: token.trim(), gistId: gistId.trim(), autoSync };
+}
+
+function getRepoConfig() {
+  let repo = localStorage.getItem(LS_REPO_NAME) || "";
+  if (!repo && window.location.hostname.endsWith(".github.io")) {
+    const parts = window.location.hostname.split(".");
+    const owner = parts[0];
+    const pathParts = window.location.pathname.split("/").filter(Boolean);
+    const repoName = pathParts[0] || owner;
+    if (owner && repoName) repo = `${owner}/${repoName}`;
+  }
+  const branch = localStorage.getItem(LS_REPO_BRANCH) || "main";
+  const autoSyncRaw = localStorage.getItem(LS_REPO_AUTOSYNC);
+  const autoSync = autoSyncRaw === "true";
+  return { repo: repo.trim(), branch: branch.trim(), autoSync };
 }
 
 function updateGistSyncStatus(statusText, className) {
@@ -692,6 +757,93 @@ function applyIncomingReelData(incoming) {
 
   if (updatedAny) {
     render();
+  }
+}
+
+async function commitToGitHubRepo(token, repoPath, branch = "main", silent = false) {
+  if (!token || !repoPath) {
+    if (!silent) alert("Please enter both a GitHub PAT token and Repository (owner/repo).");
+    return false;
+  }
+
+  const parts = repoPath.split("/");
+  if (parts.length < 2) {
+    if (!silent) alert("Repository must be in format 'owner/repo' (e.g. username/scene-reel).");
+    return false;
+  }
+
+  const owner = parts[0].trim();
+  const repoName = parts[1].trim();
+  const filePath = "data/movies.json";
+  const apiUrl = `https://api.github.com/repos/${owner}/${repoName}/contents/${filePath}`;
+
+  updateGistSyncStatus("Committing...", "syncing");
+
+  try {
+    let sha = null;
+    const getRes = await fetch(`${apiUrl}?ref=${encodeURIComponent(branch)}`, {
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Accept": "application/vnd.github+json"
+      }
+    });
+
+    if (getRes.ok) {
+      const existing = await getRes.json();
+      sha = existing.sha;
+    }
+
+    const payload = getFullMoviesJsonPayload();
+    const jsonStr = JSON.stringify(payload, null, 2);
+    const utf8Bytes = new TextEncoder().encode(jsonStr);
+    let binary = '';
+    utf8Bytes.forEach(b => binary += String.fromCharCode(b));
+    const base64Content = btoa(binary);
+
+    const body = {
+      message: `Update watchlist & exclusions in data/movies.json`,
+      content: base64Content,
+      branch: branch
+    };
+    if (sha) body.sha = sha;
+
+    const putRes = await fetch(apiUrl, {
+      method: "PUT",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Accept": "application/vnd.github+json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(body)
+    });
+
+    if (!putRes.ok) {
+      const err = await putRes.json().catch(() => ({}));
+      throw new Error(err.message || `HTTP ${putRes.status}`);
+    }
+
+    updateGistSyncStatus("Synced", "synced");
+    const msgEl = document.getElementById("gistSyncMessage");
+    if (msgEl && !silent) {
+      msgEl.style.display = "block";
+      msgEl.style.background = "rgba(46, 160, 67, 0.2)";
+      msgEl.style.color = "#3fb950";
+      msgEl.textContent = `Successfully committed data/movies.json to GitHub Repo (${owner}/${repoName})!`;
+    }
+    return true;
+  } catch (err) {
+    console.error("GitHub Repo commit failed:", err);
+    updateGistSyncStatus("Error", "error");
+    if (!silent) {
+      const msgEl = document.getElementById("gistSyncMessage");
+      if (msgEl) {
+        msgEl.style.display = "block";
+        msgEl.style.background = "rgba(248, 81, 73, 0.2)";
+        msgEl.style.color = "#f85149";
+        msgEl.textContent = `Repo Commit Error: ${err.message}`;
+      }
+    }
+    return false;
   }
 }
 
@@ -902,8 +1054,8 @@ async function createPrivateGist(token) {
       let msg = err.message || `HTTP ${res.status}`;
       if (res.status === 401 || res.status === 403 || res.status === 404 || msg.includes("Resource not accessible")) {
         msg += "\n\n🔑 GitHub Token Requirement:\n" +
-               "• Classic Token (ghp_...): Ensure the 'gist' checkbox is checked.\n" +
-               "• Fine-Grained Token (github_pat_...): Under 'Account Permissions', set 'Gists' to 'Read and write'.";
+               "• Classic Token (ghp_...): Ensure 'gist' and/or 'repo' checkbox is checked.\n" +
+               "• Fine-Grained Token: Set Gists and/or Contents permission to 'Read and write'.";
       }
       throw new Error(msg);
     }
@@ -920,20 +1072,24 @@ async function createPrivateGist(token) {
 }
 
 function triggerAutoGistSync() {
-  const { token, gistId, autoSync } = getGistConfig();
-  if (!token || !gistId || !autoSync) {
-    if (token && gistId) {
-      updateGistSyncStatus("Ready", "");
-    } else {
-      updateGistSyncStatus("Setup", "");
-    }
+  const { token, gistId, autoSync: gistAutoSync } = getGistConfig();
+  const { repo, branch, autoSync: repoAutoSync } = getRepoConfig();
+
+  const isConfigured = (token && gistId) || (token && repo);
+  if (!isConfigured) {
+    updateGistSyncStatus("Setup", "");
     return;
   }
 
   updateGistSyncStatus("Unsaved", "unsaved");
   if (gistSyncDebounceTimer) clearTimeout(gistSyncDebounceTimer);
   gistSyncDebounceTimer = setTimeout(() => {
-    pushToGist(token, gistId, true);
+    if (token && gistId && gistAutoSync) {
+      pushToGist(token, gistId, true);
+    }
+    if (token && repo && repoAutoSync) {
+      commitToGitHubRepo(token, repo, branch, true);
+    }
   }, 2500);
 }
 
@@ -1025,21 +1181,53 @@ function setupGistSyncEventListeners() {
     const dialog = document.getElementById("gistSyncDialog");
     if (!dialog) return;
 
-    const { token, gistId, autoSync } = getGistConfig();
+    const { token, gistId, autoSync: gistAutoSync } = getGistConfig();
+    const { repo, branch, autoSync: repoAutoSync } = getRepoConfig();
+
     const tokenInput = document.getElementById("gistTokenInput");
     const gistIdInput = document.getElementById("gistIdInput");
-    const autoSyncCheckbox = document.getElementById("gistAutoSyncCheckbox");
+    const repoNameInput = document.getElementById("repoNameInput");
+    const repoBranchInput = document.getElementById("repoBranchInput");
+    const gistAutoSyncCheckbox = document.getElementById("gistAutoSyncCheckbox");
+    const repoAutoSyncCheckbox = document.getElementById("repoAutoSyncCheckbox");
     const msgEl = document.getElementById("gistSyncMessage");
 
     if (tokenInput) tokenInput.value = token;
     if (gistIdInput) gistIdInput.value = gistId;
-    if (autoSyncCheckbox) autoSyncCheckbox.checked = autoSync;
+    if (repoNameInput) repoNameInput.value = repo;
+    if (repoBranchInput) repoBranchInput.value = branch || "main";
+    if (gistAutoSyncCheckbox) gistAutoSyncCheckbox.checked = gistAutoSync;
+    if (repoAutoSyncCheckbox) repoAutoSyncCheckbox.checked = repoAutoSync;
     if (msgEl) msgEl.style.display = "none";
 
     dialog.showModal();
     if (token && gistId) {
       inspectGistData();
     }
+  });
+
+  on("repoCommitBtn", "click", async () => {
+    const tokenInput = document.getElementById("gistTokenInput");
+    const repoNameInput = document.getElementById("repoNameInput");
+    const repoBranchInput = document.getElementById("repoBranchInput");
+    const repoAutoSyncCheckbox = document.getElementById("repoAutoSyncCheckbox");
+
+    const token = tokenInput ? tokenInput.value.trim() : "";
+    const repo = repoNameInput ? repoNameInput.value.trim() : "";
+    const branch = (repoBranchInput ? repoBranchInput.value.trim() : "") || "main";
+    const autoSync = repoAutoSyncCheckbox ? repoAutoSyncCheckbox.checked : false;
+
+    if (!token || !repo) {
+      alert("Please enter a GitHub PAT token and Repository (owner/repo) first.");
+      return;
+    }
+
+    localStorage.setItem(LS_GIST_TOKEN, token);
+    localStorage.setItem(LS_REPO_NAME, repo);
+    localStorage.setItem(LS_REPO_BRANCH, branch);
+    localStorage.setItem(LS_REPO_AUTOSYNC, String(autoSync));
+
+    await commitToGitHubRepo(token, repo, branch, false);
   });
 
   on("gistFindBtn", "click", async () => {
@@ -1218,12 +1406,17 @@ function setupGistSyncEventListeners() {
     localStorage.removeItem(LS_GIST_TOKEN);
     localStorage.removeItem(LS_GIST_ID);
     localStorage.removeItem(LS_GIST_AUTOSYNC);
+    localStorage.removeItem(LS_REPO_NAME);
+    localStorage.removeItem(LS_REPO_BRANCH);
+    localStorage.removeItem(LS_REPO_AUTOSYNC);
     sessionStorage.removeItem("reel_gist_auto_pulled");
 
     const tokenInput = document.getElementById("gistTokenInput");
     const gistIdInput = document.getElementById("gistIdInput");
+    const repoNameInput = document.getElementById("repoNameInput");
     if (tokenInput) tokenInput.value = "";
     if (gistIdInput) gistIdInput.value = "";
+    if (repoNameInput) repoNameInput.value = "";
 
     updateGistSyncStatus("Setup", "");
 
@@ -1232,7 +1425,7 @@ function setupGistSyncEventListeners() {
       msgEl.style.display = "block";
       msgEl.style.background = "rgba(210, 153, 34, 0.2)";
       msgEl.style.color = "#d29922";
-      msgEl.textContent = "Disconnected from GitHub Gist.";
+      msgEl.textContent = "Disconnected from GitHub Gist & Repository sync.";
     }
   });
 }
@@ -1271,9 +1464,10 @@ function initGistSync() {
   setupGistSyncEventListeners();
 
   const { token, gistId } = getGistConfig();
-  if (token && gistId) {
+  const { repo } = getRepoConfig();
+  if (token && (gistId || repo)) {
     updateGistSyncStatus("Synced", "synced");
-    if (!sessionStorage.getItem("reel_gist_auto_pulled")) {
+    if (token && gistId && !sessionStorage.getItem("reel_gist_auto_pulled")) {
       sessionStorage.setItem("reel_gist_auto_pulled", "true");
       pullFromGist(token, gistId, true);
     }
@@ -1303,7 +1497,10 @@ fetch('data/movies.json?_=' + Date.now())
     const luDiv = document.getElementById('lastUpdated');
     luDiv.innerHTML = `
       <div>${data.last_updated ? 'Last updated: ' + new Date(data.last_updated).toLocaleString() : 'Not yet run'}</div>
-      <button class="backup-btn" onclick="downloadBackup()">📥 Export JSON Configuration</button>
+      <div style="display: flex; gap: 6px; margin-top: 4px;">
+        <button class="backup-btn" onclick="saveToLocalFile()" title="Save directly to data/movies.json on disk">💾 Save Local File</button>
+        <button class="backup-btn" onclick="downloadBackup()" title="Export JSON file">📥 Export JSON</button>
+      </div>
     `;
     
     populateGenres();
