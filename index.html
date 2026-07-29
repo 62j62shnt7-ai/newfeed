@@ -382,6 +382,59 @@
 
 <footer>Data updates automatically via a scheduled GitHub Action. You can export unified tracking configurations to sync status globally.</footer>
 
+<dialog id="gistSyncDialog">
+  <div class="dialog-heading">
+    <h3>☁️ GitHub Gist Cloud Sync</h3>
+    <button class="icon-button" type="button" onclick="document.getElementById('gistSyncDialog').close()">x</button>
+  </div>
+  <p style="margin: 8px 0 16px; color: var(--muted); font-size: 13px; line-height: 1.5;">
+    Sync your movie watchlists & excluded movies across all your devices using a private GitHub Gist.
+    <strong style="display:block; margin-top: 4px; color: var(--text);">💡 On a new device/browser?</strong> Paste your Token & click "Find My Gist" to connect automatically.
+  </p>
+  <form id="gistSyncForm" style="display: flex; flex-direction: column; gap: 14px;">
+    <label style="display: flex; flex-direction: column; gap: 4px; font-size: 13px; font-weight: 600;">
+      GitHub Personal Access Token (PAT)
+      <div style="display: flex; gap: 8px; margin-top: 4px;">
+        <input type="password" id="gistTokenInput" placeholder="ghp_xxxxxxxxxxxx or github_pat_xxxx" autocomplete="off" style="flex: 1; padding: 8px; border-radius: 6px; border: 1px solid var(--line); background: var(--surface-2); color: var(--text);">
+        <button class="backup-btn" id="gistFindBtn" type="button" style="white-space: nowrap; padding: 8px 12px;">🔍 Find My Gist</button>
+      </div>
+      <small style="color: var(--muted); font-weight: normal; margin-top: 4px;">
+        Need a token? Go to GitHub Settings &rarr; Developer Settings &rarr; Personal access tokens (check 'gist' scope).
+      </small>
+    </label>
+    <label style="display: flex; flex-direction: column; gap: 4px; font-size: 13px; font-weight: 600;">
+      Gist ID
+      <input type="text" id="gistIdInput" placeholder="Auto-filled when clicking 'Find My Gist'..." autocomplete="off" style="padding: 8px; border-radius: 6px; border: 1px solid var(--line); background: var(--surface-2); color: var(--text);">
+      <small style="color: var(--muted); font-weight: normal; margin-top: 4px;">
+        Already have a Gist ID? Paste it here or click "Find My Gist" above.
+      </small>
+    </label>
+    <label style="display: flex; align-items: center; gap: 8px; font-weight: normal; cursor: pointer; font-size: 13px;">
+      <input type="checkbox" id="gistAutoSyncCheckbox" checked>
+      <span>Auto-sync watchlist changes to cloud in background</span>
+    </label>
+    <div id="gistInspectorBox" style="display: none; background: var(--surface-2); padding: 12px; border-radius: 8px; border: 1px solid var(--line); font-size: 12px; line-height: 1.6;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+        <strong style="color: var(--text);">☁️ Cloud Gist Status</strong>
+        <button class="backup-btn" id="gistInspectBtn" type="button" style="padding: 2px 8px; font-size: 11px;">🔍 Check Cloud Data</button>
+      </div>
+      <div id="gistInspectorDetails" style="color: var(--muted);">Click "Check Cloud Data" to inspect what's currently saved in your Gist.</div>
+    </div>
+    <div id="gistSyncMessage" style="font-size: 13px; display: none; padding: 10px; border-radius: 6px;"></div>
+    <div class="dialog-actions" style="display: flex; flex-wrap: wrap; gap: 8px; justify-content: space-between; margin-top: 8px;">
+      <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+        <button class="backup-btn" id="gistCreateBtn" type="button">Auto-Create Gist</button>
+        <button class="backup-btn" id="gistShareBtn" type="button" title="Copy URL link with Gist ID">🔗 Copy Sync Link</button>
+        <button class="backup-btn" id="gistDisconnectBtn" type="button" style="color: var(--exclude);">Disconnect</button>
+      </div>
+      <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+        <button class="backup-btn" id="gistPullBtn" type="button" title="Download Cloud data to this browser">⬇️ Download Cloud Data</button>
+        <button class="backup-btn" id="gistPushBtn" type="button" style="background: var(--gold); color: #121214; font-weight: 600;" title="Upload this browser's data to Cloud">⬆️ Upload Local Data</button>
+      </div>
+    </div>
+  </form>
+</dialog>
+
 <script>
 const LS_WATCHLIST = 'reel_watchlist';
 const LS_EXCLUDED = 'reel_excluded';
@@ -1263,59 +1316,6 @@ fetch('data/movies.json?_=' + Date.now())
     document.getElementById('grid').style.display = 'none';
   });
 </script>
-
-<dialog id="gistSyncDialog">
-  <div class="dialog-heading">
-    <h3>☁️ GitHub Gist Cloud Sync</h3>
-    <button class="icon-button" type="button" onclick="document.getElementById('gistSyncDialog').close()">x</button>
-  </div>
-  <p style="margin: 8px 0 16px; color: var(--muted); font-size: 13px; line-height: 1.5;">
-    Sync your movie watchlists & excluded movies across all your devices using a private GitHub Gist.
-    <strong style="display:block; margin-top: 4px; color: var(--text);">💡 On a new device/browser?</strong> Paste your Token & click "Find My Gist" to connect automatically.
-  </p>
-  <form id="gistSyncForm" style="display: flex; flex-direction: column; gap: 14px;">
-    <label style="display: flex; flex-direction: column; gap: 4px; font-size: 13px; font-weight: 600;">
-      GitHub Personal Access Token (PAT)
-      <div style="display: flex; gap: 8px; margin-top: 4px;">
-        <input type="password" id="gistTokenInput" placeholder="ghp_xxxxxxxxxxxx or github_pat_xxxx" autocomplete="off" style="flex: 1; padding: 8px; border-radius: 6px; border: 1px solid var(--line); background: var(--surface-2); color: var(--text);">
-        <button class="backup-btn" id="gistFindBtn" type="button" style="white-space: nowrap; padding: 8px 12px;">🔍 Find My Gist</button>
-      </div>
-      <small style="color: var(--muted); font-weight: normal; margin-top: 4px;">
-        Need a token? Go to GitHub Settings &rarr; Developer Settings &rarr; Personal access tokens (check 'gist' scope).
-      </small>
-    </label>
-    <label style="display: flex; flex-direction: column; gap: 4px; font-size: 13px; font-weight: 600;">
-      Gist ID
-      <input type="text" id="gistIdInput" placeholder="Auto-filled when clicking 'Find My Gist'..." autocomplete="off" style="padding: 8px; border-radius: 6px; border: 1px solid var(--line); background: var(--surface-2); color: var(--text);">
-      <small style="color: var(--muted); font-weight: normal; margin-top: 4px;">
-        Already have a Gist ID? Paste it here or click "Find My Gist" above.
-      </small>
-    </label>
-    <label style="display: flex; align-items: center; gap: 8px; font-weight: normal; cursor: pointer; font-size: 13px;">
-      <input type="checkbox" id="gistAutoSyncCheckbox" checked>
-      <span>Auto-sync watchlist changes to cloud in background</span>
-    </label>
-    <div id="gistInspectorBox" style="display: none; background: var(--surface-2); padding: 12px; border-radius: 8px; border: 1px solid var(--line); font-size: 12px; line-height: 1.6;">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-        <strong style="color: var(--text);">☁️ Cloud Gist Status</strong>
-        <button class="backup-btn" id="gistInspectBtn" type="button" style="padding: 2px 8px; font-size: 11px;">🔍 Check Cloud Data</button>
-      </div>
-      <div id="gistInspectorDetails" style="color: var(--muted);">Click "Check Cloud Data" to inspect what's currently saved in your Gist.</div>
-    </div>
-    <div id="gistSyncMessage" style="font-size: 13px; display: none; padding: 10px; border-radius: 6px;"></div>
-    <div class="dialog-actions" style="display: flex; flex-wrap: wrap; gap: 8px; justify-content: space-between; margin-top: 8px;">
-      <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-        <button class="backup-btn" id="gistCreateBtn" type="button">Auto-Create Gist</button>
-        <button class="backup-btn" id="gistShareBtn" type="button" title="Copy URL link with Gist ID">🔗 Copy Sync Link</button>
-        <button class="backup-btn" id="gistDisconnectBtn" type="button" style="color: var(--exclude);">Disconnect</button>
-      </div>
-      <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-        <button class="backup-btn" id="gistPullBtn" type="button" title="Download Cloud data to this browser">⬇️ Download Cloud Data</button>
-        <button class="backup-btn" id="gistPushBtn" type="button" style="background: var(--gold); color: #121214; font-weight: 600;" title="Upload this browser's data to Cloud">⬆️ Upload Local Data</button>
-      </div>
-    </div>
-  </form>
-</dialog>
 
 </body>
 </html>
