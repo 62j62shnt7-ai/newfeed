@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-07-30T09:26:41.704868+00:00",
+  "last_updated": "2026-07-30T15:42:24.351758+00:00",
   "movies": [
     {
       "guid": "https://www.scnsrc.me/?p=540506",
@@ -3497,6 +3497,19 @@
       "imdb_id": null,
       "plot": "",
       "date_added": "2026-07-29T09:34:32.184837+00:00"
+    },
+    {
+      "guid": "https://www.scnsrc.me/?p=541617",
+      "slug": "spidermanbrandnewday",
+      "title": "Spider Man Brand New Day",
+      "year": "2026",
+      "rating": "N/A",
+      "poster": "https://images.scnsrc.me/images/2026/07/30/b9291960589fb46b7aaa937b62c15259.jpg",
+      "genre": "Action, Adventure, Fantasy",
+      "runtime": "145 min",
+      "imdb_id": "tt22084616",
+      "plot": "A forgotten Peter Parker lives alone as a full-time Spider-Man until mounting pressure triggers a dangerous change and a powerful new enemy emerges.",
+      "date_added": "2026-07-30T15:42:13.085547+00:00"
     }
   ],
   "watchlist": [
