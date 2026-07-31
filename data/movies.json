@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-07-30T15:42:24.351758+00:00",
+  "last_updated": "2026-07-31T09:39:30.626699+00:00",
   "movies": [
     {
       "guid": "https://www.scnsrc.me/?p=540506",
@@ -3510,6 +3510,84 @@
       "imdb_id": "tt22084616",
       "plot": "A forgotten Peter Parker lives alone as a full-time Spider-Man until mounting pressure triggers a dangerous change and a powerful new enemy emerges.",
       "date_added": "2026-07-30T15:42:13.085547+00:00"
+    },
+    {
+      "guid": "https://www.scnsrc.me/?p=541733",
+      "slug": "onenightonly",
+      "title": "One Night Only",
+      "year": "2026",
+      "rating": "N/A",
+      "poster": "https://img2.pixhost.cc/images/9740/753854123_one-night-only-2026-720p-cam-h264-cinemacity.jpg",
+      "genre": "Drama",
+      "runtime": "N/A",
+      "imdb_id": "tt37887501",
+      "plot": "N/A",
+      "date_added": "2026-07-31T09:39:17.595090+00:00"
+    },
+    {
+      "guid": "https://www.scnsrc.me/?p=541726",
+      "slug": "wildsing",
+      "title": "Wild Sing",
+      "year": "2026",
+      "rating": "N/A",
+      "poster": "https://i.postimg.cc/LXbyQcrq/Wild-Sing-2026.jpg",
+      "genre": "Unknown",
+      "runtime": "Unknown",
+      "imdb_id": null,
+      "plot": "",
+      "date_added": "2026-07-31T09:39:18.104888+00:00"
+    },
+    {
+      "guid": "https://www.scnsrc.me/?p=541720",
+      "slug": "duewest",
+      "title": "Due West",
+      "year": "2025",
+      "rating": "N/A",
+      "poster": "https://img2.pixhost.cc/images/9740/753846488_due-west-2025-720p-web-h264-rgb.jpg",
+      "genre": "Drama",
+      "runtime": "81 min",
+      "imdb_id": "tt32361599",
+      "plot": "A small-town woman in need of medical care in West Texas is forced to break the law.",
+      "date_added": "2026-07-31T09:39:18.511386+00:00"
+    },
+    {
+      "guid": "https://www.scnsrc.me/?p=541709",
+      "slug": "iwantyoursex",
+      "title": "I Want Your Sex",
+      "year": "2026",
+      "rating": "5.6",
+      "poster": "https://img2.pixhost.cc/images/9739/753839507_i-want-your-sex-2026-720p-cam-h264-cinemacity.jpg",
+      "genre": "Comedy, Drama, Romance",
+      "runtime": "90 min",
+      "imdb_id": "tt32332915",
+      "plot": "Elliot lands a job for Erika Tracy as her sexual muse.",
+      "date_added": "2026-07-31T09:39:18.910970+00:00"
+    },
+    {
+      "guid": "https://www.scnsrc.me/?p=541693",
+      "slug": "thefallofsirdouglasweatherford",
+      "title": "The Fall Of Sir Douglas Weatherford",
+      "year": "2026",
+      "rating": "N/A",
+      "poster": "https://img2.pixhost.cc/images/9739/753833350_the-fall-of-sir-douglas-weatherford-2026-1080p-mubi-web-dl-ddp5-1-x264-kuchu.jpg",
+      "genre": "Comedy",
+      "runtime": "103 min",
+      "imdb_id": "tt32293052",
+      "plot": "Kenneth, fixated on ancestor Douglas Weatherford, descends into madness as a fantasy TV show invades his town, disregarding traditions. His obsession with the show's lead actor fuels a tragic downward spiral witnessed by daughter ...",
+      "date_added": "2026-07-31T09:39:19.322275+00:00"
+    },
+    {
+      "guid": "https://www.scnsrc.me/?p=541690",
+      "slug": "roseofnevada",
+      "title": "Rose Of Nevada",
+      "year": "2025",
+      "rating": "N/A",
+      "poster": "https://img2.pixhost.cc/images/9739/753833352_rose-of-nevada-2025-1080p-web-dl-aac-2-0-h264-sude.jpg",
+      "genre": "Unknown",
+      "runtime": "Unknown",
+      "imdb_id": null,
+      "plot": "",
+      "date_added": "2026-07-31T09:39:19.826985+00:00"
     }
   ],
   "watchlist": [
