@@ -32,22 +32,13 @@ jobs:
           python-version: '3.10'
           cache: 'pip' # Automatically caches pip dependencies based on requirements.txt
 
-      # Cache Playwright browsers so they don't download every time (~70-100MB)
-      - name: Cache Playwright Binaries
-        id: playwright-cache
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright-${{ hashFiles('scripts/requirements.txt') }}
-
       - name: Install dependencies
         run: |
           pip install -r scripts/requirements.txt
 
-      # Only install Playwright if the cache missed
+      # Always install Chromium along with required Linux system packages
       - name: Install Playwright Browser
-        if: steps.playwright-cache.outputs.cache-hit != 'true'
-        run: playwright install chromium
+        run: playwright install --with-deps chromium
 
       - name: Run scraper
         env:
