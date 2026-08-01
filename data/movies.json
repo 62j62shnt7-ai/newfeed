@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-07-31T09:39:30.626699+00:00",
+  "last_updated": "2026-08-01T14:06:02.854159+00:00",
   "movies": [
     {
       "guid": "https://www.scnsrc.me/?p=540506",
@@ -3588,6 +3588,84 @@
       "imdb_id": null,
       "plot": "",
       "date_added": "2026-07-31T09:39:19.826985+00:00"
+    },
+    {
+      "guid": "https://www.scnsrc.me/?p=541837",
+      "slug": "maddiessecret",
+      "title": "Maddies Secret",
+      "year": "2025",
+      "rating": "N/A",
+      "poster": "https://images.scnsrc.me/images/2026/08/01/de22866b272412256e1e9eaa8b678232.jpg",
+      "genre": "Unknown",
+      "runtime": "Unknown",
+      "imdb_id": null,
+      "plot": "",
+      "date_added": "2026-08-01T14:05:43.921039+00:00"
+    },
+    {
+      "guid": "https://www.scnsrc.me/?p=541801",
+      "slug": "soulm8te",
+      "title": "Soulm8te",
+      "year": "2026",
+      "rating": "N/A",
+      "poster": "https://images.scnsrc.me/images/2026/08/01/ccd177352c741d03daf83b221438579a.jpg",
+      "genre": "Thriller",
+      "runtime": "N/A",
+      "imdb_id": "tt32655030",
+      "plot": "A man acquires an Artificially Intelligent android to cope with the loss of his recently deceased wife. In an attempt to create a truly sentient partner, he inadvertently turns a harmless lovebot into a deadly soulmate.",
+      "date_added": "2026-08-01T14:05:44.319722+00:00"
+    },
+    {
+      "guid": "https://www.scnsrc.me/?p=541815",
+      "slug": "nightborn",
+      "title": "Nightborn",
+      "year": "2026",
+      "rating": "N/A",
+      "poster": "https://images.scnsrc.me/images/2026/08/01/93ef1308f5b3d0d4f0d039e3682aed5e.jpg",
+      "genre": "Drama, Horror",
+      "runtime": "92 min",
+      "imdb_id": "tt34383465",
+      "plot": "In Finnish forest, Saga and her husband Jon embark on a new chapter as parents. But Saga's joy is overshadowed by a chilling suspicion about their newborn, unbeknownst to Jon, causing a rift as she alone grapples with the disturbi...",
+      "date_added": "2026-08-01T14:05:44.721713+00:00"
+    },
+    {
+      "guid": "https://www.scnsrc.me/?p=541773",
+      "slug": "sonofsaravolume1",
+      "title": "Son Of Sara Volume 1",
+      "year": "2025",
+      "rating": "N/A",
+      "poster": "https://img2.pixhost.cc/images/9744/753982435_son-of-sara-volume-1-2025-720p-web-h264-cinemacity.jpg",
+      "genre": "Horror",
+      "runtime": "85 min",
+      "imdb_id": "tt34881854",
+      "plot": "Haunted by strange urges and visions, a pregnant woman named Sara accepts an invitation to dinner that spirals into a bloody, demented nightmare.",
+      "date_added": "2026-08-01T14:05:45.122991+00:00"
+    },
+    {
+      "guid": "https://www.scnsrc.me/?p=541766",
+      "slug": "aboveandbelow",
+      "title": "Above And Below",
+      "year": "2026",
+      "rating": "N/A",
+      "poster": "https://img2.pixhost.cc/images/9744/753982432_above-and-below-2026-720p-cam-h264-cinemacity.jpg",
+      "genre": "Action, Thriller",
+      "runtime": "N/A",
+      "imdb_id": "tt37603783",
+      "plot": "Friends embark on a dream vacation of parties and diving, but their trip takes a terrifying turn when criminals attack them at sea.",
+      "date_added": "2026-08-01T14:05:45.521410+00:00"
+    },
+    {
+      "guid": "https://www.scnsrc.me/?p=541742",
+      "slug": "wrongsideofdead",
+      "title": "Wrong Side Of Dead",
+      "year": "2026",
+      "rating": "N/A",
+      "poster": "https://i.postimg.cc/hjJKzBgS/images-q-tbn-ANd9Gc-Qs-Mm-ED8f-V3JX4Nq-ZUym-3s-Hkj-XCra-OC-B0ECKq-Q2-Jr-Np-K9lq-WYSJjs8o-s-10.jpg",
+      "genre": "Unknown",
+      "runtime": "Unknown",
+      "imdb_id": null,
+      "plot": "",
+      "date_added": "2026-08-01T14:05:46.025249+00:00"
     }
   ],
   "watchlist": [
