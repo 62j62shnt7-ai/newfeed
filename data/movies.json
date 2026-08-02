@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-08-01T14:06:02.854159+00:00",
+  "last_updated": "2026-08-02T09:06:58.932937+00:00",
   "movies": [
     {
       "guid": "https://www.scnsrc.me/?p=540506",
@@ -3666,6 +3666,19 @@
       "imdb_id": null,
       "plot": "",
       "date_added": "2026-08-01T14:05:46.025249+00:00"
+    },
+    {
+      "guid": "https://www.scnsrc.me/?p=541848",
+      "slug": "thepenance",
+      "title": "The Penance",
+      "year": "2025",
+      "rating": "N/A",
+      "poster": "https://img2.pixhost.cc/images/9768/754384078_penance-2025-720p-web-h264-cinemacity.jpg",
+      "genre": "Unknown",
+      "runtime": "Unknown",
+      "imdb_id": null,
+      "plot": "",
+      "date_added": "2026-08-02T09:06:48.263139+00:00"
     }
   ],
   "watchlist": [
