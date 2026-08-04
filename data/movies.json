@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-08-03T10:37:19.610461+00:00",
+  "last_updated": "2026-08-04T09:36:51.139691+00:00",
   "movies": [
     {
       "guid": "https://www.scnsrc.me/?p=540506",
@@ -3679,6 +3679,32 @@
       "imdb_id": null,
       "plot": "",
       "date_added": "2026-08-02T09:06:48.263139+00:00"
+    },
+    {
+      "guid": "https://www.scnsrc.me/?p=542030",
+      "slug": "theisolatethief",
+      "title": "The Isolate Thief",
+      "year": "2026",
+      "rating": "N/A",
+      "poster": "https://img2.pixhost.cc/images/9835/755315542_the-isolate-thief-2026-2160p-amzn-web-dl-ddp5-1-h-265-scope.jpg",
+      "genre": "Action, Drama, Western",
+      "runtime": "95 min",
+      "imdb_id": "tt35051162",
+      "plot": "A young woman struggles to conceal the gold she stole from violent outlaws who have seized control of her remote outpost, outwitting them amid a deadly winter where survival becomes a game of cunning and betrayal.",
+      "date_added": "2026-08-04T09:36:39.764825+00:00"
+    },
+    {
+      "guid": "https://www.scnsrc.me/?p=542004",
+      "slug": "anotherworld",
+      "title": "Another World",
+      "year": "2025",
+      "rating": "N/A",
+      "poster": "https://img2.pixhost.cc/images/9831/755233552_another-world-2025-720p-amzn-web-dl-ddp5-1-h-264-scope.jpg",
+      "genre": "Short",
+      "runtime": "N/A",
+      "imdb_id": "tt36538473",
+      "plot": "In a future where Earth's harvest have failed and coffee is the last priceless commodity a trucker smuggling the final beans for off world trade faces a fateful choice; sell humanity's last hope- or planted into the barren soil of...",
+      "date_added": "2026-08-04T09:36:40.168550+00:00"
     }
   ],
   "watchlist": [
