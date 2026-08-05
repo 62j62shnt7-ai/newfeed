@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-08-04T09:36:51.139691+00:00",
+  "last_updated": "2026-08-05T09:32:31.396840+00:00",
   "movies": [
     {
       "guid": "https://www.scnsrc.me/?p=540506",
@@ -3705,6 +3705,32 @@
       "imdb_id": "tt36538473",
       "plot": "In a future where Earth's harvest have failed and coffee is the last priceless commodity a trucker smuggling the final beans for off world trade faces a fateful choice; sell humanity's last hope- or planted into the barren soil of...",
       "date_added": "2026-08-04T09:36:40.168550+00:00"
+    },
+    {
+      "guid": "https://www.scnsrc.me/?p=542116",
+      "slug": "insidethetrustorscandal",
+      "title": "Inside the Trustor Scandal",
+      "year": "2026",
+      "rating": "N/A",
+      "poster": "https://i.postimg.cc/WzRcgsCp/Inside-the-Trustor-Scandal-2026.jpg",
+      "genre": "Unknown",
+      "runtime": "Unknown",
+      "imdb_id": null,
+      "plot": "",
+      "date_added": "2026-08-05T09:32:19.721488+00:00"
+    },
+    {
+      "guid": "https://www.scnsrc.me/?p=542113",
+      "slug": "bigchickenafastfoodconspiracy",
+      "title": "Big Chicken A Fast Food Conspiracy",
+      "year": "2026",
+      "rating": "N/A",
+      "poster": "https://i.postimg.cc/Yqswkfq4/Big-Chicken-A-Fast-Food-Conspiracy.jpg",
+      "genre": "Unknown",
+      "runtime": "Unknown",
+      "imdb_id": null,
+      "plot": "",
+      "date_added": "2026-08-05T09:32:20.213965+00:00"
     }
   ],
   "watchlist": [
