@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-08-07T08:10:39.174139+00:00",
+  "last_updated": "2026-08-08T07:43:54.174351+00:00",
   "movies": [
     {
       "guid": "https://www.scnsrc.me/?p=540506",
@@ -3757,6 +3757,19 @@
       "imdb_id": null,
       "plot": "",
       "date_added": "2026-08-07T08:10:29.794607+00:00"
+    },
+    {
+      "guid": "https://www.scnsrc.me/?p=542293",
+      "slug": "dolly",
+      "title": "Dolly",
+      "year": "2025",
+      "rating": "N/A",
+      "poster": "https://i.postimg.cc/fyDswbqy/dolly-new-blu-ray.jpg",
+      "genre": "Horror",
+      "runtime": "N/A",
+      "imdb_id": "tt32639175",
+      "plot": "Macy, a young woman, is abducted by a monstrous figure intent on raising her as their own child.",
+      "date_added": "2026-08-08T07:43:44.778291+00:00"
     }
   ],
   "watchlist": [
