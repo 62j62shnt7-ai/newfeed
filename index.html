@@ -348,6 +348,7 @@
     <div class="tagline">auto-tracked from your RSS feed · enriched via OMDb</div>
   </div>
   <div style="display: flex; align-items: flex-end; gap: 12px; flex-wrap: wrap;">
+    <button class="backup-btn" id="refetchUnratedHeaderBtn" type="button" style="margin-top: 0; border-color: var(--gold-dim);" onclick="refetchAllUnrated()" title="Re-fetch OMDb metadata for movies without scores">↻ Refetch Unrated (<span id="unratedCount">0</span>)</button>
     <button class="backup-btn" id="gistSyncBtn" type="button" style="margin-top: 0;">☁️ Cloud & Repo Sync <span class="sync-pill" id="gistSyncStatus">Setup</span></button>
     <div id="lastUpdated">
       <div>loading…</div>
@@ -400,7 +401,17 @@
       <small style="color: var(--muted); font-weight: normal; margin-top: 4px;">
         Need a token? GitHub Settings &rarr; Developer Settings &rarr; Personal access tokens ('gist' scope for Gists, 'repo' or 'contents:write' scope for committing to data/movies.json directly).
       </small>
-    </label>
+    <div style="background: var(--surface-2); padding: 12px; border-radius: 8px; border: 1px solid var(--line); display: flex; flex-direction: column; gap: 10px;">
+      <strong style="color: var(--text); font-size: 13px;">🎬 OMDb API Settings (Client Refetching)</strong>
+      <label style="display: flex; flex-direction: column; gap: 4px; font-size: 12px; font-weight: 600;">
+        OMDb API Key
+        <div style="display: flex; gap: 8px; margin-top: 4px;">
+          <input type="text" id="omdbKeyInput" placeholder="e.g. 12345678" autocomplete="off" style="flex: 1; padding: 8px; border-radius: 6px; border: 1px solid var(--line); background: var(--surface-1); color: var(--text); font-size: 12px;">
+          <a href="https://www.omdbapi.com/apikey.aspx" target="_blank" rel="noopener" class="backup-btn" style="text-decoration: none; padding: 8px 12px;">🔑 Get Free Key</a>
+        </div>
+      </label>
+      <small style="color: var(--muted); font-size: 11px;">Enter an OMDb API key to re-fetch ratings on demand directly in your browser.</small>
+    </div>
 
     <div style="background: var(--surface-2); padding: 12px; border-radius: 8px; border: 1px solid var(--line); display: flex; flex-direction: column; gap: 10px;">
       <strong style="color: var(--text); font-size: 13px;">🐙 GitHub Repository Sync (data/movies.json)</strong>
@@ -595,6 +606,7 @@ function cardHTML(m, scope){
         ${inWatchlist ? '★ Watchlisted' : '☆ Watchlist'}
       </button>
       <button class="exclude" data-action="exclude" data-guid="${m.guid}">🚫 Exclude</button>
+      <button class="backup-btn refetch-single ${m.rating === 'N/A' || !m.rating ? 'unrated-btn' : ''}" data-action="refetch-single" data-guid="${m.guid}" title="Re-fetch IMDb rating & metadata from OMDb">↻ Refetch</button>
       ${m.imdb_id ? `<a href="https://www.imdb.com/title/${m.imdb_id}/" target="_blank" rel="noopener">IMDb</a>` : ''}
     `;
   }
@@ -662,10 +674,194 @@ document.addEventListener('click', e => {
     state.watchlist.delete(guid);
   } else if (btn.dataset.action === 'restore'){
     state.excluded.delete(guid);
+  } else if (btn.dataset.action === 'refetch-single'){
+    refetchSingleMovie(guid);
+    return;
   }
   persist();
   render();
 });
+
+// --- OMDb Client Refetch Engine ---
+const LS_OMDB_KEY = 'reel_omdb_key';
+const LS_MOVIES_OVERRIDE = 'reel_movies_override';
+
+function getOmdbKey() {
+  return (localStorage.getItem(LS_OMDB_KEY) || '').trim();
+}
+
+async function fetchOmdbMetadataClient(title, year) {
+  const apiKey = getOmdbKey();
+  if (!apiKey) {
+    const userKey = prompt("Please enter your OMDb API Key to refetch movie metadata (get a free key at omdbapi.com):");
+    if (!userKey || !userKey.trim()) return null;
+    localStorage.setItem(LS_OMDB_KEY, userKey.trim());
+    const omdbInput = document.getElementById('omdbKeyInput');
+    if (omdbInput) omdbInput.value = userKey.trim();
+    return fetchOmdbMetadataClient(title, year);
+  }
+
+  const cleanTitle = title.replace(/[\._\-]+/g, ' ').replace(/\[.*?\]/g, '').trim();
+  const cleanYear = year ? String(year).trim() : null;
+
+  let searchUrl = `https://www.omdbapi.com/?apikey=${encodeURIComponent(apiKey)}&t=${encodeURIComponent(cleanTitle)}`;
+  if (cleanYear) searchUrl += `&y=${encodeURIComponent(cleanYear)}`;
+
+  try {
+    let resp = await fetch(searchUrl);
+    let data = await resp.json();
+
+    if ((!data || data.Response !== "True") && cleanYear) {
+      const fallbackUrl = `https://www.omdbapi.com/?apikey=${encodeURIComponent(apiKey)}&t=${encodeURIComponent(cleanTitle)}`;
+      resp = await fetch(fallbackUrl);
+      data = await resp.json();
+    }
+
+    if (!data || data.Response !== "True") {
+      let sUrl = `https://www.omdbapi.com/?apikey=${encodeURIComponent(apiKey)}&s=${encodeURIComponent(cleanTitle)}&type=movie`;
+      if (cleanYear) sUrl += `&y=${encodeURIComponent(cleanYear)}`;
+      resp = await fetch(sUrl);
+      const sData = await resp.json();
+      if (sData && sData.Response === "True" && sData.Search && sData.Search.length > 0) {
+        const imdbId = sData.Search[0].imdbID;
+        const detailUrl = `https://www.omdbapi.com/?apikey=${encodeURIComponent(apiKey)}&i=${encodeURIComponent(imdbId)}`;
+        resp = await fetch(detailUrl);
+        data = await resp.json();
+      }
+    }
+
+    if (data && data.Response === "True") {
+      return {
+        rating: data.imdbRating && data.imdbRating !== "N/A" ? data.imdbRating : "N/A",
+        genre: data.Genre && data.Genre !== "N/A" ? data.Genre : "Unknown",
+        runtime: data.Runtime && data.Runtime !== "N/A" ? data.Runtime : "Unknown",
+        poster: data.Poster && data.Poster !== "N/A" ? data.Poster : null,
+        imdb_id: data.imdbID || null,
+        plot: data.Plot && data.Plot !== "N/A" ? data.Plot : ""
+      };
+    }
+  } catch (err) {
+    console.error("OMDb Client Fetch Error:", err);
+  }
+  return null;
+}
+
+async function refetchSingleMovie(guid) {
+  const movie = state.movies.find(m => m.guid === guid);
+  if (!movie) return;
+
+  const btn = document.querySelector(`button[data-guid="${CSS.escape(guid)}"][data-action="refetch-single"]`);
+  const origText = btn ? btn.textContent : "↻ Refetch";
+  if (btn) {
+    btn.disabled = true;
+    btn.textContent = "⌛ Fetching...";
+  }
+
+  const meta = await fetchOmdbMetadataClient(movie.title, movie.year);
+  if (meta) {
+    movie.rating = meta.rating;
+    movie.genre = meta.genre;
+    movie.runtime = meta.runtime;
+    movie.imdb_id = meta.imdb_id;
+    movie.plot = meta.plot;
+    if (meta.poster) movie.poster = meta.poster;
+
+    saveMoviesOverride();
+    populateGenres();
+    render();
+    updateUnratedCount();
+    alert(`Updated metadata for "${movie.title}"!\nIMDb Rating: ${movie.rating}`);
+  } else {
+    if (btn) {
+      btn.disabled = false;
+      btn.textContent = origText;
+    }
+    alert(`Could not find updated OMDb metadata for "${movie.title}".`);
+  }
+}
+
+async function refetchAllUnrated() {
+  const unrated = state.movies.filter(m => m.rating === "N/A" || !m.rating || !m.imdb_id);
+  if (!unrated.length) {
+    alert("All movies currently have IMDb ratings and details!");
+    return;
+  }
+
+  const key = getOmdbKey();
+  if (!key) {
+    const userKey = prompt("Please enter your OMDb API Key to batch refetch (get free key at omdbapi.com):");
+    if (!userKey || !userKey.trim()) return;
+    localStorage.setItem(LS_OMDB_KEY, userKey.trim());
+    const omdbInput = document.getElementById('omdbKeyInput');
+    if (omdbInput) omdbInput.value = userKey.trim();
+  }
+
+  if (!confirm(`Refetch OMDb metadata for ${unrated.length} unrated movie(s)?`)) return;
+
+  const btn = document.getElementById('refetchUnratedHeaderBtn');
+  if (btn) btn.disabled = true;
+
+  let updatedCount = 0;
+  for (let i = 0; i < unrated.length; i++) {
+    const m = unrated[i];
+    if (btn) btn.textContent = `⌛ (${i+1}/${unrated.length}) Refetching...`;
+    const meta = await fetchOmdbMetadataClient(m.title, m.year);
+    if (meta && meta.rating !== "N/A") {
+      m.rating = meta.rating;
+      m.genre = meta.genre;
+      m.runtime = meta.runtime;
+      m.imdb_id = meta.imdb_id;
+      m.plot = meta.plot;
+      if (meta.poster) m.poster = meta.poster;
+      updatedCount++;
+    }
+    await new Promise(r => setTimeout(r, 250));
+  }
+
+  saveMoviesOverride();
+  populateGenres();
+  render();
+  updateUnratedCount();
+  if (btn) {
+    btn.disabled = false;
+  }
+  alert(`Finished batch refetch! Successfully updated ${updatedCount} movie(s).`);
+}
+
+function saveMoviesOverride() {
+  const overrides = {};
+  state.movies.forEach(m => {
+    if (m.rating !== "N/A" || m.imdb_id) {
+      overrides[m.guid] = {
+        rating: m.rating,
+        genre: m.genre,
+        runtime: m.runtime,
+        poster: m.poster,
+        imdb_id: m.imdb_id,
+        plot: m.plot
+      };
+    }
+  });
+  localStorage.setItem(LS_MOVIES_OVERRIDE, JSON.stringify(overrides));
+}
+
+function applyMoviesOverride() {
+  try {
+    const overrides = JSON.parse(localStorage.getItem(LS_MOVIES_OVERRIDE) || '{}');
+    state.movies.forEach(m => {
+      if (overrides[m.guid]) {
+        Object.assign(m, overrides[m.guid]);
+      }
+    });
+  } catch(e) {}
+}
+
+function updateUnratedCount() {
+  const countEl = document.getElementById('unratedCount');
+  if (!countEl) return;
+  const unrated = state.movies.filter(m => m.rating === "N/A" || !m.rating || !m.imdb_id).length;
+  countEl.textContent = unrated;
+}
 
 document.querySelectorAll('nav.tabs button').forEach(btn => {
   btn.addEventListener('click', () => {
@@ -1470,6 +1666,14 @@ function initGistSync() {
 
   setupGistSyncEventListeners();
 
+  const omdbKeyInput = document.getElementById("omdbKeyInput");
+  if (omdbKeyInput) {
+    omdbKeyInput.value = localStorage.getItem(LS_OMDB_KEY) || "";
+    omdbKeyInput.addEventListener("input", (e) => {
+      localStorage.setItem(LS_OMDB_KEY, e.target.value.trim());
+    });
+  }
+
   const { token, gistId } = getGistConfig();
   const { repo } = getRepoConfig();
   if (token && (gistId || repo)) {
@@ -1492,6 +1696,8 @@ fetch('data/movies.json?_=' + Date.now())
     state.movies = data.movies || [];
     state.last_updated = data.last_updated;
     
+    applyMoviesOverride();
+
     // Seed from the JSON configuration if available
     if (data.watchlist && Array.isArray(data.watchlist)) {
       data.watchlist.forEach(id => state.watchlist.add(id));
@@ -1512,6 +1718,7 @@ fetch('data/movies.json?_=' + Date.now())
     
     populateGenres();
     render();
+    updateUnratedCount();
   })
   .catch(() => {
     document.getElementById('lastUpdated').textContent = 'Could not load data/movies.json';

@@ -134,10 +134,21 @@ def fetch_movie_metadata(title, year=None):
         except Exception as e:
             log(f"OMDb search error for '{title}' (y={req_year_str}): {e}")
 
+        # 2b. Fallback: Search OMDb without year constraint if year-constrained search yielded nothing
+        if not results and req_year_str:
+            try:
+                params_noyear = {"apikey": OMDB_API_KEY, "s": query, "type": "movie"}
+                resp = requests.get(OMDB_API_URL, params=params_noyear, timeout=20)
+                data = resp.json()
+                if data.get("Response") == "True" and data.get("Search"):
+                    results = data.get("Search", [])
+            except Exception as e:
+                log(f"OMDb fallback search error for '{title}': {e}")
+
         if not results:
             return None
 
-        # 3. Score candidates with strict year filtering
+        # 3. Score candidates
         normalized_query = normalize_title(query)
         best_match, best_score = None, -1
 
@@ -145,10 +156,6 @@ def fetch_movie_metadata(title, year=None):
             candidate_title = result.get("Title", "")
             candidate_year_raw = result.get("Year", "")
             normalized_candidate = normalize_title(candidate_title)
-
-            # Strict year check: candidate MUST contain requested year if specified
-            if req_year_str and req_year_str not in candidate_year_raw:
-                continue
 
             score = 0
             if normalized_candidate == normalized_query:
@@ -159,10 +166,20 @@ def fetch_movie_metadata(title, year=None):
             ):
                 score += 50
 
+            # Year bonus: bonus if requested year matches candidate year (or within 1 year)
+            if req_year_str:
+                if req_year_str in candidate_year_raw:
+                    score += 30
+                elif any(str(int(req_year_str) + delta) in candidate_year_raw for delta in (-1, 1) if req_year_str.isdigit()):
+                    score += 15
+                else:
+                    # Penalty for distant year mismatch
+                    score -= 40
+
             if result.get("Type") == "movie":
                 score += 10
 
-            if score > best_score:
+            if score > best_score and score > 0:
                 best_score, best_match = score, result
 
         if not best_match:
@@ -357,19 +374,34 @@ def main():
     parser.add_argument(
         "--refetch",
         action="store_true",
-        help="Re-fetch OMDb metadata for existing movies in data/movies.json",
+        help="Re-fetch OMDb metadata for ALL existing movies in data/movies.json",
+    )
+    parser.add_argument(
+        "--refetch-unrated",
+        dest="refetch_unrated",
+        action="store_true",
+        default=True,
+        help="Re-fetch OMDb metadata for unrated or incomplete movies (default: True)",
+    )
+    parser.add_argument(
+        "--no-refetch-unrated",
+        dest="refetch_unrated",
+        action="store_false",
+        help="Disable automatic re-fetching of unrated/incomplete movies",
     )
     args = parser.parse_args()
 
-    refetch = args.refetch or os.environ.get("REFETCH", "").lower() in ("true", "1", "yes")
+    refetch_all = args.refetch or os.environ.get("REFETCH", "").lower() in ("true", "1", "yes")
+    env_unrated = os.environ.get("REFETCH_UNRATED", "").lower()
+    refetch_unrated = args.refetch_unrated if not env_unrated else env_unrated in ("true", "1", "yes")
 
     if not OMDB_API_KEY:
         log("WARNING: OMDB_API_KEY not set — metadata will be skipped.")
 
     store = load_existing()
 
-    if refetch:
-        log(f"Refetch mode enabled — re-evaluating OMDb metadata for {len(store['movies'])} existing movie(s)...")
+    if refetch_all:
+        log(f"Full refetch mode enabled — re-evaluating OMDb metadata for ALL {len(store['movies'])} existing movie(s)...")
         updated_count = 0
         for i, m in enumerate(store["movies"]):
             clean_title = m.get("title", "")
@@ -392,7 +424,38 @@ def main():
                 log(f"  -> No valid OMDb match found for {clean_title} ({year}).")
             time.sleep(0.3)
         save(store)
-        log(f"Refetch complete. Re-evaluated {updated_count}/{len(store['movies'])} movies.")
+        log(f"Full refetch complete. Re-evaluated {updated_count}/{len(store['movies'])} movies.")
+    elif refetch_unrated and OMDB_API_KEY:
+        unrated_movies = [
+            m for m in store["movies"]
+            if m.get("rating") in ("N/A", None, "", "0.0") or not m.get("imdb_id")
+        ]
+        if unrated_movies:
+            log(f"Unrated/Incomplete refetch enabled — checking OMDb for {len(unrated_movies)} movie(s)...")
+            updated_count = 0
+            for i, m in enumerate(unrated_movies):
+                clean_title = m.get("title", "")
+                year = m.get("year")
+                if not clean_title:
+                    continue
+                log(f"[{i+1}/{len(unrated_movies)}] Refetching unrated: {clean_title} ({year})...")
+                metadata = fetch_movie_metadata(clean_title, year)
+                if metadata:
+                    old_rating = m.get("rating", "N/A")
+                    m["rating"] = metadata.get("rating", "N/A")
+                    m["genre"] = metadata.get("genre", "Unknown")
+                    m["runtime"] = metadata.get("runtime", "Unknown")
+                    m["imdb_id"] = metadata.get("imdb_id")
+                    m["plot"] = metadata.get("plot", "")
+                    if metadata.get("poster") and metadata.get("poster") != "N/A":
+                        m["poster"] = metadata.get("poster")
+                    updated_count += 1
+                    log(f"  -> Refetched: {clean_title} ({year}) | Rating: {old_rating} -> {m['rating']} | IMDb ID: {m['imdb_id']}")
+                else:
+                    log(f"  -> Still no OMDb match for {clean_title} ({year}).")
+                time.sleep(0.3)
+            save(store)
+            log(f"Unrated refetch complete. Updated {updated_count}/{len(unrated_movies)} movie(s).")
 
     seen_keys = {(m["slug"], m["year"]) for m in store["movies"]}
 
