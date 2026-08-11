@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-08-10T17:58:13.610895+00:00",
+  "last_updated": "2026-08-11T08:08:35.955363+00:00",
   "movies": [
     {
       "guid": "https://www.scnsrc.me/?p=540506",
@@ -3835,6 +3835,45 @@
       "imdb_id": "tt36893729",
       "plot": "An idyllic summer town descends into madness when an ice cream man serves kids sweet delights with horrifying results.",
       "date_added": "2026-08-10T08:23:53.587991+00:00"
+    },
+    {
+      "guid": "https://www.scnsrc.me/?p=542582",
+      "slug": "ourherobalthazar",
+      "title": "Our Hero Balthazar",
+      "year": "2025",
+      "rating": "N/A",
+      "poster": "https://img2.pixhost.cc/images/9999/757604096_our-hero-balthazar-2025-2160p-amzn-web-dl-ddp5-1-h-265-scope.jpg",
+      "genre": "Comedy, Drama, Thriller",
+      "runtime": "91 min",
+      "imdb_id": "tt36589928",
+      "plot": "A comedy (sort of) about young men in America.",
+      "date_added": "2026-08-11T08:08:24.327977+00:00"
+    },
+    {
+      "guid": "https://www.scnsrc.me/?p=542546",
+      "slug": "gaildaughtryandthecelebritysexpass",
+      "title": "Gail Daughtry and the Celebrity Sex Pass",
+      "year": "2026",
+      "rating": "6.4",
+      "poster": "https://img2.pixhost.cc/images/9997/757584917_gail-daughtry-and-the-celebrity-sex-pass-2026-720p-amzn-web-dl-ddp5-1-h-264-scop.jpg",
+      "genre": "Comedy",
+      "runtime": "93 min",
+      "imdb_id": "tt36834010",
+      "plot": "When her fiancé uses their \"celebrity pass\" agreement, Midwest bride Gail Daughtry travels to Hollywood seeking revenge by pursuing her own celebrity encounter.",
+      "date_added": "2026-08-11T08:08:24.722127+00:00"
+    },
+    {
+      "guid": "https://www.scnsrc.me/?p=542524",
+      "slug": "nightnurse",
+      "title": "Night Nurse",
+      "year": "2026",
+      "rating": "5.8",
+      "poster": "https://img2.pixhost.cc/images/9997/757576333_night-nurse-2026-2160p-amzn-web-dl-ddp5-1-h-265-scope.jpg",
+      "genre": "Thriller",
+      "runtime": "95 min",
+      "imdb_id": "tt38906892",
+      "plot": "As a series of perverse scam calls unsettles an idyllic retirement community, a starry-eyed nurse becomes entangled with her mysterious patient.",
+      "date_added": "2026-08-11T08:08:25.121309+00:00"
     }
   ],
   "watchlist": [
