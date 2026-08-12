@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-08-11T08:08:35.955363+00:00",
+  "last_updated": "2026-08-12T08:13:19.567790+00:00",
   "movies": [
     {
       "guid": "https://www.scnsrc.me/?p=540506",
@@ -3842,7 +3842,7 @@
       "title": "Our Hero Balthazar",
       "year": "2025",
       "rating": "N/A",
-      "poster": "https://img2.pixhost.cc/images/9999/757604096_our-hero-balthazar-2025-2160p-amzn-web-dl-ddp5-1-h-265-scope.jpg",
+      "poster": "https://m.media-amazon.com/images/M/MV5BNDgzZjhjMDMtYzQxNy00NjIxLWE4NzMtNzRiZWVhMmZkZWQ0XkEyXkFqcGc@._V1_SX300.jpg",
       "genre": "Comedy, Drama, Thriller",
       "runtime": "91 min",
       "imdb_id": "tt36589928",
@@ -3874,6 +3874,19 @@
       "imdb_id": "tt38906892",
       "plot": "As a series of perverse scam calls unsettles an idyllic retirement community, a starry-eyed nurse becomes entangled with her mysterious patient.",
       "date_added": "2026-08-11T08:08:25.121309+00:00"
+    },
+    {
+      "guid": "https://www.scnsrc.me/?p=542614",
+      "slug": "pawpatrolthedinomovie",
+      "title": "PAW Patrol The Dino Movie",
+      "year": "2026",
+      "rating": "N/A",
+      "poster": "https://img2.pixhost.cc/images/10009/757754489_paw-patrol-the-dino-movie-2026-720p-cam-h264-cinemacity.jpg",
+      "genre": "Animation, Action, Adventure",
+      "runtime": "88 min",
+      "imdb_id": "tt29356163",
+      "plot": "The Paw Patrol lands on a mysterious dinosaur island after a storm, where they meet Rex, a stranded pup. When Humdinger's reckless mining triggers a volcano, the team faces their biggest rescue mission yet to save the island.",
+      "date_added": "2026-08-12T08:13:08.278205+00:00"
     }
   ],
   "watchlist": [
