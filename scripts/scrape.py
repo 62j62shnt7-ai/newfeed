@@ -66,10 +66,24 @@ def clean_scene_title(raw_title):
     title = re.sub(r"[\._\-]+", " ", raw_title)
     title = re.sub(r"\[.*?\]", "", title)
 
-    year_match = re.search(r"\b(19\d{2}|20\d{2})\b", title)
-    year = year_match.group(1) if year_match else None
-    if year:
-        title = title.split(year)[0]
+    year_matches = list(re.finditer(r"\b(19\d{2}|20\d{2})\b", title))
+    year = None
+    if year_matches:
+        selected_match = None
+        for m in reversed(year_matches):
+            candidate_prefix = title[:m.start()].strip()
+            test_prefix = candidate_prefix
+            for junk in JUNK_WORDS:
+                test_prefix = re.sub(rf"\b{junk}\b", "", test_prefix, flags=re.IGNORECASE)
+            if test_prefix.strip():
+                selected_match = m
+                break
+
+        if selected_match:
+            year = selected_match.group(1)
+            title = title[:selected_match.start()]
+        elif len(year_matches) == 1 and not title[:year_matches[0].start()].strip():
+            year = None
 
     for junk in JUNK_WORDS:
         title = re.sub(rf"\b{junk}\b", "", title, flags=re.IGNORECASE)
@@ -457,7 +471,7 @@ def main():
             save(store)
             log(f"Unrated refetch complete. Updated {updated_count}/{len(unrated_movies)} movie(s).")
 
-    seen_keys = {(m["slug"], m["year"]) for m in store["movies"]}
+    seen_keys = {(m.get("slug", ""), m.get("year")) for m in store["movies"]}
 
     session = create_session(FEED_URL)
     if not session:

@@ -1698,11 +1698,14 @@ fetch('data/movies.json?_=' + Date.now())
     
     applyMoviesOverride();
 
-    // Seed from the JSON configuration if available
-    if (data.watchlist && Array.isArray(data.watchlist)) {
+    // Seed from the JSON configuration if local state has not been initialized yet
+    const hasLocalWatchlist = localStorage.getItem(LS_WATCHLIST) !== null;
+    const hasLocalExcluded = localStorage.getItem(LS_EXCLUDED) !== null;
+
+    if (!hasLocalWatchlist && data.watchlist && Array.isArray(data.watchlist)) {
       data.watchlist.forEach(id => state.watchlist.add(id));
     }
-    if (data.excluded && Array.isArray(data.excluded)) {
+    if (!hasLocalExcluded && data.excluded && Array.isArray(data.excluded)) {
       data.excluded.forEach(id => state.excluded.add(id));
     }
     persist(); // Sync and merge choices back to local browser storage
