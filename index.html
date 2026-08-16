@@ -681,6 +681,7 @@ document.addEventListener('click', e => {
   }
   persist();
   render();
+  updateUnratedCount();
 });
 
 // --- TMDb Client Refetch Engine ---
@@ -827,9 +828,9 @@ async function refetchSingleMovie(guid) {
 }
 
 async function refetchAllUnrated() {
-  const unrated = state.movies.filter(m => m.rating === "N/A" || !m.rating || !m.imdb_id);
+  const unrated = state.movies.filter(m => (m.rating === "N/A" || !m.rating || !m.imdb_id) && !state.excluded.has(m.guid));
   if (!unrated.length) {
-    alert("All movies currently have ratings and details!");
+    alert("All non-excluded movies currently have ratings and details!");
     return;
   }
 
@@ -905,7 +906,7 @@ function applyMoviesOverride() {
 function updateUnratedCount() {
   const countEl = document.getElementById('unratedCount');
   if (!countEl) return;
-  const unrated = state.movies.filter(m => m.rating === "N/A" || !m.rating || !m.imdb_id).length;
+  const unrated = state.movies.filter(m => (m.rating === "N/A" || !m.rating || !m.imdb_id) && !state.excluded.has(m.guid)).length;
   countEl.textContent = unrated;
 }
 

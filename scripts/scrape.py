@@ -415,16 +415,21 @@ def main():
         log("WARNING: TMDB_API_KEY not set — metadata will be skipped.")
 
     store = load_existing()
+    excluded_set = set(store.get("excluded", []))
 
     if refetch_all:
-        log(f"Full refetch mode enabled — re-evaluating TMDb metadata for ALL {len(store['movies'])} existing movie(s)...")
+        target_movies = [
+            m for m in store["movies"]
+            if m.get("guid") not in excluded_set and m.get("slug") not in excluded_set
+        ]
+        log(f"Full refetch mode enabled — re-evaluating TMDb metadata for {len(target_movies)} non-excluded movie(s)...")
         updated_count = 0
-        for i, m in enumerate(store["movies"]):
+        for i, m in enumerate(target_movies):
             clean_title = m.get("title", "")
             year = m.get("year")
             if not clean_title:
                 continue
-            log(f"[{i+1}/{len(store['movies'])}] Refetching: {clean_title} ({year})...")
+            log(f"[{i+1}/{len(target_movies)}] Refetching: {clean_title} ({year})...")
             metadata = fetch_movie_metadata(clean_title, year)
             if metadata:
                 m["rating"] = metadata.get("rating", "N/A")
@@ -440,14 +445,16 @@ def main():
                 log(f"  -> No valid TMDb match found for {clean_title} ({year}).")
             time.sleep(0.2)
         save(store)
-        log(f"Full refetch complete. Re-evaluated {updated_count}/{len(store['movies'])} movies.")
+        log(f"Full refetch complete. Re-evaluated {updated_count}/{len(target_movies)} movies.")
     elif refetch_unrated and TMDB_API_KEY:
         unrated_movies = [
             m for m in store["movies"]
-            if m.get("rating") in ("N/A", None, "", "0.0") or not m.get("imdb_id")
+            if (m.get("rating") in ("N/A", None, "", "0.0") or not m.get("imdb_id"))
+            and m.get("guid") not in excluded_set
+            and m.get("slug") not in excluded_set
         ]
         if unrated_movies:
-            log(f"Unrated/Incomplete refetch enabled — checking TMDb for {len(unrated_movies)} movie(s)...")
+            log(f"Unrated/Incomplete refetch enabled — checking TMDb for {len(unrated_movies)} non-excluded movie(s)...")
             updated_count = 0
             for i, m in enumerate(unrated_movies):
                 clean_title = m.get("title", "")
