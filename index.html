@@ -412,7 +412,10 @@
           <a href="https://www.themoviedb.org/settings/api" target="_blank" rel="noopener" class="backup-btn" style="text-decoration: none; padding: 8px 12px;">🔑 Get Free Key</a>
         </div>
       </label>
-      <small style="color: var(--muted); font-size: 11px;">Enter a TMDb API key to re-fetch ratings and movie details on demand directly in your browser.</small>
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 4px;">
+        <small style="color: var(--muted); font-size: 11px;">Enter a TMDb API key to re-fetch ratings and movie details on demand.</small>
+        <button class="backup-btn" type="button" onclick="clearLocalOverrides()" style="font-size: 11px; padding: 4px 8px;" title="Clears browser-cached overrides and reloads original data/movies.json">🧹 Reset Local Overrides</button>
+      </div>
     </div>
 
     <div style="background: var(--surface-2); padding: 12px; border-radius: 8px; border: 1px solid var(--line); display: flex; flex-direction: column; gap: 10px;">
@@ -961,10 +964,28 @@ function applyMoviesOverride() {
     const overrides = JSON.parse(localStorage.getItem(LS_MOVIES_OVERRIDE) || '{}');
     state.movies.forEach(m => {
       if (overrides[m.guid]) {
-        Object.assign(m, overrides[m.guid]);
+        const ov = overrides[m.guid];
+        if (ov.rating && ov.rating !== "N/A" && (m.rating === "N/A" || !m.rating)) {
+          m.rating = ov.rating;
+        }
+        if (ov.genre && ov.genre !== "Unknown" && (m.genre === "Unknown" || !m.genre)) {
+          m.genre = ov.genre;
+        }
+        if (ov.runtime && ov.runtime !== "Unknown" && (m.runtime === "Unknown" || !m.runtime)) {
+          m.runtime = ov.runtime;
+        }
+        if (ov.poster && !m.poster) m.poster = ov.poster;
+        if (ov.imdb_id && !m.imdb_id) m.imdb_id = ov.imdb_id;
+        if (ov.plot && !m.plot) m.plot = ov.plot;
       }
     });
   } catch(e) {}
+}
+
+function clearLocalOverrides() {
+  localStorage.removeItem(LS_MOVIES_OVERRIDE);
+  alert("Local cached overrides cleared! Reloading page...");
+  location.reload();
 }
 
 function updateUnratedCount() {
