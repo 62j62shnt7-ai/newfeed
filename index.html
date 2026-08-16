@@ -345,10 +345,10 @@
 <header>
   <div>
     <h1>SCENE REEL</h1>
-    <div class="tagline">auto-tracked from your RSS feed · enriched via OMDb</div>
+    <div class="tagline">auto-tracked from your RSS feed · enriched via TMDb</div>
   </div>
   <div style="display: flex; align-items: flex-end; gap: 12px; flex-wrap: wrap;">
-    <button class="backup-btn" id="refetchUnratedHeaderBtn" type="button" style="margin-top: 0; border-color: var(--gold-dim);" onclick="refetchAllUnrated()" title="Re-fetch OMDb metadata for movies without scores">↻ Refetch Unrated (<span id="unratedCount">0</span>)</button>
+    <button class="backup-btn" id="refetchUnratedHeaderBtn" type="button" style="margin-top: 0; border-color: var(--gold-dim);" onclick="refetchAllUnrated()" title="Re-fetch TMDb metadata for movies without scores">↻ Refetch Unrated (<span id="unratedCount">0</span>)</button>
     <button class="backup-btn" id="gistSyncBtn" type="button" style="margin-top: 0;">☁️ Cloud & Repo Sync <span class="sync-pill" id="gistSyncStatus">Setup</span></button>
     <div id="lastUpdated">
       <div>loading…</div>
@@ -367,7 +367,7 @@
   <input type="text" id="search" placeholder="🔍 Search title…">
   <select id="sort">
     <option value="date">Date added (newest)</option>
-    <option value="rating">IMDb rating (highest)</option>
+    <option value="rating">Rating (highest)</option>
     <option value="title">Title (A–Z)</option>
   </select>
   <select id="genre"><option value="">All genres</option></select>
@@ -401,16 +401,17 @@
       <small style="color: var(--muted); font-weight: normal; margin-top: 4px;">
         Need a token? GitHub Settings &rarr; Developer Settings &rarr; Personal access tokens ('gist' scope for Gists, 'repo' or 'contents:write' scope for committing to data/movies.json directly).
       </small>
+    </label>
     <div style="background: var(--surface-2); padding: 12px; border-radius: 8px; border: 1px solid var(--line); display: flex; flex-direction: column; gap: 10px;">
-      <strong style="color: var(--text); font-size: 13px;">🎬 OMDb API Settings (Client Refetching)</strong>
+      <strong style="color: var(--text); font-size: 13px;">🎬 TMDb API Settings (Client Refetching)</strong>
       <label style="display: flex; flex-direction: column; gap: 4px; font-size: 12px; font-weight: 600;">
-        OMDb API Key
+        TMDb API Key
         <div style="display: flex; gap: 8px; margin-top: 4px;">
-          <input type="text" id="omdbKeyInput" placeholder="e.g. 12345678" autocomplete="off" style="flex: 1; padding: 8px; border-radius: 6px; border: 1px solid var(--line); background: var(--surface-1); color: var(--text); font-size: 12px;">
-          <a href="https://www.omdbapi.com/apikey.aspx" target="_blank" rel="noopener" class="backup-btn" style="text-decoration: none; padding: 8px 12px;">🔑 Get Free Key</a>
+          <input type="text" id="tmdbKeyInput" placeholder="e.g. 32-char API key or Read Access Token" autocomplete="off" style="flex: 1; padding: 8px; border-radius: 6px; border: 1px solid var(--line); background: var(--surface-1); color: var(--text); font-size: 12px;">
+          <a href="https://www.themoviedb.org/settings/api" target="_blank" rel="noopener" class="backup-btn" style="text-decoration: none; padding: 8px 12px;">🔑 Get Free Key</a>
         </div>
       </label>
-      <small style="color: var(--muted); font-size: 11px;">Enter an OMDb API key to re-fetch ratings on demand directly in your browser.</small>
+      <small style="color: var(--muted); font-size: 11px;">Enter a TMDb API key to re-fetch ratings and movie details on demand directly in your browser.</small>
     </div>
 
     <div style="background: var(--surface-2); padding: 12px; border-radius: 8px; border: 1px solid var(--line); display: flex; flex-direction: column; gap: 10px;">
@@ -606,7 +607,7 @@ function cardHTML(m, scope){
         ${inWatchlist ? '★ Watchlisted' : '☆ Watchlist'}
       </button>
       <button class="exclude" data-action="exclude" data-guid="${m.guid}">🚫 Exclude</button>
-      <button class="backup-btn refetch-single ${m.rating === 'N/A' || !m.rating ? 'unrated-btn' : ''}" data-action="refetch-single" data-guid="${m.guid}" title="Re-fetch IMDb rating & metadata from OMDb">↻ Refetch</button>
+      <button class="backup-btn refetch-single ${m.rating === 'N/A' || !m.rating ? 'unrated-btn' : ''}" data-action="refetch-single" data-guid="${m.guid}" title="Re-fetch rating & metadata from TMDb">↻ Refetch</button>
       ${m.imdb_id ? `<a href="https://www.imdb.com/title/${m.imdb_id}/" target="_blank" rel="noopener">IMDb</a>` : ''}
     `;
   }
@@ -682,66 +683,111 @@ document.addEventListener('click', e => {
   render();
 });
 
-// --- OMDb Client Refetch Engine ---
-const LS_OMDB_KEY = 'reel_omdb_key';
+// --- TMDb Client Refetch Engine ---
+const LS_TMDB_KEY = 'reel_tmdb_key';
 const LS_MOVIES_OVERRIDE = 'reel_movies_override';
 
-function getOmdbKey() {
-  return (localStorage.getItem(LS_OMDB_KEY) || '').trim();
+function getTmdbKey() {
+  return (localStorage.getItem(LS_TMDB_KEY) || '').trim();
 }
 
-async function fetchOmdbMetadataClient(title, year) {
-  const apiKey = getOmdbKey();
+async function tmdbFetch(path, params = {}) {
+  const apiKey = getTmdbKey();
+  if (!apiKey) return null;
+  const url = new URL(`https://api.themoviedb.org/3/${path.replace(/^\//, '')}`);
+  const headers = { 'Accept': 'application/json' };
+
+  if (apiKey.startsWith('eyJ')) {
+    headers['Authorization'] = `Bearer ${apiKey}`;
+  } else {
+    url.searchParams.set('api_key', apiKey);
+  }
+
+  for (const [k, v] of Object.entries(params)) {
+    if (v !== undefined && v !== null && v !== '') {
+      url.searchParams.set(k, v);
+    }
+  }
+
+  const resp = await fetch(url.toString(), { headers });
+  if (!resp.ok) return null;
+  return await resp.json();
+}
+
+async function fetchTmdbMetadataClient(title, year) {
+  let apiKey = getTmdbKey();
   if (!apiKey) {
-    const userKey = prompt("Please enter your OMDb API Key to refetch movie metadata (get a free key at omdbapi.com):");
+    const userKey = prompt("Please enter your TMDb API Key to refetch movie metadata (get a free key at themoviedb.org/settings/api):");
     if (!userKey || !userKey.trim()) return null;
-    localStorage.setItem(LS_OMDB_KEY, userKey.trim());
-    const omdbInput = document.getElementById('omdbKeyInput');
-    if (omdbInput) omdbInput.value = userKey.trim();
-    return fetchOmdbMetadataClient(title, year);
+    localStorage.setItem(LS_TMDB_KEY, userKey.trim());
+    const tmdbInput = document.getElementById('tmdbKeyInput');
+    if (tmdbInput) tmdbInput.value = userKey.trim();
   }
 
   const cleanTitle = title.replace(/[\._\-]+/g, ' ').replace(/\[.*?\]/g, '').trim();
   const cleanYear = year ? String(year).trim() : null;
 
-  let searchUrl = `https://www.omdbapi.com/?apikey=${encodeURIComponent(apiKey)}&t=${encodeURIComponent(cleanTitle)}`;
-  if (cleanYear) searchUrl += `&y=${encodeURIComponent(cleanYear)}`;
-
   try {
-    let resp = await fetch(searchUrl);
-    let data = await resp.json();
-
-    if ((!data || data.Response !== "True") && cleanYear) {
-      const fallbackUrl = `https://www.omdbapi.com/?apikey=${encodeURIComponent(apiKey)}&t=${encodeURIComponent(cleanTitle)}`;
-      resp = await fetch(fallbackUrl);
-      data = await resp.json();
-    }
-
-    if (!data || data.Response !== "True") {
-      let sUrl = `https://www.omdbapi.com/?apikey=${encodeURIComponent(apiKey)}&s=${encodeURIComponent(cleanTitle)}&type=movie`;
-      if (cleanYear) sUrl += `&y=${encodeURIComponent(cleanYear)}`;
-      resp = await fetch(sUrl);
-      const sData = await resp.json();
-      if (sData && sData.Response === "True" && sData.Search && sData.Search.length > 0) {
-        const imdbId = sData.Search[0].imdbID;
-        const detailUrl = `https://www.omdbapi.com/?apikey=${encodeURIComponent(apiKey)}&i=${encodeURIComponent(imdbId)}`;
-        resp = await fetch(detailUrl);
-        data = await resp.json();
+    let results = [];
+    if (cleanYear && /^\d{4}$/.test(cleanYear)) {
+      const data = await tmdbFetch('search/movie', { query: cleanTitle, year: cleanYear, include_adult: 'false' });
+      if (data && data.results && data.results.length > 0) {
+        results = data.results;
       }
     }
 
-    if (data && data.Response === "True") {
-      return {
-        rating: data.imdbRating && data.imdbRating !== "N/A" ? data.imdbRating : "N/A",
-        genre: data.Genre && data.Genre !== "N/A" ? data.Genre : "Unknown",
-        runtime: data.Runtime && data.Runtime !== "N/A" ? data.Runtime : "Unknown",
-        poster: data.Poster && data.Poster !== "N/A" ? data.Poster : null,
-        imdb_id: data.imdbID || null,
-        plot: data.Plot && data.Plot !== "N/A" ? data.Plot : ""
-      };
+    if (!results.length) {
+      const data = await tmdbFetch('search/movie', { query: cleanTitle, include_adult: 'false' });
+      if (data && data.results && data.results.length > 0) {
+        results = data.results;
+      }
     }
+
+    if (!results.length) return null;
+
+    // Score candidates
+    const norm = (s) => (s || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+    const normQuery = norm(cleanTitle);
+    let bestMatch = null, bestScore = -1;
+
+    for (const r of results) {
+      const candTitle = r.title || '';
+      const candYear = (r.release_date || '').slice(0, 4);
+      const normCand = norm(candTitle);
+
+      let score = 0;
+      if (normCand === normQuery) score += 100;
+      else if (normQuery.includes(normCand) || normCand.includes(normQuery)) score += 50;
+
+      if (cleanYear) {
+        if (cleanYear === candYear) score += 30;
+        else if (candYear && Math.abs(parseInt(cleanYear, 10) - parseInt(candYear, 10)) <= 1) score += 15;
+        else if (candYear) score -= 40;
+      }
+
+      if (r.popularity) score += Math.min(10, r.popularity / 10.0);
+
+      if (score > bestScore && score > 0) {
+        bestScore = score;
+        bestMatch = r;
+      }
+    }
+
+    if (!bestMatch || !bestMatch.id) return null;
+
+    const details = await tmdbFetch(`movie/${bestMatch.id}`, { append_to_response: 'external_ids' });
+    if (!details) return null;
+
+    const rating = (details.vote_average && details.vote_count > 0) ? details.vote_average.toFixed(1) : 'N/A';
+    const genre = (details.genres && details.genres.length > 0) ? details.genres.map(g => g.name).join(', ') : 'Unknown';
+    const runtime = details.runtime ? `${details.runtime} min` : 'Unknown';
+    const poster = details.poster_path ? `https://image.tmdb.org/t/p/w500${details.poster_path}` : null;
+    const imdbId = details.external_ids?.imdb_id || details.imdb_id || null;
+    const plot = details.overview || '';
+
+    return { rating, genre, runtime, poster, imdb_id: imdbId, plot };
   } catch (err) {
-    console.error("OMDb Client Fetch Error:", err);
+    console.error("TMDb Client Fetch Error:", err);
   }
   return null;
 }
@@ -757,7 +803,7 @@ async function refetchSingleMovie(guid) {
     btn.textContent = "⌛ Fetching...";
   }
 
-  const meta = await fetchOmdbMetadataClient(movie.title, movie.year);
+  const meta = await fetchTmdbMetadataClient(movie.title, movie.year);
   if (meta) {
     movie.rating = meta.rating;
     movie.genre = meta.genre;
@@ -770,33 +816,33 @@ async function refetchSingleMovie(guid) {
     populateGenres();
     render();
     updateUnratedCount();
-    alert(`Updated metadata for "${movie.title}"!\nIMDb Rating: ${movie.rating}`);
+    alert(`Updated metadata for "${movie.title}"!\nRating: ${movie.rating}`);
   } else {
     if (btn) {
       btn.disabled = false;
       btn.textContent = origText;
     }
-    alert(`Could not find updated OMDb metadata for "${movie.title}".`);
+    alert(`Could not find updated TMDb metadata for "${movie.title}".`);
   }
 }
 
 async function refetchAllUnrated() {
   const unrated = state.movies.filter(m => m.rating === "N/A" || !m.rating || !m.imdb_id);
   if (!unrated.length) {
-    alert("All movies currently have IMDb ratings and details!");
+    alert("All movies currently have ratings and details!");
     return;
   }
 
-  const key = getOmdbKey();
+  const key = getTmdbKey();
   if (!key) {
-    const userKey = prompt("Please enter your OMDb API Key to batch refetch (get free key at omdbapi.com):");
+    const userKey = prompt("Please enter your TMDb API Key to batch refetch (get free key at themoviedb.org/settings/api):");
     if (!userKey || !userKey.trim()) return;
-    localStorage.setItem(LS_OMDB_KEY, userKey.trim());
-    const omdbInput = document.getElementById('omdbKeyInput');
-    if (omdbInput) omdbInput.value = userKey.trim();
+    localStorage.setItem(LS_TMDB_KEY, userKey.trim());
+    const tmdbInput = document.getElementById('tmdbKeyInput');
+    if (tmdbInput) tmdbInput.value = userKey.trim();
   }
 
-  if (!confirm(`Refetch OMDb metadata for ${unrated.length} unrated movie(s)?`)) return;
+  if (!confirm(`Refetch TMDb metadata for ${unrated.length} unrated movie(s)?`)) return;
 
   const btn = document.getElementById('refetchUnratedHeaderBtn');
   if (btn) btn.disabled = true;
@@ -805,7 +851,7 @@ async function refetchAllUnrated() {
   for (let i = 0; i < unrated.length; i++) {
     const m = unrated[i];
     if (btn) btn.textContent = `⌛ (${i+1}/${unrated.length}) Refetching...`;
-    const meta = await fetchOmdbMetadataClient(m.title, m.year);
+    const meta = await fetchTmdbMetadataClient(m.title, m.year);
     if (meta && meta.rating !== "N/A") {
       m.rating = meta.rating;
       m.genre = meta.genre;
@@ -815,7 +861,7 @@ async function refetchAllUnrated() {
       if (meta.poster) m.poster = meta.poster;
       updatedCount++;
     }
-    await new Promise(r => setTimeout(r, 250));
+    await new Promise(r => setTimeout(r, 200));
   }
 
   saveMoviesOverride();
@@ -1666,11 +1712,11 @@ function initGistSync() {
 
   setupGistSyncEventListeners();
 
-  const omdbKeyInput = document.getElementById("omdbKeyInput");
-  if (omdbKeyInput) {
-    omdbKeyInput.value = localStorage.getItem(LS_OMDB_KEY) || "";
-    omdbKeyInput.addEventListener("input", (e) => {
-      localStorage.setItem(LS_OMDB_KEY, e.target.value.trim());
+  const tmdbKeyInput = document.getElementById("tmdbKeyInput");
+  if (tmdbKeyInput) {
+    tmdbKeyInput.value = localStorage.getItem(LS_TMDB_KEY) || "";
+    tmdbKeyInput.addEventListener("input", (e) => {
+      localStorage.setItem(LS_TMDB_KEY, e.target.value.trim());
     });
   }
 

@@ -5,7 +5,7 @@ Movie RSS Tracker — scraper/enrichment job.
 Runs inside GitHub Actions on a schedule. Loads the RSS feed through a real
 headless browser once (to pass the site's bot check and harvest cookies),
 then paginates the feed with a plain requests.Session using those cookies,
-parses new items, enriches each with OMDb metadata, and merges the result
+parses new items, enriches each with TMDb metadata, and merges the result
 into data/movies.json — which the static site (index.html) reads directly.
 
 No database, no local chromedriver management: Playwright manages its own
@@ -32,8 +32,8 @@ FEED_URL = os.environ.get(
     "FEED_URL", "https://www.scnsrc.me/category/films/feed"
 )
 MAX_PAGES = int(os.environ.get("MAX_PAGES", "5"))
-OMDB_API_KEY = os.environ.get("OMDB_API_KEY", "")
-OMDB_API_URL = "https://www.omdbapi.com/"
+TMDB_API_KEY = os.environ.get("TMDB_API_KEY", "")
+TMDB_API_URL = "https://api.themoviedb.org/3"
 
 DATA_PATH = Path(__file__).resolve().parent.parent / "data" / "movies.json"
 
@@ -100,64 +100,51 @@ def extract_poster(desc):
 
 
 # =========================================================
-# OMDb
+# TMDb
 # =========================================================
+
+def _tmdb_request(path, params=None):
+    if not TMDB_API_KEY:
+        return None
+    url = f"{TMDB_API_URL}/{path.lstrip('/')}"
+    headers = {"Accept": "application/json"}
+    req_params = dict(params or {})
+    if TMDB_API_KEY.startswith("eyJ"):
+        headers["Authorization"] = f"Bearer {TMDB_API_KEY}"
+    else:
+        req_params["api_key"] = TMDB_API_KEY
+    resp = requests.get(url, params=req_params, headers=headers, timeout=20)
+    if resp.status_code != 200:
+        return None
+    return resp.json()
+
 
 def fetch_movie_metadata(title, year=None):
     try:
         query = title.strip()
-        if not query:
+        if not query or not TMDB_API_KEY:
             return None
 
         req_year_str = str(year).strip() if year else None
 
-        # 1. Try direct title lookup with exact year if year is provided
-        if req_year_str:
-            try:
-                resp = requests.get(
-                    OMDB_API_URL,
-                    params={"apikey": OMDB_API_KEY, "t": query, "y": req_year_str, "type": "movie"},
-                    timeout=20,
-                )
-                details = resp.json()
-                if details.get("Response") == "True" and details.get("imdbID"):
-                    cand_year = details.get("Year", "")
-                    if req_year_str in cand_year:
-                        return {
-                            "rating": details.get("imdbRating", "N/A"),
-                            "genre": details.get("Genre", "Unknown"),
-                            "runtime": details.get("Runtime", "Unknown"),
-                            "poster": details.get("Poster"),
-                            "imdb_id": details.get("imdbID"),
-                            "plot": details.get("Plot", ""),
-                        }
-            except Exception as e:
-                log(f"OMDb direct lookup error for '{title}' ({req_year_str}): {e}")
-
-        # 2. Search OMDb using year filter
-        params = {"apikey": OMDB_API_KEY, "s": query, "type": "movie"}
-        if req_year_str:
-            params["y"] = req_year_str
-
+        # 1. Search TMDb using year constraint if available
         results = []
-        try:
-            resp = requests.get(OMDB_API_URL, params=params, timeout=20)
-            data = resp.json()
-            if data.get("Response") == "True" and data.get("Search"):
-                results = data.get("Search", [])
-        except Exception as e:
-            log(f"OMDb search error for '{title}' (y={req_year_str}): {e}")
-
-        # 2b. Fallback: Search OMDb without year constraint if year-constrained search yielded nothing
-        if not results and req_year_str:
+        if req_year_str and req_year_str.isdigit():
             try:
-                params_noyear = {"apikey": OMDB_API_KEY, "s": query, "type": "movie"}
-                resp = requests.get(OMDB_API_URL, params=params_noyear, timeout=20)
-                data = resp.json()
-                if data.get("Response") == "True" and data.get("Search"):
-                    results = data.get("Search", [])
+                data = _tmdb_request("search/movie", {"query": query, "year": req_year_str, "include_adult": "false"})
+                if data and data.get("results"):
+                    results = data.get("results", [])
             except Exception as e:
-                log(f"OMDb fallback search error for '{title}': {e}")
+                log(f"TMDb search error for '{title}' (year={req_year_str}): {e}")
+
+        # 2. Fallback search without year constraint if year search yielded nothing
+        if not results:
+            try:
+                data = _tmdb_request("search/movie", {"query": query, "include_adult": "false"})
+                if data and data.get("results"):
+                    results = data.get("results", [])
+            except Exception as e:
+                log(f"TMDb fallback search error for '{title}': {e}")
 
         if not results:
             return None
@@ -167,8 +154,9 @@ def fetch_movie_metadata(title, year=None):
         best_match, best_score = None, -1
 
         for result in results:
-            candidate_title = result.get("Title", "")
-            candidate_year_raw = result.get("Year", "")
+            candidate_title = result.get("title", "")
+            release_date = result.get("release_date", "")
+            candidate_year_raw = release_date[:4] if release_date else ""
             normalized_candidate = normalize_title(candidate_title)
 
             score = 0
@@ -180,18 +168,20 @@ def fetch_movie_metadata(title, year=None):
             ):
                 score += 50
 
-            # Year bonus: bonus if requested year matches candidate year (or within 1 year)
+            # Year bonus / penalty
             if req_year_str:
-                if req_year_str in candidate_year_raw:
+                if req_year_str == candidate_year_raw:
                     score += 30
-                elif any(str(int(req_year_str) + delta) in candidate_year_raw for delta in (-1, 1) if req_year_str.isdigit()):
+                elif candidate_year_raw and req_year_str.isdigit() and candidate_year_raw.isdigit() and abs(int(req_year_str) - int(candidate_year_raw)) <= 1:
                     score += 15
-                else:
+                elif candidate_year_raw:
                     # Penalty for distant year mismatch
                     score -= 40
 
-            if result.get("Type") == "movie":
-                score += 10
+            # Popularity / vote count bonus as subtle tie-breaker
+            popularity = result.get("popularity", 0)
+            if popularity:
+                score += min(10, float(popularity) / 10.0)
 
             if score > best_score and score > 0:
                 best_score, best_match = score, result
@@ -199,31 +189,43 @@ def fetch_movie_metadata(title, year=None):
         if not best_match:
             return None
 
-        imdb_id = best_match.get("imdbID")
-        if not imdb_id:
+        tmdb_id = best_match.get("id")
+        if not tmdb_id:
             return None
 
-        details_resp = requests.get(
-            OMDB_API_URL,
-            params={"apikey": OMDB_API_KEY, "i": imdb_id},
-            timeout=20,
-        )
-        details = details_resp.json()
-
-        if details.get("Response") != "True":
+        details = _tmdb_request(f"movie/{tmdb_id}", {"append_to_response": "external_ids"})
+        if not details:
             return None
+
+        vote_avg = details.get("vote_average")
+        vote_cnt = details.get("vote_count", 0)
+        rating_str = f"{vote_avg:.1f}" if (vote_avg is not None and vote_cnt > 0 and vote_avg > 0) else "N/A"
+
+        genres_list = [g.get("name") for g in details.get("genres", []) if g.get("name")]
+        genre_str = ", ".join(genres_list) if genres_list else "Unknown"
+
+        runtime_min = details.get("runtime")
+        runtime_str = f"{runtime_min} min" if runtime_min else "Unknown"
+
+        poster_path = details.get("poster_path")
+        poster_url = f"https://image.tmdb.org/t/p/w500{poster_path}" if poster_path else None
+
+        ext_ids = details.get("external_ids") or {}
+        imdb_id = ext_ids.get("imdb_id") or details.get("imdb_id")
+
+        plot_str = details.get("overview") or ""
 
         return {
-            "rating": details.get("imdbRating", "N/A"),
-            "genre": details.get("Genre", "Unknown"),
-            "runtime": details.get("Runtime", "Unknown"),
-            "poster": details.get("Poster"),
-            "imdb_id": details.get("imdbID"),
-            "plot": details.get("Plot", ""),
+            "rating": rating_str,
+            "genre": genre_str,
+            "runtime": runtime_str,
+            "poster": poster_url,
+            "imdb_id": imdb_id,
+            "plot": plot_str,
         }
 
     except Exception as e:
-        log(f"OMDb error for '{title}': {e}")
+        log(f"TMDb error for '{title}': {e}")
         return None
 
 
@@ -378,7 +380,7 @@ def process_feed(payload, store, seen_keys):
         added += 1
         log(f"Added: {clean_title} ({year}) | IMDb {rating}")
 
-        time.sleep(0.3)  # be polite to OMDb
+        time.sleep(0.2)  # be polite to TMDb
 
     return added
 
@@ -388,14 +390,14 @@ def main():
     parser.add_argument(
         "--refetch",
         action="store_true",
-        help="Re-fetch OMDb metadata for ALL existing movies in data/movies.json",
+        help="Re-fetch TMDb metadata for ALL existing movies in data/movies.json",
     )
     parser.add_argument(
         "--refetch-unrated",
         dest="refetch_unrated",
         action="store_true",
         default=True,
-        help="Re-fetch OMDb metadata for unrated or incomplete movies (default: True)",
+        help="Re-fetch TMDb metadata for unrated or incomplete movies (default: True)",
     )
     parser.add_argument(
         "--no-refetch-unrated",
@@ -409,13 +411,13 @@ def main():
     env_unrated = os.environ.get("REFETCH_UNRATED", "").lower()
     refetch_unrated = args.refetch_unrated if not env_unrated else env_unrated in ("true", "1", "yes")
 
-    if not OMDB_API_KEY:
-        log("WARNING: OMDB_API_KEY not set — metadata will be skipped.")
+    if not TMDB_API_KEY:
+        log("WARNING: TMDB_API_KEY not set — metadata will be skipped.")
 
     store = load_existing()
 
     if refetch_all:
-        log(f"Full refetch mode enabled — re-evaluating OMDb metadata for ALL {len(store['movies'])} existing movie(s)...")
+        log(f"Full refetch mode enabled — re-evaluating TMDb metadata for ALL {len(store['movies'])} existing movie(s)...")
         updated_count = 0
         for i, m in enumerate(store["movies"]):
             clean_title = m.get("title", "")
@@ -433,19 +435,19 @@ def main():
                 if metadata.get("poster") and metadata.get("poster") != "N/A":
                     m["poster"] = metadata.get("poster")
                 updated_count += 1
-                log(f"  -> Updated: {clean_title} ({year}) | IMDb {m['rating']} | ID: {m['imdb_id']}")
+                log(f"  -> Updated: {clean_title} ({year}) | Rating {m['rating']} | IMDb ID: {m['imdb_id']}")
             else:
-                log(f"  -> No valid OMDb match found for {clean_title} ({year}).")
-            time.sleep(0.3)
+                log(f"  -> No valid TMDb match found for {clean_title} ({year}).")
+            time.sleep(0.2)
         save(store)
         log(f"Full refetch complete. Re-evaluated {updated_count}/{len(store['movies'])} movies.")
-    elif refetch_unrated and OMDB_API_KEY:
+    elif refetch_unrated and TMDB_API_KEY:
         unrated_movies = [
             m for m in store["movies"]
             if m.get("rating") in ("N/A", None, "", "0.0") or not m.get("imdb_id")
         ]
         if unrated_movies:
-            log(f"Unrated/Incomplete refetch enabled — checking OMDb for {len(unrated_movies)} movie(s)...")
+            log(f"Unrated/Incomplete refetch enabled — checking TMDb for {len(unrated_movies)} movie(s)...")
             updated_count = 0
             for i, m in enumerate(unrated_movies):
                 clean_title = m.get("title", "")
@@ -466,8 +468,8 @@ def main():
                     updated_count += 1
                     log(f"  -> Refetched: {clean_title} ({year}) | Rating: {old_rating} -> {m['rating']} | IMDb ID: {m['imdb_id']}")
                 else:
-                    log(f"  -> Still no OMDb match for {clean_title} ({year}).")
-                time.sleep(0.3)
+                    log(f"  -> Still no TMDb match for {clean_title} ({year}).")
+                time.sleep(0.2)
             save(store)
             log(f"Unrated refetch complete. Updated {updated_count}/{len(unrated_movies)} movie(s).")
 

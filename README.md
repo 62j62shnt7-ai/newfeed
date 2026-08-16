@@ -1,7 +1,7 @@
 # Scene Reel
 
 A static movie-tracker: a scheduled GitHub Action scrapes your RSS feed,
-enriches each entry with OMDb, and commits the result to `data/movies.json`.
+enriches each entry with TMDb, and commits the result to `data/movies.json`.
 `index.html` is a single-file vanilla JS/CSS page that reads that JSON and
 renders the library — no server, no database, no Streamlit, no Selenium.
 
@@ -11,9 +11,9 @@ renders the library — no server, no database, no Streamlit, no Selenium.
 |---|---|
 | SQLite database | `data/movies.json`, committed by the Action |
 | `undetected_chromedriver` + manual chromedriver version detection/download/code-signing | Playwright, which manages its own browser binary — none of that code exists anymore |
-| Poster files cached to disk | OMDb poster URLs are hotlinked directly |
+| Poster files cached to disk | TMDb poster URLs are hotlinked directly |
 | Watchlist / exclusions stored in SQLite (server-side, shared) | Stored in the visitor's browser (`localStorage`) — personal, per-browser, not synced across devices |
-| OMDb API key embedded in the app | Kept as a GitHub Actions secret — never shipped to the browser, since only the Action calls OMDb |
+| TMDb API key embedded in the app | Kept as a GitHub Actions secret — never shipped to the browser, since only the Action calls TMDb |
 
 One behavior change worth knowing: excluding a movie in the old app deleted
 it from the database so it could never come back. Here, "Exclude" just hides
@@ -26,9 +26,9 @@ excluded, but the row does stay in `data/movies.json`.
 1. **Create the repo** and push these files (or point an existing repo at
    this content).
 
-2. **Add your OMDb API key as a secret**
+2. **Add your TMDb API key as a secret**
    Repo → Settings → Secrets and variables → Actions → New repository
-   secret → name it `OMDB_API_KEY`.
+   secret → name it `TMDB_API_KEY`. (Get a free API key at [themoviedb.org/settings/api](https://www.themoviedb.org/settings/api)).
 
 3. *(Optional)* **Set repo variables** if you want to override the defaults
    in `scripts/scrape.py`:
@@ -60,4 +60,4 @@ python3 -m http.server 8000
 
 (The scraper (`scripts/scrape.py`) is meant to run in CI, but you can run it
 locally too: `pip install -r scripts/requirements.txt && playwright install
-chromium && OMDB_API_KEY=... python scripts/scrape.py`.)
+chromium && TMDB_API_KEY=... python scripts/scrape.py`.)
