@@ -248,7 +248,12 @@ def fetch_official_imdb_ratings(imdb_ids):
     log(f"Downloading official IMDb daily ratings dataset ({len(valid_ids)} target IDs)...")
     ratings_map = {}
     try:
-        resp = requests.get(IMDB_RATINGS_DATASET_URL, timeout=40, stream=True)
+        resp = requests.get(
+            IMDB_RATINGS_DATASET_URL,
+            headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"},
+            timeout=40,
+            stream=True
+        )
         if resp.status_code != 200:
             log(f"IMDb dataset HTTP status {resp.status_code}")
             return {}
@@ -273,12 +278,11 @@ def fetch_official_imdb_ratings(imdb_ids):
 
 def sync_official_imdb_ratings(store):
     """
-    Enriches all non-excluded movies with official IMDb ratings from title.ratings.tsv.gz.
+    Enriches all movies with official IMDb ratings from title.ratings.tsv.gz.
     """
-    excluded_set = set(store.get("excluded", []))
     imdb_ids = {
         m.get("imdb_id") for m in store.get("movies", [])
-        if m.get("imdb_id") and m.get("guid") not in excluded_set and m.get("slug") not in excluded_set
+        if m.get("imdb_id")
     }
     if not imdb_ids:
         return

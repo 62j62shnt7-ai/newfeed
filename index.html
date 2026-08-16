@@ -812,7 +812,9 @@ async function refetchSingleMovie(guid) {
 
   const meta = await fetchTmdbMetadataClient(movie.title, movie.year);
   if (meta) {
-    movie.rating = meta.rating;
+    if (meta.rating !== "N/A" && (!movie.rating || movie.rating === "N/A")) {
+      movie.rating = meta.rating;
+    }
     movie.genre = meta.genre;
     movie.runtime = meta.runtime;
     movie.imdb_id = meta.imdb_id;
@@ -859,8 +861,8 @@ async function refetchAllUnrated() {
     const m = unrated[i];
     if (btn) btn.textContent = `⌛ (${i+1}/${unrated.length}) Refetching...`;
     const meta = await fetchTmdbMetadataClient(m.title, m.year);
-    if (meta && meta.rating !== "N/A") {
-      m.rating = meta.rating;
+    if (meta) {
+      if (meta.rating !== "N/A") m.rating = meta.rating;
       m.genre = meta.genre;
       m.runtime = meta.runtime;
       m.imdb_id = meta.imdb_id;
@@ -914,7 +916,9 @@ async function refetchCurrentPage() {
     if (btn) btn.textContent = `⌛ (${i+1}/${currentMovies.length}) Refetching...`;
     const meta = await fetchTmdbMetadataClient(m.title, m.year);
     if (meta) {
-      m.rating = meta.rating;
+      if (meta.rating !== "N/A" && (!m.rating || m.rating === "N/A")) {
+        m.rating = meta.rating;
+      }
       m.genre = meta.genre;
       m.runtime = meta.runtime;
       m.imdb_id = meta.imdb_id;
