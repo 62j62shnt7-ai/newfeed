@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-08-15T07:26:55.294151+00:00",
+  "last_updated": "2026-08-16T07:27:25.683306+00:00",
   "movies": [
     {
       "guid": "https://www.scnsrc.me/?p=540506",
@@ -4212,6 +4212,58 @@
       "imdb_id": "tt36454145",
       "plot": "N/A",
       "date_added": "2026-08-15T07:26:44.597775+00:00"
+    },
+    {
+      "guid": "https://www.scnsrc.me/?p=542991",
+      "slug": "thewronggirls",
+      "title": "The Wrong Girls",
+      "year": "2026",
+      "rating": "N/A",
+      "poster": "https://img3.pixhost.cc/images/4981/758895307_the-wrong-girls-2026-720p-cam-h264-cinemacity.jpg",
+      "genre": "Comedy, Crime, Drama",
+      "runtime": "100 min",
+      "imdb_id": "tt35060353",
+      "plot": "Two aimless young women inadvertently gain telepathic abilities after ingesting an experimental drug, pitting them against dangerous rivals pursuing the same powerful substance.",
+      "date_added": "2026-08-16T07:27:13.893289+00:00"
+    },
+    {
+      "guid": "https://www.scnsrc.me/?p=542982",
+      "slug": "therivalsofamziahking",
+      "title": "The Rivals Of Amziah King",
+      "year": "2025",
+      "rating": "7.7",
+      "poster": "https://img3.pixhost.cc/images/4981/758895302_the-rivals-of-amziah-king-2025-720p-cam-h264-cinemacity.jpg",
+      "genre": "Crime, Drama, Thriller",
+      "runtime": "130 min",
+      "imdb_id": "tt27706593",
+      "plot": "Amziah King, beekeeper, musician, and anchor of his community, reunites with former foster daughter Kateri after many years apart, and fends off threats to his honey business.",
+      "date_added": "2026-08-16T07:27:14.566180+00:00"
+    },
+    {
+      "guid": "https://www.scnsrc.me/?p=542979",
+      "slug": "evel",
+      "title": "Evel",
+      "year": "2026",
+      "rating": "7.2",
+      "poster": "https://i.postimg.cc/PrsMX7qR/EVEL.jpg",
+      "genre": "Documentary, Action, Biography",
+      "runtime": "99 min",
+      "imdb_id": "tt4076756",
+      "plot": "The real story behind the myth of American icon Robert 'Evel' Knievel and his legacy.",
+      "date_added": "2026-08-16T07:27:15.227692+00:00"
+    },
+    {
+      "guid": "https://www.scnsrc.me/?p=542975",
+      "slug": "feed",
+      "title": "Feed",
+      "year": "2026",
+      "rating": "N/A",
+      "poster": "https://i.postimg.cc/pdgGML5z/images-q-tbn-ANd9Gc-Qk-Xzy-Kc-FCSU-DMSk-BUEE-Rg8AAn-X0j-Ll0SZ8Z2kr27oh-XY6Vxz-HUGLf1U-s-10.jpg",
+      "genre": "Horror",
+      "runtime": "N/A",
+      "imdb_id": "tt27656996",
+      "plot": "A new mom struggles through the realities of breastfeeding, and is restored by a malicious old woman's folkloric curse.",
+      "date_added": "2026-08-16T07:27:15.622094+00:00"
     }
   ],
   "watchlist": [
