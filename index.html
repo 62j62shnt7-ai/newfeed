@@ -348,6 +348,7 @@
     <div class="tagline">auto-tracked from your RSS feed · enriched via TMDb</div>
   </div>
   <div style="display: flex; align-items: flex-end; gap: 12px; flex-wrap: wrap;">
+    <button class="backup-btn" id="refetchPageHeaderBtn" type="button" style="margin-top: 0; border-color: var(--gold);" onclick="refetchCurrentPage()" title="Re-fetch TMDb metadata for all movies currently visible on this page">↻ Refetch Page (<span id="currentPageCount">0</span>)</button>
     <button class="backup-btn" id="refetchUnratedHeaderBtn" type="button" style="margin-top: 0; border-color: var(--gold-dim);" onclick="refetchAllUnrated()" title="Re-fetch TMDb metadata for movies without scores">↻ Refetch Unrated (<span id="unratedCount">0</span>)</button>
     <button class="backup-btn" id="gistSyncBtn" type="button" style="margin-top: 0;">☁️ Cloud & Repo Sync <span class="sync-pill" id="gistSyncStatus">Setup</span></button>
     <div id="lastUpdated">
@@ -629,10 +630,7 @@ function cardHTML(m, scope){
   `;
 }
 
-function render(){
-  const grid = document.getElementById('grid');
-  const empty = document.getElementById('empty');
-
+function getCurrentVisibleMovies(){
   let base;
   if (state.tab === 'library'){
     base = state.movies.filter(m => !state.watchlist.has(m.guid) && !state.excluded.has(m.guid));
@@ -641,8 +639,14 @@ function render(){
   } else {
     base = state.movies.filter(m => state.excluded.has(m.guid));
   }
+  return applyFiltersSort(base);
+}
 
-  const rows = applyFiltersSort(base);
+function render(){
+  const grid = document.getElementById('grid');
+  const empty = document.getElementById('empty');
+
+  const rows = getCurrentVisibleMovies();
 
   document.getElementById('countLibrary').textContent =
     `(${state.movies.filter(m => !state.watchlist.has(m.guid) && !state.excluded.has(m.guid)).length})`;
@@ -650,6 +654,8 @@ function render(){
     `(${state.movies.filter(m => state.watchlist.has(m.guid) && !state.excluded.has(m.guid)).length})`;
   document.getElementById('countExcluded').textContent =
     `(${state.movies.filter(m => state.excluded.has(m.guid)).length})`;
+
+  updateCurrentPageCount(rows.length);
 
   if (!rows.length){
     grid.style.display = 'none';
@@ -873,6 +879,60 @@ async function refetchAllUnrated() {
     btn.disabled = false;
   }
   alert(`Finished batch refetch! Successfully updated ${updatedCount} movie(s).`);
+}
+
+function updateCurrentPageCount(count) {
+  const countEl = document.getElementById('currentPageCount');
+  if (!countEl) return;
+  countEl.textContent = count !== undefined ? count : getCurrentVisibleMovies().length;
+}
+
+async function refetchCurrentPage() {
+  const currentMovies = getCurrentVisibleMovies();
+  if (!currentMovies.length) {
+    alert("No movies currently displayed on this page to refetch.");
+    return;
+  }
+
+  const key = getTmdbKey();
+  if (!key) {
+    const userKey = prompt("Please enter your TMDb API Key to refetch movie metadata (get free key at themoviedb.org/settings/api):");
+    if (!userKey || !userKey.trim()) return;
+    localStorage.setItem(LS_TMDB_KEY, userKey.trim());
+    const tmdbInput = document.getElementById('tmdbKeyInput');
+    if (tmdbInput) tmdbInput.value = userKey.trim();
+  }
+
+  if (!confirm(`Refetch TMDb metadata for all ${currentMovies.length} movie(s) currently visible on this page?`)) return;
+
+  const btn = document.getElementById('refetchPageHeaderBtn');
+  if (btn) btn.disabled = true;
+
+  let updatedCount = 0;
+  for (let i = 0; i < currentMovies.length; i++) {
+    const m = currentMovies[i];
+    if (btn) btn.textContent = `⌛ (${i+1}/${currentMovies.length}) Refetching...`;
+    const meta = await fetchTmdbMetadataClient(m.title, m.year);
+    if (meta) {
+      m.rating = meta.rating;
+      m.genre = meta.genre;
+      m.runtime = meta.runtime;
+      m.imdb_id = meta.imdb_id;
+      m.plot = meta.plot;
+      if (meta.poster) m.poster = meta.poster;
+      updatedCount++;
+    }
+    await new Promise(r => setTimeout(r, 200));
+  }
+
+  saveMoviesOverride();
+  populateGenres();
+  render();
+  updateUnratedCount();
+  if (btn) {
+    btn.disabled = false;
+  }
+  alert(`Finished refetching current page! Successfully updated ${updatedCount} movie(s).`);
 }
 
 function saveMoviesOverride() {
