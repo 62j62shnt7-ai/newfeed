@@ -13,6 +13,8 @@ browser binary, so there's nothing to detect, download, or code-sign.
 """
 
 import argparse
+import gzip
+import io
 import json
 import os
 import re
@@ -34,6 +36,7 @@ FEED_URL = os.environ.get(
 MAX_PAGES = int(os.environ.get("MAX_PAGES", "5"))
 TMDB_API_KEY = os.environ.get("TMDB_API_KEY", "")
 TMDB_API_URL = "https://api.themoviedb.org/3"
+IMDB_RATINGS_DATASET_URL = "https://datasets.imdbws.com/title.ratings.tsv.gz"
 
 DATA_PATH = Path(__file__).resolve().parent.parent / "data" / "movies.json"
 
@@ -227,6 +230,74 @@ def fetch_movie_metadata(title, year=None):
     except Exception as e:
         log(f"TMDb error for '{title}': {e}")
         return None
+
+
+# =========================================================
+# OFFICIAL IMDB DAILY DATASET ENRICHMENT
+# =========================================================
+
+def fetch_official_imdb_ratings(imdb_ids):
+    """
+    Downloads IMDb's official daily title.ratings.tsv.gz export and extracts
+    ratings for the given set of imdb_ids (e.g. {'tt1234567', ...}).
+    """
+    valid_ids = {i for i in imdb_ids if i and str(i).startswith("tt")}
+    if not valid_ids:
+        return {}
+
+    log(f"Downloading official IMDb daily ratings dataset ({len(valid_ids)} target IDs)...")
+    ratings_map = {}
+    try:
+        resp = requests.get(IMDB_RATINGS_DATASET_URL, timeout=40, stream=True)
+        if resp.status_code != 200:
+            log(f"IMDb dataset HTTP status {resp.status_code}")
+            return {}
+
+        with gzip.GzipFile(fileobj=io.BytesIO(resp.content)) as gz:
+            for line_bytes in gz:
+                line = line_bytes.decode("utf-8", errors="ignore").rstrip("\r\n")
+                parts = line.split("\t")
+                if len(parts) >= 2:
+                    tconst, avg_rating = parts[0], parts[1]
+                    if tconst in valid_ids:
+                        ratings_map[tconst] = avg_rating
+                        if len(ratings_map) >= len(valid_ids):
+                            break
+
+        log(f"Matched {len(ratings_map)} official IMDb rating(s) from daily dataset.")
+    except Exception as e:
+        log(f"Error reading IMDb ratings dataset: {e}")
+
+    return ratings_map
+
+
+def sync_official_imdb_ratings(store):
+    """
+    Enriches all non-excluded movies with official IMDb ratings from title.ratings.tsv.gz.
+    """
+    excluded_set = set(store.get("excluded", []))
+    imdb_ids = {
+        m.get("imdb_id") for m in store.get("movies", [])
+        if m.get("imdb_id") and m.get("guid") not in excluded_set and m.get("slug") not in excluded_set
+    }
+    if not imdb_ids:
+        return
+
+    official_ratings = fetch_official_imdb_ratings(imdb_ids)
+    if not official_ratings:
+        return
+
+    updated_count = 0
+    for m in store.get("movies", []):
+        imdb_id = m.get("imdb_id")
+        if imdb_id and imdb_id in official_ratings:
+            new_rating = official_ratings[imdb_id]
+            if new_rating and new_rating != "N/A" and m.get("rating") != new_rating:
+                m["rating"] = new_rating
+                updated_count += 1
+
+    if updated_count > 0:
+        log(f"Synced official IMDb ratings for {updated_count} movie(s).")
 
 
 # =========================================================
@@ -444,6 +515,7 @@ def main():
             else:
                 log(f"  -> No valid TMDb match found for {clean_title} ({year}).")
             time.sleep(0.2)
+        sync_official_imdb_ratings(store)
         save(store)
         log(f"Full refetch complete. Re-evaluated {updated_count}/{len(target_movies)} movies.")
     elif refetch_unrated and TMDB_API_KEY:
@@ -477,6 +549,7 @@ def main():
                 else:
                     log(f"  -> Still no TMDb match for {clean_title} ({year}).")
                 time.sleep(0.2)
+            sync_official_imdb_ratings(store)
             save(store)
             log(f"Unrated refetch complete. Updated {updated_count}/{len(unrated_movies)} movie(s).")
 
@@ -495,6 +568,7 @@ def main():
         total_added += process_feed(payload, store, seen_keys)
         time.sleep(1)
 
+    sync_official_imdb_ratings(store)
     save(store)
     log(f"Done. Added {total_added} new movie(s). Total: {len(store['movies'])}")
 
