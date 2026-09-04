@@ -243,10 +243,14 @@
     color:var(--line);
   }
   .poster.placeholder.excluded{
-    font-size:28px;
-    background:var(--surface-2);
-    color:var(--muted);
-    opacity:0.45;
+    display:none !important;
+  }
+  .card.excluded-card{
+    border-color:rgba(239,68,68,0.25);
+    background:rgba(26,31,46,0.6);
+  }
+  .card.excluded-card .poster{
+    display:none !important;
   }
   .card-body{
     padding:12px 14px 14px;
@@ -983,9 +987,11 @@ function applyFiltersSort(list){
 
 function cardHTML(m, scope){
   const isExcluded = scope === 'excluded' || state.excluded.has(m.guid);
-  const posterHTML = (!isExcluded && m.poster)
-    ? `<img class="poster" src="${m.poster}" alt="" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'poster placeholder',textContent:'🎬'}))">`
-    : `<div class="poster placeholder ${isExcluded ? 'excluded' : ''}" title="${isExcluded ? 'Poster loading disabled for excluded movie' : ''}">${isExcluded ? '🚫' : '🎬'}</div>`;
+  const posterHTML = isExcluded
+    ? ''
+    : (m.poster
+        ? `<img class="poster" src="${m.poster}" alt="" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'poster placeholder',textContent:'🎬'}))">`
+        : `<div class="poster placeholder">🎬</div>`);
 
   const inWatchlist = state.watchlist.has(m.guid);
 
@@ -1123,16 +1129,22 @@ function openMovieDetail(guid) {
   const inWatchlist = state.watchlist.has(m.guid);
   const isExcluded = state.excluded.has(m.guid);
 
-  if (m.backdrop) {
-    hero.style.backgroundImage = `url('${m.backdrop}')`;
-  } else if (m.poster) {
-    hero.style.backgroundImage = `url('${m.poster}')`;
-  } else {
+  if (isExcluded) {
     hero.style.backgroundImage = 'none';
-  }
+    poster.src = '';
+    poster.style.display = 'none';
+  } else {
+    if (m.backdrop) {
+      hero.style.backgroundImage = `url('${m.backdrop}')`;
+    } else if (m.poster) {
+      hero.style.backgroundImage = `url('${m.poster}')`;
+    } else {
+      hero.style.backgroundImage = 'none';
+    }
 
-  poster.src = m.poster || '';
-  poster.style.display = m.poster ? 'block' : 'none';
+    poster.src = m.poster || '';
+    poster.style.display = m.poster ? 'block' : 'none';
+  }
 
   title.textContent = m.title;
   rating.textContent = `⭐ ${m.rating || 'N/A'}`;
@@ -2486,14 +2498,14 @@ fetch('data/movies.json?_=' + Date.now())
     
     applyMoviesOverride();
 
-    // Seed from the JSON configuration if local state has not been initialized yet
-    const hasLocalWatchlist = localStorage.getItem(LS_WATCHLIST) !== null;
-    const hasLocalExcluded = localStorage.getItem(LS_EXCLUDED) !== null;
+    // Seed from data.movies.json if local state is empty or not yet set
+    const localW = JSON.parse(localStorage.getItem(LS_WATCHLIST) || '[]');
+    const localE = JSON.parse(localStorage.getItem(LS_EXCLUDED) || '[]');
 
-    if (!hasLocalWatchlist && data.watchlist && Array.isArray(data.watchlist)) {
+    if (localW.length === 0 && data.watchlist && Array.isArray(data.watchlist)) {
       data.watchlist.forEach(id => state.watchlist.add(id));
     }
-    if (!hasLocalExcluded && data.excluded && Array.isArray(data.excluded)) {
+    if (localE.length === 0 && data.excluded && Array.isArray(data.excluded)) {
       data.excluded.forEach(id => state.excluded.add(id));
     }
     persist(); // Sync and merge choices back to local browser storage
@@ -2501,7 +2513,7 @@ fetch('data/movies.json?_=' + Date.now())
     const luDiv = document.getElementById('lastUpdated');
     luDiv.innerHTML = `
       <div>${data.last_updated ? 'Last updated: ' + new Date(data.last_updated).toLocaleString() : 'Not yet run'}</div>
-      <div style="display: flex; gap: 6px; margin-top: 4px;">
+      <div style="display: flex; gap: 6px; margin-top: 4px; flex-wrap: wrap;">
         <button class="backup-btn" onclick="saveToLocalFile()" title="Save directly to data/movies.json on disk">💾 Save Local File</button>
         <button class="backup-btn" onclick="downloadBackup()" title="Export JSON file">📥 Export JSON</button>
       </div>
