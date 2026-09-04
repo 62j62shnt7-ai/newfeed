@@ -242,6 +242,12 @@
     font-size:38px;
     color:var(--line);
   }
+  .poster.placeholder.excluded{
+    font-size:28px;
+    background:var(--surface-2);
+    color:var(--muted);
+    opacity:0.45;
+  }
   .card-body{
     padding:12px 14px 14px;
     display:flex;
@@ -295,33 +301,324 @@
     margin-top:auto;
     display:flex;
     gap:6px;
+    align-items:center;
     padding-top:8px;
   }
   .actions button, .actions a{
-    flex:1;
     text-align:center;
     background:var(--surface-2);
     border:1px solid var(--line);
     color:var(--text);
-    padding:7px 6px;
+    padding:7px 8px;
     border-radius:6px;
     font-size:12px;
     cursor:pointer;
     text-decoration:none;
-    font-family:'Inter';
+    font-family:'Inter',system-ui,sans-serif;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    box-sizing:border-box;
+    transition:background .15s ease, border-color .15s ease, color .15s ease, transform .1s ease;
+  }
+  .actions button:hover, .actions a:hover{
+    transform:translateY(-1px);
+  }
+  .actions button.watch{
+    flex:1.2;
+    min-width:0;
+    white-space:nowrap;
   }
   .actions button.watch.on{
     background:var(--gold);
     color:#181510;
     border-color:var(--gold);
+    font-weight:600;
+  }
+  .actions button.exclude{
+    flex:1;
+    min-width:0;
+    white-space:nowrap;
   }
   .actions button.exclude:hover{
     border-color:var(--exclude);
     color:var(--exclude);
   }
   .actions button.restore{
+    flex:1;
     background:var(--gold-dim);
     color:#181510;
+    font-weight:600;
+  }
+  .actions button.refetch-single{
+    flex:0 0 32px;
+    width:32px;
+    height:32px;
+    padding:0;
+    font-size:15px;
+    border-radius:50%;
+    color:var(--gold);
+    line-height:1;
+  }
+  .actions button.refetch-single:hover{
+    background:var(--line);
+    border-color:var(--gold);
+  }
+  .actions .imdb-badge{
+    flex:0 0 46px;
+    width:46px;
+    height:32px;
+    padding:0;
+    background:#f5c518;
+    color:#000000;
+    font-family:'IBM Plex Mono',monospace;
+    font-weight:700;
+    font-size:11px;
+    letter-spacing:0.5px;
+    border-radius:4px;
+    border:1px solid #e2b616;
+    line-height:1;
+  }
+  .actions .imdb-badge:hover{
+    background:#e2b616;
+    color:#000000;
+    border-color:#d4a713;
+  }
+  .actions .imdb-badge.fallback{
+    background:var(--surface-2);
+    color:var(--muted);
+    border-color:var(--line);
+    font-weight:500;
+  }
+  .actions .imdb-badge.fallback:hover{
+    background:var(--line);
+    color:var(--text);
+  }
+
+  .card-clickable{
+    cursor:pointer;
+  }
+  .card-clickable:hover h3{
+    color:var(--gold);
+  }
+  .card h3{
+    transition:color .15s ease;
+  }
+
+  /* Search & Filter Chips */
+  .search-wrap{
+    position:relative;
+    flex:1;
+    min-width:220px;
+    display:flex;
+    align-items:center;
+  }
+  .search-wrap input[type=text]{
+    width:100%;
+    padding-right:28px;
+  }
+  .search-clear-btn{
+    position:absolute;
+    right:8px;
+    background:none;
+    border:none;
+    color:var(--muted);
+    font-size:13px;
+    cursor:pointer;
+    padding:2px 4px;
+    border-radius:50%;
+    display:none;
+    line-height:1;
+  }
+  .search-clear-btn:hover{
+    color:var(--text);
+  }
+  .chip-bar{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    padding:0 32px 14px;
+  }
+  .filter-chip{
+    background:var(--surface);
+    border:1px solid var(--line);
+    color:var(--muted);
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    padding:5px 11px;
+    border-radius:14px;
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .filter-chip:hover{
+    color:var(--text);
+    border-color:var(--gold-dim);
+  }
+  .filter-chip.active{
+    background:var(--surface-2);
+    color:var(--gold);
+    border-color:var(--gold);
+    font-weight:600;
+  }
+
+  /* Load More */
+  .load-more-container{
+    display:flex;
+    justify-content:center;
+    padding:24px 0 10px;
+    width:100%;
+  }
+  .load-more-btn{
+    padding:10px 24px;
+    font-size:13px;
+    border-color:var(--gold);
+    color:var(--gold);
+    border-radius:8px;
+    background:var(--surface);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .load-more-btn:hover{
+    background:var(--surface-2);
+    transform:translateY(-1px);
+  }
+
+  /* Movie Detail Modal */
+  dialog#movieDetailDialog{
+    background:var(--surface);
+    color:var(--text);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:0;
+    max-width:680px;
+    width:92%;
+    box-shadow:0 24px 60px rgba(0,0,0,0.85);
+    overflow:hidden;
+  }
+  dialog#movieDetailDialog::backdrop{
+    background:rgba(0,0,0,0.75);
+    backdrop-filter:blur(6px);
+  }
+  .modal-hero{
+    position:relative;
+    width:100%;
+    min-height:140px;
+    background:var(--surface-2);
+    background-size:cover;
+    background-position:center;
+    border-bottom:1px solid var(--line);
+  }
+  .modal-hero-overlay{
+    position:absolute;
+    inset:0;
+    background:linear-gradient(to bottom, rgba(18,18,20,0.2) 0%, rgba(27,27,30,0.95) 100%);
+  }
+  .modal-close-btn{
+    position:absolute;
+    top:12px;
+    right:12px;
+    z-index:10;
+    background:rgba(0,0,0,0.6);
+    border:1px solid var(--line);
+    color:var(--text);
+    width:32px;
+    height:32px;
+    border-radius:50%;
+    cursor:pointer;
+    font-size:16px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    backdrop-filter:blur(4px);
+    transition:background .15s ease, color .15s ease;
+  }
+  .modal-close-btn:hover{
+    background:rgba(0,0,0,0.9);
+    color:var(--gold);
+  }
+  .modal-body{
+    padding:18px 24px 24px;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+  }
+  .modal-header-info{
+    display:flex;
+    gap:16px;
+    align-items:flex-start;
+  }
+  .modal-poster{
+    width:110px;
+    aspect-ratio:2/3;
+    object-fit:cover;
+    border-radius:6px;
+    border:1px solid var(--line);
+    flex-shrink:0;
+    margin-top:-40px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.6);
+    background:var(--surface-2);
+  }
+  .modal-title-wrap h2{
+    font-family:'Bebas Neue',sans-serif;
+    font-size:30px;
+    letter-spacing:1.5px;
+    margin:0;
+    line-height:1.1;
+    color:var(--gold);
+  }
+  .modal-meta-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    margin-top:6px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+  }
+  .modal-plot{
+    font-size:13.5px;
+    line-height:1.6;
+    color:var(--text);
+    margin:0;
+    background:var(--surface-2);
+    padding:12px 14px;
+    border-radius:6px;
+    border:1px solid var(--line);
+  }
+  .modal-details-grid{
+    display:grid;
+    grid-template-columns:auto 1fr;
+    gap:6px 12px;
+    font-size:12.5px;
+    font-family:'IBM Plex Mono',monospace;
+    color:var(--muted);
+  }
+  .modal-details-grid strong{
+    color:var(--text);
+  }
+  .modal-trailer-wrap{
+    margin-top:4px;
+    border-radius:8px;
+    overflow:hidden;
+    background:#000;
+    aspect-ratio:16/9;
+    border:1px solid var(--line);
+  }
+  .modal-trailer-wrap iframe{
+    width:100%;
+    height:100%;
+    border:none;
+    display:block;
+  }
+  .modal-actions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    padding-top:10px;
+    border-top:1px solid var(--line);
+  }
+  .modal-actions a, .modal-actions button{
+    padding:8px 12px;
+    font-size:12px;
   }
 
   .empty{
@@ -348,6 +645,7 @@
     <div class="tagline">auto-tracked from your RSS feed · enriched via TMDb</div>
   </div>
   <div style="display: flex; align-items: flex-end; gap: 12px; flex-wrap: wrap;">
+    <button class="backup-btn" id="exportWatchlistBtn" type="button" style="margin-top: 0;" onclick="exportLetterboxdCSV()" title="Export your watchlist to Letterboxd / IMDb compatible CSV">📋 Export Watchlist</button>
     <button class="backup-btn" id="refetchPageHeaderBtn" type="button" style="margin-top: 0; border-color: var(--gold);" onclick="refetchCurrentPage()" title="Re-fetch TMDb metadata for all movies currently visible on this page">↻ Refetch Page (<span id="currentPageCount">0</span>)</button>
     <button class="backup-btn" id="refetchUnratedHeaderBtn" type="button" style="margin-top: 0; border-color: var(--gold-dim);" onclick="refetchAllUnrated()" title="Re-fetch TMDb metadata for movies without scores">↻ Refetch Unrated (<span id="unratedCount">0</span>)</button>
     <button class="backup-btn" id="gistSyncBtn" type="button" style="margin-top: 0;">☁️ Cloud & Repo Sync <span class="sync-pill" id="gistSyncStatus">Setup</span></button>
@@ -365,7 +663,10 @@
 </nav>
 
 <div class="filters">
-  <input type="text" id="search" placeholder="🔍 Search title…">
+  <div class="search-wrap">
+    <input type="text" id="search" placeholder="🔍 Search title, director, cast, year, plot…">
+    <button type="button" id="searchClearBtn" class="search-clear-btn" title="Clear search">✕</button>
+  </div>
   <select id="sort">
     <option value="date">Date added (newest)</option>
     <option value="rating">Rating (highest)</option>
@@ -377,10 +678,66 @@
   </label>
 </div>
 
+<div class="chip-bar" id="chipBar">
+  <button class="filter-chip active" data-chip="all">All</button>
+  <button class="filter-chip" data-chip="top-rated">⭐ 7.0+ IMDb</button>
+  <button class="filter-chip" data-chip="2026">2026 Releases</button>
+  <button class="filter-chip" data-chip="unrated">Unrated / Fresh</button>
+  <button class="filter-chip" data-chip="action">Action</button>
+  <button class="filter-chip" data-chip="comedy">Comedy</button>
+  <button class="filter-chip" data-chip="scifi">Sci-Fi</button>
+  <button class="filter-chip" data-chip="horror">Horror</button>
+  <button class="filter-chip" data-chip="drama">Drama</button>
+</div>
+
 <main>
   <div class="grid" id="grid"></div>
+  <div id="loadMoreWrap" class="load-more-container" style="display:none;">
+    <button id="loadMoreBtn" class="backup-btn load-more-btn" type="button">⬇️ Load More Movies</button>
+  </div>
   <div class="empty" id="empty" style="display:none;"></div>
 </main>
+
+<dialog id="movieDetailDialog">
+  <div class="modal-hero" id="modalHero">
+    <div class="modal-hero-overlay"></div>
+    <button class="modal-close-btn" type="button" onclick="document.getElementById('movieDetailDialog').close()" title="Close (Esc)">✕</button>
+  </div>
+  <div class="modal-body">
+    <div class="modal-header-info">
+      <img id="modalPoster" class="modal-poster" src="" alt="Poster" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'100\' height=\'150\' fill=\'%23232326\'><rect width=\'100\' height=\'150\'/><text x=\'50\' y=\'80\' font-size=\'30\' text-anchor=\'middle\' fill=\'%238f8a80\'>🎬</text></svg>'">
+      <div class="modal-title-wrap" style="flex: 1; min-width: 0;">
+        <h2 id="modalTitle"></h2>
+        <div class="modal-meta-row">
+          <span class="chip rating" id="modalRating">⭐ N/A</span>
+          <span class="chip" id="modalYear"></span>
+          <span class="chip" id="modalRuntime"></span>
+          <span class="chip" id="modalGenre"></span>
+        </div>
+      </div>
+    </div>
+    <p class="modal-plot" id="modalPlot"></p>
+    <div class="modal-details-grid" id="modalCredits">
+      <div><strong>Director:</strong></div>
+      <div id="modalDirector">—</div>
+      <div><strong>Cast:</strong></div>
+      <div id="modalCast">—</div>
+      <div><strong>Scene:</strong></div>
+      <div id="modalRawRelease" style="word-break: break-all;">—</div>
+    </div>
+    <div class="modal-trailer-wrap" id="modalTrailerContainer" style="display: none;">
+      <iframe id="modalTrailerIframe" src="" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+    </div>
+    <div class="modal-actions">
+      <button id="modalWatchBtn" class="watch" type="button">☆ Watchlist</button>
+      <button id="modalExcludeBtn" class="exclude" type="button">🚫 Exclude</button>
+      <a id="modalImdbLink" href="#" target="_blank" rel="noopener" class="imdb-badge" style="display: inline-flex; height: 32px; padding: 0 10px; align-items: center;">IMDb</a>
+      <a id="modalTmdbLink" href="#" target="_blank" rel="noopener" class="backup-btn" style="text-decoration: none; display: inline-flex; align-items: center;">🍿 TMDb</a>
+      <a id="modalLetterboxdLink" href="#" target="_blank" rel="noopener" class="backup-btn" style="text-decoration: none; display: inline-flex; align-items: center;">📋 Letterboxd</a>
+      <a id="modalSceneLink" href="#" target="_blank" rel="noopener" class="backup-btn" style="text-decoration: none; display: inline-flex; align-items: center; color: var(--gold);">⚡ Scene Post</a>
+    </div>
+  </div>
+</dialog>
 
 <footer>Data updates automatically via a scheduled GitHub Action. You can export unified tracking configurations to sync status globally.</footer>
 
@@ -486,6 +843,9 @@ const state = {
   sort: 'date',
   genre: '',
   minRating: 0,
+  activeChip: 'all',
+  page: 1,
+  pageSize: 36,
   watchlist: new Set(),
   excluded: new Set(),
 };
@@ -576,7 +936,14 @@ function applyFiltersSort(list){
   let rows = list;
   if (state.search.trim()){
     const q = state.search.trim().toLowerCase();
-    rows = rows.filter(m => m.title.toLowerCase().includes(q));
+    rows = rows.filter(m =>
+      (m.title && m.title.toLowerCase().includes(q)) ||
+      (m.genre && m.genre.toLowerCase().includes(q)) ||
+      (m.director && m.director.toLowerCase().includes(q)) ||
+      (m.cast && m.cast.toLowerCase().includes(q)) ||
+      (m.year && String(m.year).includes(q)) ||
+      (m.plot && m.plot.toLowerCase().includes(q))
+    );
   }
   if (state.minRating > 0){
     rows = rows.filter(m => ratingVal(m.rating) >= state.minRating);
@@ -584,6 +951,26 @@ function applyFiltersSort(list){
   if (state.genre){
     rows = rows.filter(m => (m.genre || '').includes(state.genre));
   }
+  if (state.activeChip === 'top-rated'){
+    rows = rows.filter(m => ratingVal(m.rating) >= 7.0);
+  } else if (state.activeChip === '2026'){
+    rows = rows.filter(m => String(m.year) === '2026');
+  } else if (state.activeChip === 'unrated'){
+    rows = rows.filter(m => m.rating === 'N/A' || !m.rating || m.rating === '0.0');
+  } else if (state.activeChip && state.activeChip !== 'all'){
+    const chipGenreMap = {
+      action: 'action',
+      comedy: 'comedy',
+      scifi: 'sci-fi',
+      horror: 'horror',
+      drama: 'drama'
+    };
+    const target = chipGenreMap[state.activeChip];
+    if (target){
+      rows = rows.filter(m => (m.genre || '').toLowerCase().includes(target));
+    }
+  }
+
   if (state.sort === 'rating'){
     rows = [...rows].sort((a,b) => ratingVal(b.rating) - ratingVal(a.rating));
   } else if (state.sort === 'title'){
@@ -595,39 +982,52 @@ function applyFiltersSort(list){
 }
 
 function cardHTML(m, scope){
-  const posterHTML = m.poster
+  const isExcluded = scope === 'excluded' || state.excluded.has(m.guid);
+  const posterHTML = (!isExcluded && m.poster)
     ? `<img class="poster" src="${m.poster}" alt="" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'poster placeholder',textContent:'🎬'}))">`
-    : `<div class="poster placeholder">🎬</div>`;
+    : `<div class="poster placeholder ${isExcluded ? 'excluded' : ''}" title="${isExcluded ? 'Poster loading disabled for excluded movie' : ''}">${isExcluded ? '🚫' : '🎬'}</div>`;
 
   const inWatchlist = state.watchlist.has(m.guid);
-  const isExcluded = state.excluded.has(m.guid);
+
+  const imdbBtn = m.imdb_id
+    ? `<a href="https://www.imdb.com/title/${m.imdb_id}/" target="_blank" rel="noopener" class="imdb-badge" title="Open IMDb page" onclick="event.stopPropagation()">IMDb</a>`
+    : `<a href="https://www.imdb.com/find/?q=${encodeURIComponent(m.title)}" target="_blank" rel="noopener" class="imdb-badge fallback" title="Search on IMDb" onclick="event.stopPropagation()">IMDb</a>`;
+
+  const refetchBtn = `<button class="backup-btn refetch-single ${m.rating === 'N/A' || !m.rating ? 'unrated-btn' : ''}" data-action="refetch-single" data-guid="${m.guid}" title="Re-fetch rating & metadata from TMDb" onclick="event.stopPropagation()">↻</button>`;
 
   let actionsHTML = '';
   if (scope === 'excluded'){
-    actionsHTML = `<button class="restore" data-action="restore" data-guid="${m.guid}">↺ Restore</button>`;
+    actionsHTML = `
+      <button class="restore" data-action="restore" data-guid="${m.guid}" onclick="event.stopPropagation()">↺ Restore</button>
+      ${imdbBtn}
+    `;
   } else {
     actionsHTML = `
-      <button class="watch ${inWatchlist ? 'on' : ''}" data-action="watch" data-guid="${m.guid}">
+      <button class="watch ${inWatchlist ? 'on' : ''}" data-action="watch" data-guid="${m.guid}" onclick="event.stopPropagation()">
         ${inWatchlist ? '★ Watchlisted' : '☆ Watchlist'}
       </button>
-      <button class="exclude" data-action="exclude" data-guid="${m.guid}">🚫 Exclude</button>
-      <button class="backup-btn refetch-single ${m.rating === 'N/A' || !m.rating ? 'unrated-btn' : ''}" data-action="refetch-single" data-guid="${m.guid}" title="Re-fetch rating & metadata from TMDb">↻ Refetch</button>
-      ${m.imdb_id ? `<a href="https://www.imdb.com/title/${m.imdb_id}/" target="_blank" rel="noopener">IMDb</a>` : ''}
+      <button class="exclude" data-action="exclude" data-guid="${m.guid}" onclick="event.stopPropagation()">🚫 Exclude</button>
+      ${refetchBtn}
+      ${imdbBtn}
     `;
   }
 
+  const safeGuid = encodeURIComponent(m.guid);
+
   return `
-    <div class="card">
-      ${posterHTML}
-      <div class="card-body">
-        <h3>${m.title} <span class="year">${m.year || ''}</span></h3>
-        <div class="chips">
-          <span class="chip rating">⭐ ${m.rating || 'N/A'}</span>
-          <span class="chip">${m.genre || 'Unknown'}</span>
-          <span class="chip">${m.runtime || 'Unknown'}</span>
+    <div class="card ${isExcluded ? 'excluded-card' : ''}">
+      <div class="card-clickable" onclick="openMovieDetail(decodeURIComponent('${safeGuid}'))" title="Click to view full details & trailer">
+        ${posterHTML}
+        <div class="card-body">
+          <h3>${m.title} <span class="year">${m.year || ''}</span></h3>
+          <div class="chips">
+            <span class="chip rating">⭐ ${m.rating || 'N/A'}</span>
+            <span class="chip">${m.genre || 'Unknown'}</span>
+            <span class="chip">${m.runtime || 'Unknown'}</span>
+          </div>
+          ${m.plot ? `<details class="synopsis" onclick="event.stopPropagation()"><summary>Synopsis</summary><p>${m.plot}</p></details>` : ''}
+          <div class="actions">${actionsHTML}</div>
         </div>
-        ${m.plot ? `<details class="synopsis"><summary>Synopsis</summary><p>${m.plot}</p></details>` : ''}
-        <div class="actions">${actionsHTML}</div>
       </div>
     </div>
   `;
@@ -660,17 +1060,169 @@ function render(){
 
   updateCurrentPageCount(rows.length);
 
+  const refetchBtn = document.getElementById('refetchPageHeaderBtn');
+  if (refetchBtn) {
+    if (state.tab === 'excluded') {
+      refetchBtn.disabled = true;
+      refetchBtn.title = "Refetching disabled for excluded titles";
+    } else {
+      refetchBtn.disabled = false;
+      refetchBtn.title = "Re-fetch TMDb metadata for all movies currently visible on this page";
+    }
+  }
+
+  const loadMoreWrap = document.getElementById('loadMoreWrap');
+  const loadMoreBtn = document.getElementById('loadMoreBtn');
+
   if (!rows.length){
     grid.style.display = 'none';
     empty.style.display = 'block';
+    if (loadMoreWrap) loadMoreWrap.style.display = 'none';
     empty.textContent = state.movies.length
       ? 'No movies match your filters.'
       : 'No movies yet — the next scheduled run will populate this.';
     return;
   }
+
   grid.style.display = 'grid';
   empty.style.display = 'none';
-  grid.innerHTML = rows.map(m => cardHTML(m, state.tab)).join('');
+
+  const visibleLimit = state.page * state.pageSize;
+  const visibleRows = rows.slice(0, visibleLimit);
+  grid.innerHTML = visibleRows.map(m => cardHTML(m, state.tab)).join('');
+
+  if (loadMoreWrap && loadMoreBtn) {
+    if (rows.length > visibleRows.length) {
+      loadMoreWrap.style.display = 'flex';
+      loadMoreBtn.textContent = `⬇️ Load More Movies (Showing ${visibleRows.length} of ${rows.length})`;
+    } else {
+      loadMoreWrap.style.display = 'none';
+    }
+  }
+}
+
+function openMovieDetail(guid) {
+  const m = state.movies.find(x => x.guid === guid);
+  if (!m) return;
+
+  const dlg = document.getElementById('movieDetailDialog');
+  const hero = document.getElementById('modalHero');
+  const poster = document.getElementById('modalPoster');
+  const title = document.getElementById('modalTitle');
+  const rating = document.getElementById('modalRating');
+  const year = document.getElementById('modalYear');
+  const runtime = document.getElementById('modalRuntime');
+  const genre = document.getElementById('modalGenre');
+  const plot = document.getElementById('modalPlot');
+  const director = document.getElementById('modalDirector');
+  const cast = document.getElementById('modalCast');
+  const rawRelease = document.getElementById('modalRawRelease');
+  const trailerWrap = document.getElementById('modalTrailerContainer');
+  const trailerIframe = document.getElementById('modalTrailerIframe');
+
+  const inWatchlist = state.watchlist.has(m.guid);
+  const isExcluded = state.excluded.has(m.guid);
+
+  if (m.backdrop) {
+    hero.style.backgroundImage = `url('${m.backdrop}')`;
+  } else if (m.poster) {
+    hero.style.backgroundImage = `url('${m.poster}')`;
+  } else {
+    hero.style.backgroundImage = 'none';
+  }
+
+  poster.src = m.poster || '';
+  poster.style.display = m.poster ? 'block' : 'none';
+
+  title.textContent = m.title;
+  rating.textContent = `⭐ ${m.rating || 'N/A'}`;
+  year.textContent = m.year ? `${m.year}` : 'Year: Unknown';
+  runtime.textContent = m.runtime || 'Unknown';
+  genre.textContent = m.genre || 'Unknown';
+  plot.textContent = m.plot || 'No synopsis available.';
+
+  director.textContent = m.director || '—';
+  cast.textContent = m.cast || '—';
+  rawRelease.textContent = m.raw_title || m.guid || '—';
+
+  if (m.trailer_key) {
+    trailerWrap.style.display = 'block';
+    trailerIframe.src = `https://www.youtube-nocookie.com/embed/${m.trailer_key}?rel=0`;
+  } else {
+    trailerWrap.style.display = 'none';
+    trailerIframe.src = '';
+  }
+
+  const watchBtn = document.getElementById('modalWatchBtn');
+  watchBtn.className = `watch ${inWatchlist ? 'on' : ''}`;
+  watchBtn.textContent = inWatchlist ? '★ Watchlisted' : '☆ Watchlist';
+  watchBtn.onclick = () => {
+    state.watchlist.has(m.guid) ? state.watchlist.delete(m.guid) : state.watchlist.add(m.guid);
+    persist();
+    render();
+    watchBtn.className = `watch ${state.watchlist.has(m.guid) ? 'on' : ''}`;
+    watchBtn.textContent = state.watchlist.has(m.guid) ? '★ Watchlisted' : '☆ Watchlist';
+  };
+
+  const exclBtn = document.getElementById('modalExcludeBtn');
+  exclBtn.className = `exclude ${isExcluded ? 'on' : ''}`;
+  exclBtn.textContent = isExcluded ? '↺ Restore' : '🚫 Exclude';
+  exclBtn.onclick = () => {
+    if (state.excluded.has(m.guid)) {
+      state.excluded.delete(m.guid);
+    } else {
+      state.excluded.add(m.guid);
+      state.watchlist.delete(m.guid);
+    }
+    persist();
+    render();
+    dlg.close();
+  };
+
+  const imdbLink = document.getElementById('modalImdbLink');
+  imdbLink.href = m.imdb_id ? `https://www.imdb.com/title/${m.imdb_id}/` : `https://www.imdb.com/find/?q=${encodeURIComponent(m.title)}`;
+
+  const tmdbLink = document.getElementById('modalTmdbLink');
+  tmdbLink.href = `https://www.themoviedb.org/search?query=${encodeURIComponent(m.title)}`;
+
+  const lbLink = document.getElementById('modalLetterboxdLink');
+  lbLink.href = `https://letterboxd.com/search/${encodeURIComponent(m.title)}/`;
+
+  const sceneLink = document.getElementById('modalSceneLink');
+  const sourceUrl = m.source_url || m.guid;
+  if (sourceUrl && sourceUrl.startsWith('http')) {
+    sceneLink.href = sourceUrl;
+    sceneLink.style.display = 'inline-flex';
+  } else {
+    sceneLink.style.display = 'none';
+  }
+
+  dlg.showModal();
+}
+
+function exportLetterboxdCSV() {
+  const watchlistedMovies = state.movies.filter(m => state.watchlist.has(m.guid));
+  if (!watchlistedMovies.length) {
+    alert("Your watchlist is currently empty. Add movies to your Watchlist to export!");
+    return;
+  }
+
+  const rows = [["Title", "Year", "imdbID"]];
+  watchlistedMovies.forEach(m => {
+    const cleanTitle = (m.title || '').replace(/"/g, '""');
+    rows.push([`"${cleanTitle}"`, m.year || "", m.imdb_id || ""]);
+  });
+
+  const csvContent = rows.map(r => r.join(",")).join("\n");
+  const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `scene-reel-watchlist-${new Date().toISOString().slice(0, 10)}.csv`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
 }
 
 document.addEventListener('click', e => {
@@ -785,17 +1337,27 @@ async function fetchTmdbMetadataClient(title, year) {
 
     if (!bestMatch || !bestMatch.id) return null;
 
-    const details = await tmdbFetch(`movie/${bestMatch.id}`, { append_to_response: 'external_ids' });
+    const details = await tmdbFetch(`movie/${bestMatch.id}`, { append_to_response: 'external_ids,videos,credits' });
     if (!details) return null;
 
     const rating = (details.vote_average && details.vote_count > 0) ? details.vote_average.toFixed(1) : 'N/A';
     const genre = (details.genres && details.genres.length > 0) ? details.genres.map(g => g.name).join(', ') : 'Unknown';
     const runtime = details.runtime ? `${details.runtime} min` : 'Unknown';
     const poster = details.poster_path ? `https://image.tmdb.org/t/p/w500${details.poster_path}` : null;
+    const backdrop = details.backdrop_path ? `https://image.tmdb.org/t/p/w1280${details.backdrop_path}` : null;
     const imdbId = details.external_ids?.imdb_id || details.imdb_id || null;
     const plot = details.overview || '';
 
-    return { rating, genre, runtime, poster, imdb_id: imdbId, plot };
+    const trailerObj = (details.videos?.results || []).find(v => v.site === 'YouTube' && (v.type === 'Trailer' || v.type === 'Teaser'));
+    const trailerKey = trailerObj ? trailerObj.key : null;
+
+    const directors = (details.credits?.crew || []).filter(c => c.job === 'Director' && c.name).map(c => c.name);
+    const director = directors.length > 0 ? directors.slice(0, 2).join(', ') : null;
+
+    const castList = (details.credits?.cast || []).slice(0, 4).map(c => c.name).filter(Boolean);
+    const cast = castList.length > 0 ? castList.join(', ') : null;
+
+    return { rating, genre, runtime, poster, backdrop, imdb_id: imdbId, plot, trailer_key: trailerKey, director, cast };
   } catch (err) {
     console.error("TMDb Client Fetch Error:", err);
   }
@@ -807,10 +1369,10 @@ async function refetchSingleMovie(guid) {
   if (!movie) return;
 
   const btn = document.querySelector(`button[data-guid="${CSS.escape(guid)}"][data-action="refetch-single"]`);
-  const origText = btn ? btn.textContent : "↻ Refetch";
+  const origText = btn ? btn.textContent : "↻";
   if (btn) {
     btn.disabled = true;
-    btn.textContent = "⌛ Fetching...";
+    btn.textContent = "⌛";
   }
 
   const meta = await fetchTmdbMetadataClient(movie.title, movie.year);
@@ -823,6 +1385,10 @@ async function refetchSingleMovie(guid) {
     movie.imdb_id = meta.imdb_id;
     movie.plot = meta.plot;
     if (meta.poster) movie.poster = meta.poster;
+    if (meta.backdrop) movie.backdrop = meta.backdrop;
+    if (meta.trailer_key) movie.trailer_key = meta.trailer_key;
+    if (meta.director) movie.director = meta.director;
+    if (meta.cast) movie.cast = meta.cast;
 
     saveMoviesOverride();
     populateGenres();
@@ -893,9 +1459,13 @@ function updateCurrentPageCount(count) {
 }
 
 async function refetchCurrentPage() {
-  const currentMovies = getCurrentVisibleMovies();
+  if (state.tab === 'excluded') {
+    alert("Refetching metadata and posters is disabled for excluded movies.");
+    return;
+  }
+  const currentMovies = getCurrentVisibleMovies().filter(m => !state.excluded.has(m.guid));
   if (!currentMovies.length) {
-    alert("No movies currently displayed on this page to refetch.");
+    alert("No non-excluded movies currently displayed on this page to refetch.");
     return;
   }
 
@@ -945,12 +1515,16 @@ async function refetchCurrentPage() {
 function saveMoviesOverride() {
   const overrides = {};
   state.movies.forEach(m => {
-    if (m.rating !== "N/A" || m.imdb_id) {
+    if (m.rating !== "N/A" || m.imdb_id || m.trailer_key || m.director || m.backdrop) {
       overrides[m.guid] = {
         rating: m.rating,
         genre: m.genre,
         runtime: m.runtime,
         poster: m.poster,
+        backdrop: m.backdrop,
+        trailer_key: m.trailer_key,
+        director: m.director,
+        cast: m.cast,
         imdb_id: m.imdb_id,
         plot: m.plot
       };
@@ -975,6 +1549,10 @@ function applyMoviesOverride() {
           m.runtime = ov.runtime;
         }
         if (ov.poster && !m.poster) m.poster = ov.poster;
+        if (ov.backdrop && !m.backdrop) m.backdrop = ov.backdrop;
+        if (ov.trailer_key && !m.trailer_key) m.trailer_key = ov.trailer_key;
+        if (ov.director && !m.director) m.director = ov.director;
+        if (ov.cast && !m.cast) m.cast = ov.cast;
         if (ov.imdb_id && !m.imdb_id) m.imdb_id = ov.imdb_id;
         if (ov.plot && !m.plot) m.plot = ov.plot;
       }
@@ -1000,17 +1578,95 @@ document.querySelectorAll('nav.tabs button').forEach(btn => {
     document.querySelectorAll('nav.tabs button').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     state.tab = btn.dataset.tab;
+    state.page = 1;
     render();
   });
 });
 
-document.getElementById('search').addEventListener('input', e => { state.search = e.target.value; render(); });
-document.getElementById('sort').addEventListener('change', e => { state.sort = e.target.value; render(); });
-document.getElementById('genre').addEventListener('change', e => { state.genre = e.target.value; render(); });
+const searchInput = document.getElementById('search');
+const searchClearBtn = document.getElementById('searchClearBtn');
+if (searchInput) {
+  searchInput.addEventListener('input', e => {
+    state.search = e.target.value;
+    state.page = 1;
+    if (searchClearBtn) searchClearBtn.style.display = state.search ? 'block' : 'none';
+    render();
+  });
+}
+if (searchClearBtn) {
+  searchClearBtn.addEventListener('click', () => {
+    if (searchInput) searchInput.value = '';
+    state.search = '';
+    state.page = 1;
+    searchClearBtn.style.display = 'none';
+    render();
+  });
+}
+
+document.getElementById('sort').addEventListener('change', e => { state.sort = e.target.value; state.page = 1; render(); });
+document.getElementById('genre').addEventListener('change', e => { state.genre = e.target.value; state.page = 1; render(); });
 document.getElementById('minRating').addEventListener('input', e => {
   state.minRating = parseFloat(e.target.value);
   document.getElementById('minRatingVal').textContent = state.minRating;
+  state.page = 1;
   render();
+});
+
+document.querySelectorAll('.filter-chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    state.activeChip = chip.dataset.chip;
+    state.page = 1;
+    render();
+  });
+});
+
+const loadMoreBtn = document.getElementById('loadMoreBtn');
+if (loadMoreBtn) {
+  loadMoreBtn.addEventListener('click', () => {
+    state.page++;
+    render();
+  });
+}
+
+const detailDialog = document.getElementById('movieDetailDialog');
+if (detailDialog) {
+  detailDialog.addEventListener('close', () => {
+    const iframe = document.getElementById('modalTrailerIframe');
+    if (iframe) iframe.src = '';
+  });
+}
+
+document.addEventListener('keydown', e => {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+    if (e.key === 'Escape' && e.target.id === 'search') {
+      e.target.value = '';
+      state.search = '';
+      state.page = 1;
+      if (searchClearBtn) searchClearBtn.style.display = 'none';
+      render();
+    }
+    return;
+  }
+
+  if (e.key === '/') {
+    e.preventDefault();
+    if (searchInput) { searchInput.focus(); searchInput.select(); }
+  } else if (e.key === 'Escape') {
+    if (detailDialog && detailDialog.open) detailDialog.close();
+    const syncDialog = document.getElementById('gistSyncDialog');
+    if (syncDialog && syncDialog.open) syncDialog.close();
+  } else if (e.key === '1') {
+    const btn = document.querySelector('nav.tabs button[data-tab="library"]');
+    if (btn) btn.click();
+  } else if (e.key === '2') {
+    const btn = document.querySelector('nav.tabs button[data-tab="watchlist"]');
+    if (btn) btn.click();
+  } else if (e.key === '3') {
+    const btn = document.querySelector('nav.tabs button[data-tab="excluded"]');
+    if (btn) btn.click();
+  }
 });
 
 // --- GitHub Gist & Repository Cloud Sync Engine ---

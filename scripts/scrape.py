@@ -42,8 +42,13 @@ DATA_PATH = Path(__file__).resolve().parent.parent / "data" / "movies.json"
 
 JUNK_WORDS = [
     "PROPER", "REPACK", "MULTI", "DUAL", "HDR", "HDR10", "DV", "ATMOS",
-    "TRUEHD", "DDP5", "AAC", "BluRay", "BRRip", "WEBRip", "WEB", "NF",
-    "AMZN", "HMAX", "1080p", "720p", "2160p", "x264", "x265", "h264", "h265",
+    "TRUEHD", "DDP5", "AAC", "BluRay", "BRRip", "WEBRip", "WEB", "WEB-DL",
+    "WEBDL", "DL", "NF", "AMZN", "HMAX", "1080p", "720p", "2160p", "x264",
+    "x265", "h264", "h265", "EXTENDED", "REMASTERED", "UNRATED", "DIRECTORS CUT",
+    "DIRECTOR'S CUT", "IMAX", "HYBRID", "CRITERION", "REMUX", "LIMITED",
+    "COMPLETE", "SUBBED", "DUBBED", "INTERNAL", "READNFO", "FESTIVAL",
+    "DOCU", "ATVP", "DSNP", "PARAMOUNT", "PEACOCK", "HULU", "UHD", "FLAC",
+    "AV1", "HEVC", "DTS", "DTS-HD",
 ]
 
 
@@ -66,7 +71,9 @@ def build_feed_page_url(base_url, page):
 
 
 def clean_scene_title(raw_title):
-    title = re.sub(r"[\._\-]+", " ", raw_title)
+    # Pre-strip trailing release group before punctuation stripping
+    working = re.sub(r"-[A-Za-z0-9]+$", "", raw_title.strip())
+    title = re.sub(r"[\._\-]+", " ", working)
     title = re.sub(r"\[.*?\]", "", title)
 
     year_matches = list(re.finditer(r"\b(19\d{2}|20\d{2})\b", title))
@@ -77,7 +84,7 @@ def clean_scene_title(raw_title):
             candidate_prefix = title[:m.start()].strip()
             test_prefix = candidate_prefix
             for junk in JUNK_WORDS:
-                test_prefix = re.sub(rf"\b{junk}\b", "", test_prefix, flags=re.IGNORECASE)
+                test_prefix = re.sub(rf"\b{re.escape(junk)}\b", "", test_prefix, flags=re.IGNORECASE)
             if test_prefix.strip():
                 selected_match = m
                 break
@@ -89,7 +96,12 @@ def clean_scene_title(raw_title):
             year = None
 
     for junk in JUNK_WORDS:
-        title = re.sub(rf"\b{junk}\b", "", title, flags=re.IGNORECASE)
+        title = re.sub(rf"\b{re.escape(junk)}\b", "", title, flags=re.IGNORECASE)
+
+    # Strip AKA / a.k.a. alternative titles to prevent failed TMDb queries
+    aka_split = re.split(r"\s+\b(?:aka|a\.k\.a\.)\b\s+", title, flags=re.IGNORECASE)
+    if len(aka_split) > 1 and aka_split[0].strip():
+        title = aka_split[0].strip()
 
     title = re.sub(r"\s+", " ", title).strip()
     return title, year
@@ -196,7 +208,7 @@ def fetch_movie_metadata(title, year=None):
         if not tmdb_id:
             return None
 
-        details = _tmdb_request(f"movie/{tmdb_id}", {"append_to_response": "external_ids"})
+        details = _tmdb_request(f"movie/{tmdb_id}", {"append_to_response": "external_ids,videos,credits"})
         if not details:
             return None
 
@@ -213,18 +225,43 @@ def fetch_movie_metadata(title, year=None):
         poster_path = details.get("poster_path")
         poster_url = f"https://image.tmdb.org/t/p/w500{poster_path}" if poster_path else None
 
+        backdrop_path = details.get("backdrop_path")
+        backdrop_url = f"https://image.tmdb.org/t/p/w1280{backdrop_path}" if backdrop_path else None
+
         ext_ids = details.get("external_ids") or {}
         imdb_id = ext_ids.get("imdb_id") or details.get("imdb_id")
 
         plot_str = details.get("overview") or ""
+
+        # Extract YouTube trailer
+        trailer_key = None
+        videos = (details.get("videos") or {}).get("results", [])
+        for v in videos:
+            if v.get("site") == "YouTube" and v.get("type") in ("Trailer", "Teaser"):
+                trailer_key = v.get("key")
+                if v.get("type") == "Trailer":
+                    break
+
+        # Extract director(s)
+        crew = (details.get("credits") or {}).get("crew", [])
+        directors = [c.get("name") for c in crew if c.get("job") == "Director" and c.get("name")]
+        director_str = ", ".join(directors[:2]) if directors else None
+
+        # Extract top cast
+        cast_list = (details.get("credits") or {}).get("cast", [])
+        cast_str = ", ".join([c.get("name") for c in cast_list[:4] if c.get("name")]) if cast_list else None
 
         return {
             "rating": rating_str,
             "genre": genre_str,
             "runtime": runtime_str,
             "poster": poster_url,
+            "backdrop": backdrop_url,
             "imdb_id": imdb_id,
             "plot": plot_str,
+            "trailer_key": trailer_key,
+            "director": director_str,
+            "cast": cast_str,
         }
 
     except Exception as e:
@@ -251,14 +288,15 @@ def fetch_official_imdb_ratings(imdb_ids):
         resp = requests.get(
             IMDB_RATINGS_DATASET_URL,
             headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"},
-            timeout=40,
+            timeout=60,
             stream=True
         )
         if resp.status_code != 200:
             log(f"IMDb dataset HTTP status {resp.status_code}")
             return {}
 
-        with gzip.GzipFile(fileobj=io.BytesIO(resp.content)) as gz:
+        resp.raw.decode_content = False
+        with gzip.GzipFile(fileobj=resp.raw) as gz:
             for line_bytes in gz:
                 line = line_bytes.decode("utf-8", errors="ignore").rstrip("\r\n")
                 parts = line.split("\t")
@@ -278,11 +316,12 @@ def fetch_official_imdb_ratings(imdb_ids):
 
 def sync_official_imdb_ratings(store):
     """
-    Enriches all movies with official IMDb ratings from title.ratings.tsv.gz.
+    Enriches all non-excluded movies with official IMDb ratings from title.ratings.tsv.gz.
     """
+    excluded_set = set(store.get("excluded", []))
     imdb_ids = {
         m.get("imdb_id") for m in store.get("movies", [])
-        if m.get("imdb_id")
+        if m.get("imdb_id") and m.get("guid") not in excluded_set and m.get("slug") not in excluded_set
     }
     if not imdb_ids:
         return
@@ -428,22 +467,36 @@ def process_feed(payload, store, seen_keys):
         poster = extract_poster(desc_node.text if desc_node is not None else "")
 
         rating, genre, runtime, imdb_id, plot = "N/A", "Unknown", "Unknown", None, ""
+        backdrop, trailer_key, director, cast = None, None, None, None
         if metadata:
             rating = metadata.get("rating", "N/A")
             genre = metadata.get("genre", "Unknown")
             runtime = metadata.get("runtime", "Unknown")
             imdb_id = metadata.get("imdb_id")
             plot = metadata.get("plot", "")
+            backdrop = metadata.get("backdrop")
+            trailer_key = metadata.get("trailer_key")
+            director = metadata.get("director")
+            cast = metadata.get("cast")
             if not poster:
                 poster = metadata.get("poster")
 
+        guid_val = guid_node.text.strip() if guid_node is not None and guid_node.text else raw_title
+        source_url = guid_val if guid_val.startswith("http") else None
+
         store["movies"].append({
-            "guid": guid_node.text if guid_node is not None else raw_title,
+            "guid": guid_val,
+            "source_url": source_url,
+            "raw_title": raw_title,
             "slug": slug,
             "title": clean_title,
             "year": year,
             "rating": rating,
             "poster": poster if poster and poster != "N/A" else None,
+            "backdrop": backdrop,
+            "trailer_key": trailer_key,
+            "director": director,
+            "cast": cast,
             "genre": genre,
             "runtime": runtime,
             "imdb_id": imdb_id,
@@ -514,6 +567,14 @@ def main():
                 m["plot"] = metadata.get("plot", "")
                 if metadata.get("poster") and metadata.get("poster") != "N/A":
                     m["poster"] = metadata.get("poster")
+                if metadata.get("backdrop"):
+                    m["backdrop"] = metadata.get("backdrop")
+                if metadata.get("trailer_key"):
+                    m["trailer_key"] = metadata.get("trailer_key")
+                if metadata.get("director"):
+                    m["director"] = metadata.get("director")
+                if metadata.get("cast"):
+                    m["cast"] = metadata.get("cast")
                 updated_count += 1
                 log(f"  -> Updated: {clean_title} ({year}) | Rating {m['rating']} | IMDb ID: {m['imdb_id']}")
             else:
@@ -548,6 +609,14 @@ def main():
                     m["plot"] = metadata.get("plot", "")
                     if metadata.get("poster") and metadata.get("poster") != "N/A":
                         m["poster"] = metadata.get("poster")
+                    if metadata.get("backdrop"):
+                        m["backdrop"] = metadata.get("backdrop")
+                    if metadata.get("trailer_key"):
+                        m["trailer_key"] = metadata.get("trailer_key")
+                    if metadata.get("director"):
+                        m["director"] = metadata.get("director")
+                    if metadata.get("cast"):
+                        m["cast"] = metadata.get("cast")
                     updated_count += 1
                     log(f"  -> Refetched: {clean_title} ({year}) | Rating: {old_rating} -> {m['rating']} | IMDb ID: {m['imdb_id']}")
                 else:
