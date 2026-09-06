@@ -104,6 +104,8 @@
     padding: 20px;
     max-width: 520px;
     width: 92%;
+    max-height: 90vh;
+    overflow-y: auto;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   }
   dialog#gistSyncDialog::backdrop {
@@ -299,7 +301,7 @@
     font-family:'IBM Plex Mono',monospace;
     font-size:11px;
   }
-  details.synopsis p{ margin:6px 0 0; line-height:1.4; }
+  details.synopsis p{ margin:6px 0 0; line-height:1.4; max-height:140px; overflow-y:auto; }
 
   .actions{
     margin-top:auto;
@@ -496,8 +498,22 @@
     padding:0;
     max-width:680px;
     width:92%;
+    max-height:88vh;
+    overflow-y:auto;
     box-shadow:0 24px 60px rgba(0,0,0,0.85);
-    overflow:hidden;
+  }
+  dialog#movieDetailDialog::-webkit-scrollbar{
+    width:8px;
+  }
+  dialog#movieDetailDialog::-webkit-scrollbar-track{
+    background:transparent;
+  }
+  dialog#movieDetailDialog::-webkit-scrollbar-thumb{
+    background:var(--line);
+    border-radius:4px;
+  }
+  dialog#movieDetailDialog::-webkit-scrollbar-thumb:hover{
+    background:var(--muted);
   }
   dialog#movieDetailDialog::backdrop{
     background:rgba(0,0,0,0.75);
@@ -996,23 +1012,23 @@ function cardHTML(m, scope){
   const inWatchlist = state.watchlist.has(m.guid);
 
   const imdbBtn = m.imdb_id
-    ? `<a href="https://www.imdb.com/title/${m.imdb_id}/" target="_blank" rel="noopener" class="imdb-badge" title="Open IMDb page" onclick="event.stopPropagation()">IMDb</a>`
-    : `<a href="https://www.imdb.com/find/?q=${encodeURIComponent(m.title)}" target="_blank" rel="noopener" class="imdb-badge fallback" title="Search on IMDb" onclick="event.stopPropagation()">IMDb</a>`;
+    ? `<a href="https://www.imdb.com/title/${m.imdb_id}/" target="_blank" rel="noopener" class="imdb-badge" title="Open IMDb page">IMDb</a>`
+    : `<a href="https://www.imdb.com/find/?q=${encodeURIComponent(m.title)}" target="_blank" rel="noopener" class="imdb-badge fallback" title="Search on IMDb">IMDb</a>`;
 
-  const refetchBtn = `<button class="backup-btn refetch-single ${m.rating === 'N/A' || !m.rating ? 'unrated-btn' : ''}" data-action="refetch-single" data-guid="${m.guid}" title="Re-fetch rating & metadata from TMDb" onclick="event.stopPropagation()">↻</button>`;
+  const refetchBtn = `<button class="backup-btn refetch-single ${m.rating === 'N/A' || !m.rating ? 'unrated-btn' : ''}" data-action="refetch-single" data-guid="${m.guid}" title="Re-fetch rating & metadata from TMDb">↻</button>`;
 
   let actionsHTML = '';
   if (scope === 'excluded'){
     actionsHTML = `
-      <button class="restore" data-action="restore" data-guid="${m.guid}" onclick="event.stopPropagation()">↺ Restore</button>
+      <button class="restore" data-action="restore" data-guid="${m.guid}">↺ Restore</button>
       ${imdbBtn}
     `;
   } else {
     actionsHTML = `
-      <button class="watch ${inWatchlist ? 'on' : ''}" data-action="watch" data-guid="${m.guid}" onclick="event.stopPropagation()">
+      <button class="watch ${inWatchlist ? 'on' : ''}" data-action="watch" data-guid="${m.guid}">
         ${inWatchlist ? '★ Watchlisted' : '☆ Watchlist'}
       </button>
-      <button class="exclude" data-action="exclude" data-guid="${m.guid}" onclick="event.stopPropagation()">🚫 Exclude</button>
+      <button class="exclude" data-action="exclude" data-guid="${m.guid}">🚫 Exclude</button>
       ${refetchBtn}
       ${imdbBtn}
     `;
@@ -1022,7 +1038,7 @@ function cardHTML(m, scope){
 
   return `
     <div class="card ${isExcluded ? 'excluded-card' : ''}">
-      <div class="card-clickable" onclick="openMovieDetail(decodeURIComponent('${safeGuid}'))" title="Click to view full details & trailer">
+      <div class="card-clickable" onclick="handleCardClick(event, decodeURIComponent('${safeGuid}'))" title="Click to view full details & trailer">
         ${posterHTML}
         <div class="card-body">
           <h3>${m.title} <span class="year">${m.year || ''}</span></h3>
@@ -1031,7 +1047,7 @@ function cardHTML(m, scope){
             <span class="chip">${m.genre || 'Unknown'}</span>
             <span class="chip">${m.runtime || 'Unknown'}</span>
           </div>
-          ${m.plot ? `<details class="synopsis" onclick="event.stopPropagation()"><summary>Synopsis</summary><p>${m.plot}</p></details>` : ''}
+          ${m.plot ? `<details class="synopsis"><summary>Synopsis</summary><p>${m.plot}</p></details>` : ''}
           <div class="actions">${actionsHTML}</div>
         </div>
       </div>
@@ -1105,6 +1121,11 @@ function render(){
       loadMoreWrap.style.display = 'none';
     }
   }
+}
+
+function handleCardClick(e, guid) {
+  if (e.target.closest('button, a, details, summary, .actions')) return;
+  openMovieDetail(guid);
 }
 
 function openMovieDetail(guid) {
@@ -1647,6 +1668,30 @@ if (detailDialog) {
   detailDialog.addEventListener('close', () => {
     const iframe = document.getElementById('modalTrailerIframe');
     if (iframe) iframe.src = '';
+  });
+  detailDialog.addEventListener('click', e => {
+    const rect = detailDialog.getBoundingClientRect();
+    const isInDialog = (
+      rect.top <= e.clientY && e.clientY <= rect.top + rect.height &&
+      rect.left <= e.clientX && e.clientX <= rect.left + rect.width
+    );
+    if (!isInDialog) {
+      detailDialog.close();
+    }
+  });
+}
+
+const syncDialog = document.getElementById('gistSyncDialog');
+if (syncDialog) {
+  syncDialog.addEventListener('click', e => {
+    const rect = syncDialog.getBoundingClientRect();
+    const isInDialog = (
+      rect.top <= e.clientY && e.clientY <= rect.top + rect.height &&
+      rect.left <= e.clientX && e.clientX <= rect.left + rect.width
+    );
+    if (!isInDialog) {
+      syncDialog.close();
+    }
   });
 }
 
