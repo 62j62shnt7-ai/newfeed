@@ -205,7 +205,63 @@
     color:var(--muted);
     display:flex;
     align-items:center;
-    gap:6px;
+    gap:8px;
+    background:var(--surface);
+    border:1px solid var(--line);
+    padding:6px 12px;
+    border-radius:6px;
+  }
+  .filters label span{
+    color:var(--gold);
+    font-weight:600;
+    min-width:24px;
+    display:inline-block;
+  }
+  .filters input[type=range]{
+    -webkit-appearance:none;
+    appearance:none;
+    background:var(--surface-2);
+    height:6px;
+    border-radius:3px;
+    border:1px solid var(--line);
+    padding:0;
+    margin:0;
+    cursor:pointer;
+    width:130px;
+    outline:none;
+  }
+  .filters input[type=range]::-webkit-slider-thumb{
+    -webkit-appearance:none;
+    appearance:none;
+    width:16px;
+    height:16px;
+    border-radius:50%;
+    background:var(--gold);
+    border:2px solid var(--surface-2);
+    box-shadow:0 0 6px rgba(0,0,0,0.5);
+    cursor:pointer;
+    transition:transform .1s ease, background-color .1s ease;
+  }
+  .filters input[type=range]::-webkit-slider-thumb:hover{
+    transform:scale(1.2);
+    background:#ffd56b;
+  }
+  .filters input[type=range]::-webkit-slider-thumb:active{
+    transform:scale(1.25);
+    box-shadow:0 0 8px rgba(232,179,61,0.6);
+  }
+  .filters input[type=range]::-moz-range-thumb{
+    width:16px;
+    height:16px;
+    border-radius:50%;
+    background:var(--gold);
+    border:2px solid var(--surface-2);
+    box-shadow:0 0 6px rgba(0,0,0,0.5);
+    cursor:pointer;
+    transition:transform .1s ease;
+  }
+  .filters input[type=range]::-moz-range-thumb:hover{
+    transform:scale(1.2);
   }
 
   main{
@@ -693,8 +749,11 @@
     <option value="title">Title (A–Z)</option>
   </select>
   <select id="genre"><option value="">All genres</option></select>
-  <label>Min rating <span id="minRatingVal">0</span>
-    <input type="range" id="minRating" min="0" max="10" step="0.5" value="0">
+  <label>Min rating <span id="minRatingVal">0.0</span>
+    <input type="range" id="minRating" min="0" max="10" step="0.1" value="0">
+  </label>
+  <label>Max rating <span id="maxRatingVal">10.0</span>
+    <input type="range" id="maxRating" min="0" max="10" step="0.1" value="10">
   </label>
 </div>
 
@@ -863,6 +922,7 @@ const state = {
   sort: 'date',
   genre: '',
   minRating: 0,
+  maxRating: 10,
   activeChip: 'all',
   page: 1,
   pageSize: 36,
@@ -967,6 +1027,12 @@ function applyFiltersSort(list){
   }
   if (state.minRating > 0){
     rows = rows.filter(m => ratingVal(m.rating) >= state.minRating);
+  }
+  if (state.maxRating < 10){
+    rows = rows.filter(m => {
+      const v = ratingVal(m.rating);
+      return v > 0 && v <= state.maxRating;
+    });
   }
   if (state.genre){
     rows = rows.filter(m => (m.genre || '').includes(state.genre));
@@ -1638,12 +1704,38 @@ if (searchClearBtn) {
 
 document.getElementById('sort').addEventListener('change', e => { state.sort = e.target.value; state.page = 1; render(); });
 document.getElementById('genre').addEventListener('change', e => { state.genre = e.target.value; state.page = 1; render(); });
-document.getElementById('minRating').addEventListener('input', e => {
-  state.minRating = parseFloat(e.target.value);
-  document.getElementById('minRatingVal').textContent = state.minRating;
-  state.page = 1;
-  render();
-});
+const minRatingEl = document.getElementById('minRating');
+const maxRatingEl = document.getElementById('maxRating');
+const minRatingValEl = document.getElementById('minRatingVal');
+const maxRatingValEl = document.getElementById('maxRatingVal');
+
+if (minRatingEl) {
+  minRatingEl.addEventListener('input', e => {
+    state.minRating = Math.round(parseFloat(e.target.value) * 10) / 10;
+    if (state.minRating > state.maxRating) {
+      state.maxRating = state.minRating;
+      if (maxRatingEl) maxRatingEl.value = state.maxRating;
+      if (maxRatingValEl) maxRatingValEl.textContent = state.maxRating.toFixed(1);
+    }
+    if (minRatingValEl) minRatingValEl.textContent = state.minRating.toFixed(1);
+    state.page = 1;
+    render();
+  });
+}
+
+if (maxRatingEl) {
+  maxRatingEl.addEventListener('input', e => {
+    state.maxRating = Math.round(parseFloat(e.target.value) * 10) / 10;
+    if (state.maxRating < state.minRating) {
+      state.minRating = state.maxRating;
+      if (minRatingEl) minRatingEl.value = state.minRating;
+      if (minRatingValEl) minRatingValEl.textContent = state.minRating.toFixed(1);
+    }
+    if (maxRatingValEl) maxRatingValEl.textContent = state.maxRating.toFixed(1);
+    state.page = 1;
+    render();
+  });
+}
 
 document.querySelectorAll('.filter-chip').forEach(chip => {
   chip.addEventListener('click', () => {
