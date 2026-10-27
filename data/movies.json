@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-10-26T13:47:50.267323+00:00",
+  "last_updated": "2026-10-27T12:55:05.628567+00:00",
   "movies": [
     {
       "guid": "https://www.scnsrc.me/?p=540506",
@@ -7865,7 +7865,7 @@
       "slug": "whalefall",
       "title": "Whalefall",
       "year": "2026",
-      "rating": "6.7",
+      "rating": "6.6",
       "poster": "https://images.scnsrc.me/images/2026/10/22/4e4f2e0569b384fbe7c1ec53b80702d9.jpg",
       "backdrop": "https://image.tmdb.org/t/p/w1280/shW2jHkQLZVv4Fko2rJDqTGU0gx.jpg",
       "trailer_key": "Dw-5ZGapGTQ",
@@ -8085,6 +8085,25 @@
       "imdb_id": "tt45368240",
       "plot": "Thirty-four days before she's sent to prison, notorious Silicon Valley founder Elizabeth Holmes invites a skeptical film crew to document her every move. What begins as an intimate portrait of an enigmatic felon becomes a mind-bending three-year journey into the abyss.",
       "date_added": "2026-10-26T13:47:39.625436+00:00"
+    },
+    {
+      "guid": "https://www.scnsrc.me/?p=549370",
+      "source_url": "https://www.scnsrc.me/?p=549370",
+      "raw_title": "The Lost Ones 2026 1080p AMZN WEB-DL DDP5 1 H 264-CHORTLE",
+      "slug": "thelostones",
+      "title": "The Lost Ones",
+      "year": "2026",
+      "rating": "N/A",
+      "poster": "https://images.scnsrc.me/images/2026/10/26/ca732b62a24a1bf492e6a4b59ee4b0c3.jpg",
+      "backdrop": null,
+      "trailer_key": "sq7zxDAhRE0",
+      "director": "Andrew Baird",
+      "cast": "Henry Golding, Alex Pettyfer, Laura Haddock, Saise Quinn",
+      "genre": "Thriller",
+      "runtime": "Unknown",
+      "imdb_id": "tt37028623",
+      "plot": "When a perfect family relocates to rural America, their isolated idyll quickly becomes threatened by a disturbingly volatile neighbor.",
+      "date_added": "2026-10-27T12:54:54.251573+00:00"
     }
   ],
   "watchlist": [
