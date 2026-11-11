@@ -46,14 +46,23 @@ jobs:
           pip install -r scripts/requirements.txt
 
       - name: Cache Playwright Chromium
+        id: playwright-cache
         uses: actions/cache@v4
         with:
           path: ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ hashFiles('scripts/requirements.txt') }}
 
-      # Install Chromium along with required Linux system packages
-      - name: Install Playwright Browser
+      # Install Chromium and system dependencies if cache misses
+      - name: Install Playwright Browser & Dependencies
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        timeout-minutes: 6
         run: playwright install --with-deps chromium
+
+      # Install only OS system dependencies if browser binary is cached
+      - name: Install Playwright System Dependencies
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        timeout-minutes: 5
+        run: playwright install-deps chromium
 
       - name: Run scraper
         env:
