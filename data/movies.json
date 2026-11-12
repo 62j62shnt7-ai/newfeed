@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-11-12T16:02:36.956776+00:00",
+  "last_updated": "2026-11-12T16:20:32.766955+00:00",
   "movies": [
     {
       "guid": "https://www.scnsrc.me/?p=540506",
@@ -20,12 +20,17 @@
       "title": "The Devil Wears Prada 2",
       "year": "2026",
       "rating": "6.3",
-      "poster": "https://image.tmdb.org/t/p/w500/xTI42pmsP5EDnvsNJPEDubwWBQO.jpg",
+      "poster": "https://image.tmdb.org/t/p/w500/fCAURTUx3YfsJ8k9I0UamjSILiR.jpg",
       "genre": "Comedy, Drama",
       "runtime": "119 min",
       "imdb_id": "tt33612209",
       "plot": "Andy Sachs returns to Runway as Miranda Priestly navigates a new media landscape and Runway's position within. The duo reconnect with former assistant Emily Charlton, now the head of a luxury brand that possesses funding which could ensure Runway's survival.",
-      "date_added": "2026-07-19T19:41:42.186701+00:00"
+      "date_added": "2026-07-19T19:41:42.186701+00:00",
+      "original_language": "en",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/dRoFlUbH1l51ACmx5oPCI3jfvZq.jpg",
+      "trailer_key": "PMd1at7OwiE",
+      "director": "David Frankel",
+      "cast": "Meryl Streep, Anne Hathaway, Emily Blunt, Stanley Tucci"
     },
     {
       "guid": "https://www.scnsrc.me/?p=540488",
@@ -462,12 +467,17 @@
       "title": "Moana",
       "year": "2026",
       "rating": "5.8",
-      "poster": "https://image.tmdb.org/t/p/w500/zKVgiv5qHCvCLT4A2ymJi5QeXDH.jpg",
+      "poster": "https://image.tmdb.org/t/p/w500/gaet1xQ2nxrG0V1Ep9T20ZMNEIC.jpg",
       "genre": "Family, Fantasy, Comedy, Adventure",
       "runtime": "115 min",
       "imdb_id": "tt27419466",
       "plot": "Teenage Moana answers the Ocean's call and, for the first time, voyages beyond the reef of her island of Motunui with infamous demigod Maui on an unforgettable journey to restore prosperity to her people.",
-      "date_added": "2026-07-19T19:41:59.766675+00:00"
+      "date_added": "2026-07-19T19:41:59.766675+00:00",
+      "original_language": "en",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/c6BPbkO5Npt1OdwttAxCFo06wtH.jpg",
+      "trailer_key": "EEz5xbzYPKI",
+      "director": "Thomas Kail",
+      "cast": "Catherine Lagaʻaia, Dwayne Johnson, Rena Owen, John Tui"
     },
     {
       "guid": "https://www.scnsrc.me/?p=539846",
@@ -1000,7 +1010,12 @@
       "runtime": "109 min",
       "imdb_id": "tt32278481",
       "plot": "Adventure follows detective Enola Holmes to Malta, where her plans to tie the knot unravel when Sherlock's disappearance plunges her into a perilous case.",
-      "date_added": "2026-07-19T19:42:24.575809+00:00"
+      "date_added": "2026-07-19T19:42:24.575809+00:00",
+      "original_language": "en",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/jLuGZc84MvPYCQomQg9DI72mstt.jpg",
+      "trailer_key": "n_pEJjq-9xQ",
+      "director": "Philip Barantini",
+      "cast": "Millie Bobby Brown, Henry Cavill, Helena Bonham Carter, Louis Partridge"
     },
     {
       "guid": "https://www.scnsrc.me/?p=538999",
@@ -1021,12 +1036,17 @@
       "title": "Supergirl",
       "year": "2026",
       "rating": "5.8",
-      "poster": "https://image.tmdb.org/t/p/w500/1QCWdqzTfh2x9UylVpspIU6QTuM.jpg",
+      "poster": "https://image.tmdb.org/t/p/w500/uhzRnTW4DM13UQBvZP3eVNzQTuz.jpg",
       "genre": "Action, Adventure, Science Fiction",
       "runtime": "108 min",
       "imdb_id": "tt8814476",
       "plot": "When an unexpected and ruthless adversary strikes too close to home, Kara Zor-El, aka Supergirl, reluctantly joins forces with an unlikely companion on an epic, interstellar journey of vengeance and justice.",
-      "date_added": "2026-07-19T20:07:33.037674+00:00"
+      "date_added": "2026-07-19T20:07:33.037674+00:00",
+      "original_language": "en",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/heZQmyNvkH236ha2M3JckdUQQqb.jpg",
+      "trailer_key": "rbLyjarG_bU",
+      "director": "Craig Gillespie",
+      "cast": "Milly Alcock, Eve Ridley, Matthias Schoenaerts, Jason Momoa"
     },
     {
       "guid": "https://www.scnsrc.me/?p=538973",
@@ -1066,19 +1086,6 @@
       "imdb_id": "tt32430579",
       "plot": "An elusive thief, eyeing his final score, encounters a disillusioned insurance broker at her own crossroads. As their paths intertwine, a relentless detective trails them hoping to thwart the multi-million dollar heist they are pl...",
       "date_added": "2026-07-19T20:07:34.567243+00:00"
-    },
-    {
-      "guid": "https://www.scnsrc.me/?p=538897",
-      "slug": "thewizardofthekremlin",
-      "title": "The Wizard Of The Kremlin",
-      "year": "2025",
-      "rating": "6.1",
-      "poster": "https://image.tmdb.org/t/p/w500/85EYON4oXVYTPdMuW5q5ELQLU88.jpg",
-      "genre": "Drama",
-      "runtime": "136 min",
-      "imdb_id": "tt32386654",
-      "plot": "In the chaos of post-Soviet Russia, rising KGB officer Vladimir Putin joins forces with master manipulator Vadim Baranov to reshape life behind the Iron Curtain, using violence and deception to change the world forever.",
-      "date_added": "2026-07-19T20:07:35.058564+00:00"
     },
     {
       "guid": "https://www.scnsrc.me/?p=538878",
@@ -1273,7 +1280,12 @@
       "runtime": "141 min",
       "imdb_id": "tt0427340",
       "plot": "After being separated for 15 years, the Sword of Power leads Prince Adam back to Eternia, where he discovers his home shattered under the fiendish rule of Skeletor. To save his family and his world, Adam must join forces with his closest allies, Teela and Duncan/Man-At-Arms, and embrace his true destiny as He-Man — the most powerful man in the universe.",
-      "date_added": "2026-07-19T20:07:44.849365+00:00"
+      "date_added": "2026-07-19T20:07:44.849365+00:00",
+      "original_language": "en",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/5MUMB3aPEPEQPCIAaygXFUTWE9Y.jpg",
+      "trailer_key": "rJSmz-zhDxE",
+      "director": "Travis Knight",
+      "cast": "Nicholas Galitzine, Camila Mendes, Alison Brie, James Purefoy"
     },
     {
       "guid": "https://www.scnsrc.me/?p=538595",
@@ -1491,10 +1503,15 @@
       "rating": "7.2",
       "poster": "https://image.tmdb.org/t/p/w500/lKK9ImwpoTCwDZKgYpjIIJCnlf0.jpg",
       "genre": "Crime, Drama, Thriller",
-      "runtime": "91 min",
+      "runtime": "90 min",
       "imdb_id": "tt29028515",
       "plot": "Taylor's hopes for a fresh start post-parole are jeopardised by cellmate Dee's arrival. As Dee takes Taylor under his wing, a vicious attack tests their bond, forcing Taylor to choose between protecting Dee and his own chances at freedom.",
-      "date_added": "2026-07-19T20:07:55.719250+00:00"
+      "date_added": "2026-07-19T20:07:55.719250+00:00",
+      "original_language": "en",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/qLp9td9ZfOe7G6wHhrepKtIH5Qe.jpg",
+      "trailer_key": "uaOextY7REM",
+      "director": "Cal McMau",
+      "cast": "David Jonsson, Tom Blyth, Alex Hassell, Neil Linpow"
     },
     {
       "guid": "https://www.scnsrc.me/?p=538340",
@@ -2274,7 +2291,12 @@
       "runtime": "90 min",
       "imdb_id": "tt33249097",
       "plot": "Afflicted by a mysterious condition that resets her memory, Ellie becomes trapped in a cyclical nightmare with a man who claims to be her husband. She soon must uncover the horrifying truth of her existence—before she forgets it all again.",
-      "date_added": "2026-07-19T20:30:09.511311+00:00"
+      "date_added": "2026-07-19T20:30:09.511311+00:00",
+      "original_language": "en",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/a7VEgrESjAnoAUgonPEDXkzol2f.jpg",
+      "trailer_key": "_3IZzygr-HA",
+      "director": "BT Meza",
+      "cast": "Jessica Rothe, Joseph Cross, Julianna Layne"
     },
     {
       "guid": "https://www.scnsrc.me/?p=537191",
@@ -2495,7 +2517,12 @@
       "runtime": "105 min",
       "imdb_id": "tt34685692",
       "plot": "A dysfunctional couple head to a remote cabin to \"reconnect\", but each has secret intentions to kill the other.",
-      "date_added": "2026-07-19T20:30:20.027637+00:00"
+      "date_added": "2026-07-19T20:30:20.027637+00:00",
+      "original_language": "en",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/sb76azrAXr9U13uEQxNP5e3fujY.jpg",
+      "trailer_key": "pGxKTIegUZ4",
+      "director": "Jorma Taccone",
+      "cast": "Jason Segel, Samara Weaving, Paul Guilfoyle, Keith Jardine"
     },
     {
       "guid": "https://www.scnsrc.me/?p=536642",
@@ -2932,12 +2959,17 @@
       "title": "Wuthering Heights",
       "year": "2026",
       "rating": "6.1",
-      "poster": "https://image.tmdb.org/t/p/w500/3YBce6dTh1D5oCMITXk2S5QhPt.jpg",
+      "poster": "https://image.tmdb.org/t/p/w500/ywRO5dyE8RyyXJd6cvd69jLZeic.jpg",
       "genre": "Romance, Drama",
-      "runtime": "137 min",
+      "runtime": "136 min",
       "imdb_id": "tt32897959",
       "plot": "Tragedy strikes when Heathcliff falls in love with Catherine Earnshaw, a woman from a wealthy family in 18th-century England.",
-      "date_added": "2026-07-19T20:30:45.059023+00:00"
+      "date_added": "2026-07-19T20:30:45.059023+00:00",
+      "original_language": "en",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/xEc9tzMd1DETn0Zqv2psfBGO2pa.jpg",
+      "trailer_key": "HWFdeoeBNV0",
+      "director": "Emerald Fennell",
+      "cast": "Margot Robbie, Jacob Elordi, Hong Chau, Shazad Latif"
     },
     {
       "guid": "https://www.scnsrc.me/?p=535367",
@@ -3171,7 +3203,12 @@
       "runtime": "134 min",
       "imdb_id": "tt32323252",
       "plot": "Christy Martin never imagined life beyond her small-town roots in West Virginia—until she discovered a knack for punching people. Fueled by grit, raw determination, and an unshakable desire to win, she charges into the world of boxing under the guidance of her trainer and manager-turned-husband, Jim. But while Christy flaunts a fiery persona in the ring, her toughest battles unfold outside it—confronting family, identity, and a relationship that just might become life-or-death.",
-      "date_added": "2026-07-19T20:30:57.821730+00:00"
+      "date_added": "2026-07-19T20:30:57.821730+00:00",
+      "original_language": "en",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/lD8AzRc21Y19IstxSuNEpifoLKo.jpg",
+      "trailer_key": "hSHwFDPfeV8",
+      "director": "David Michôd",
+      "cast": "Sydney Sweeney, Ben Foster, Merritt Wever, Katy O'Brian"
     },
     {
       "guid": "https://www.scnsrc.me/?p=533833",
@@ -3483,7 +3520,12 @@
       "runtime": "106 min",
       "imdb_id": "tt36958312",
       "plot": "A group of college friends' Thailand adventure turns deadly when they become trapped in submerged caves with a dangerous predator. As oxygen runs low, past conflicts emerge in their desperate fight for survival.",
-      "date_added": "2026-07-29T09:34:31.713788+00:00"
+      "date_added": "2026-07-29T09:34:31.713788+00:00",
+      "original_language": "en",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/pLyaH6k69OJHnONSmN3R7Peh6HE.jpg",
+      "trailer_key": "2bp4Viru6Xc",
+      "director": "Jeff Wadlow",
+      "cast": "Kathryn Newton, Lana Condor, Nico Hiraga, Gavin Casalegno"
     },
     {
       "guid": "https://www.scnsrc.me/?p=541423",
@@ -3847,7 +3889,12 @@
       "runtime": "96 min",
       "imdb_id": "tt36589928",
       "plot": "Eager to impress his activist crush, a wealthy New York teenager follows an online connection to Texas, where he's convinced he can stop an act of extreme violence.",
-      "date_added": "2026-08-11T08:08:24.327977+00:00"
+      "date_added": "2026-08-11T08:08:24.327977+00:00",
+      "original_language": "en",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/2xSg4ELiU3BAxHO2xVQjWxCMURJ.jpg",
+      "trailer_key": "vL4AuYMtr9c",
+      "director": "Oscar Boyson",
+      "cast": "Jaeden Martell, Asa Butterfield, Chris Bauer, Pippa Knowles"
     },
     {
       "guid": "https://www.scnsrc.me/?p=542546",
@@ -3925,7 +3972,12 @@
       "runtime": "84 min",
       "imdb_id": "tt39445906",
       "plot": "In a dystopian future where the parole system has been replaced with R.A.P.P. - the Recidivism Accountability Partnership Program - a white collar ex-con must take drastic measures to ensure his survival when he's paired with a sociopathic gangster with terminal cancer. One wrong move by either of them could mean the summary execution of them both, via the explosive charges surgically implanted in their hearts as a condition of their release.",
-      "date_added": "2026-08-13T08:16:06.959409+00:00"
+      "date_added": "2026-08-13T08:16:06.959409+00:00",
+      "original_language": "en",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/vDLHm9JDvLzqzMWyz4PBytS9dTC.jpg",
+      "trailer_key": "fU2ADhj0xqY",
+      "director": "Luke Spears",
+      "cast": "Alexander Aguirre, Jason Arcaro, David Dean Bottrell, Annelise Cepero"
     },
     {
       "guid": "https://www.scnsrc.me/?p=542697",
@@ -4102,12 +4154,17 @@
       "title": "The End Of Oak Street",
       "year": "2026",
       "rating": "6.2",
-      "poster": "https://image.tmdb.org/t/p/w500/fYXqpgPmHMphSF2W30GbTeJVIa5.jpg",
+      "poster": "https://image.tmdb.org/t/p/w500/7DmtuAK5gYGlMFA45Oxkl1bEpIC.jpg",
       "genre": "Science Fiction, Mystery, Thriller",
-      "runtime": "99 min",
+      "runtime": "100 min",
       "imdb_id": "tt27165187",
       "plot": "After a mysterious cosmic event rips Oak Street from suburbia and transports their neighborhood to someplace unknown, the Platt family soon discovers that their very survival depends on them sticking together as they navigate their now unrecognizable surroundings.",
-      "date_added": "2026-08-14T08:11:01.176627+00:00"
+      "date_added": "2026-08-14T08:11:01.176627+00:00",
+      "original_language": "en",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/b9q9VmbXDvJmTziRqkwdEmFdwhr.jpg",
+      "trailer_key": "u4tgctWuHc0",
+      "director": "David Robert Mitchell",
+      "cast": "Anne Hathaway, Ewan McGregor, Maisy Stella, Christian Convery"
     },
     {
       "guid": "https://www.scnsrc.me/?p=542798",
@@ -4185,7 +4242,12 @@
       "runtime": "104 min",
       "imdb_id": "tt0443701",
       "plot": "Mulder and Scully are called back to duty by the FBI when a former priest claims to be receiving psychic visions pertaining to a kidnapped agent.",
-      "date_added": "2026-08-15T07:26:43.819647+00:00"
+      "date_added": "2026-08-15T07:26:43.819647+00:00",
+      "original_language": "en",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/fCdc3TZNNHGk1ZQBXENdWLqjUio.jpg",
+      "trailer_key": "vbmA8V65czY",
+      "director": "Chris Carter",
+      "cast": "David Duchovny, Gillian Anderson, Amanda Peet, Billy Connolly"
     },
     {
       "guid": "https://www.scnsrc.me/?p=542908",
@@ -4414,12 +4476,17 @@
       "title": "Saint Clare",
       "year": "2024",
       "rating": "4.6",
-      "poster": "https://i.postimg.cc/tTnjfycD/2ls-YGb6-Fr-UL1b-VLl-A581-Z3m-ACQH.jpg",
+      "poster": "https://image.tmdb.org/t/p/w500/aE0q4awk7zto3Eql4cAeJuVAns9.jpg",
       "genre": "Thriller, Horror",
       "runtime": "92 min",
       "imdb_id": "tt9024562",
       "plot": "In a small town a solitary woman is haunted by voices that lead her to assassinate ill intended people and get away with it, until her last kill sucks her down a rabbit hole riddled with corruption, trafficking and visions from the beyond.",
-      "date_added": "2026-08-20T07:36:06.984901+00:00"
+      "date_added": "2026-08-20T07:36:06.984901+00:00",
+      "original_language": "en",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/es0N3A6vkLz2EmJavnM2M4urOEO.jpg",
+      "trailer_key": "nwTKf9niMIU",
+      "director": "Mitzi Peirone",
+      "cast": "Bella Thorne, Ryan Phillippe, Rebecca De Mornay, Frank Whaley"
     },
     {
       "guid": "https://www.scnsrc.me/?p=543340",
@@ -4544,12 +4611,17 @@
       "title": "Bang Bang",
       "year": "2024",
       "rating": "6.2",
-      "poster": "https://i.postimg.cc/zDMC2SdJ/19353577-1-92.jpg",
+      "poster": "https://image.tmdb.org/t/p/w500/8qYYsOLVDg3dMdakor6V5cGfvS6.jpg",
       "genre": "Drama",
       "runtime": "103 min",
       "imdb_id": "tt7132924",
       "plot": "Retired pugilist Bernard “Bang Bang” Rozyski is inspired to try his hand at training once he reconnects with his estranged grandson. While their training brings Bang Bang out of the hole he’s been living in, everyone questions his motivations, including an ex-girlfriend from decades ago, who was privy to Bang Bang’s meteoric rise in the sport in the 80s as well as the rivalry with his former opponent, her cousin and Detroit's Mayoral candidate Darnell Washington. Is Bang Bang merely passing down inherited rage, or is there true altruism behind his tutelage?",
-      "date_added": "2026-08-21T07:37:59.524801+00:00"
+      "date_added": "2026-08-21T07:37:59.524801+00:00",
+      "original_language": "en",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/haq6qT4lrRf7pnNsTddPiF8MvWt.jpg",
+      "trailer_key": "uQkZDR6lV5U",
+      "director": "Vincent Grashaw",
+      "cast": "Tim Blake Nelson, Glenn Plummer, Andrew Liner, Kevin Corrigan"
     },
     {
       "guid": "https://www.scnsrc.me/?p=543408",
@@ -4661,12 +4733,17 @@
       "title": "Insidious Out Of The Further",
       "year": "2026",
       "rating": "6.0",
-      "poster": "https://images.scnsrc.me/images/2026/08/21/92609491962d7211cd5d0704968556e4.jpg",
+      "poster": "https://image.tmdb.org/t/p/w500/4tTrW9dXCByS5wt2pXVWb58zNjz.jpg",
       "genre": "Horror, Thriller",
       "runtime": "106 min",
       "imdb_id": "tt32393988",
       "plot": "Gemma, a young mother raising her daughter in the house she grew up in, discovers she can travel into The Further, where she possesses an ability to bring what lives there back to the real world.",
-      "date_added": "2026-08-22T07:26:11.968287+00:00"
+      "date_added": "2026-08-22T07:26:11.968287+00:00",
+      "original_language": "en",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/p40lmrdI4blcAPZQMTPaiy5v5Ym.jpg",
+      "trailer_key": "gXjurDkYnEM",
+      "director": "Jacob Chase",
+      "cast": "Amelia Eve, Island Austin, Brandon Perea, Lin Shaye"
     },
     {
       "guid": "https://www.scnsrc.me/?p=543534",
@@ -4765,12 +4842,17 @@
       "title": "Hadestown The Musical",
       "year": "2026",
       "rating": "8.4",
-      "poster": "https://images.scnsrc.me/images/2026/08/24/0cb218a09dff523536dff6b25ea10600.jpg",
+      "poster": "https://image.tmdb.org/t/p/w500/iJNVygzkuOSCOdCPNI1nLSeF7sz.jpg",
       "genre": "Drama, Fantasy, Romance",
       "runtime": "141 min",
       "imdb_id": "tt36307021",
       "plot": "The tragic love of Orpheus and Eurydice is intertwined with the complex relationship of Hades and Persephone. Eurydice, struggling with poverty, is lured to the industrial underworld of Hadestown by Hades, while Orpheus, a struggling musician, ventures down below to bring her back. (Filmed live at the Lyric Theatre, London, featuring the core five original Broadway cast members.)",
-      "date_added": "2026-08-25T07:39:30.698869+00:00"
+      "date_added": "2026-08-25T07:39:30.698869+00:00",
+      "original_language": "en",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/n2Lx80fUrEp8OZOjfBNx0a7d37u.jpg",
+      "trailer_key": "76Q5TWHslOE",
+      "director": "Brett Sullivan",
+      "cast": "Reeve Carney, Eva Noblezada, André De Shields, Patrick Page"
     },
     {
       "guid": "https://www.scnsrc.me/?p=543771",
@@ -4962,12 +5044,17 @@
       "title": "Just Play Dead",
       "year": "2026",
       "rating": "4.2",
-      "poster": "https://images.scnsrc.me/images/2026/09/01/bf4ab969e258a9f61c7c0f3fead993e7.jpg",
+      "poster": "https://image.tmdb.org/t/p/w500/e0WaDBrrBAMcq2stAXCR7rXEsiw.jpg",
       "genre": "Thriller, Crime",
       "runtime": "97 min",
       "imdb_id": "tt36948232",
       "plot": "A criminal mastermind plans to fake his death for insurance money while framing his wife's lover. His wife plots to kill him for real and take it all. Both race to outmanoeuvre each other in a deadly battle of wits.",
-      "date_added": "2026-09-01T12:17:43.294316+00:00"
+      "date_added": "2026-09-01T12:17:43.294316+00:00",
+      "original_language": "en",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/lBWfbmUj9Jw0EM1OYtDXr0B5FPW.jpg",
+      "trailer_key": "LfpPh2pW0Oo",
+      "director": "Martin Campbell",
+      "cast": "Samuel L. Jackson, Eva Green, María Pedraza, Eoin Macken"
     },
     {
       "guid": "https://www.scnsrc.me/?p=544217",
@@ -4975,12 +5062,17 @@
       "title": "The Dog Stars",
       "year": "2026",
       "rating": "6.3",
-      "poster": "https://images.scnsrc.me/images/2026/08/31/00cb91d36a6d61de66c8adba0eb0fac1.jpg",
-      "genre": "Science Fiction, Adventure, Thriller",
+      "poster": "https://image.tmdb.org/t/p/w500/5O616X9vmRzQdB68PHzBewPittd.jpg",
+      "genre": "Action, Thriller, Science Fiction",
       "runtime": "119 min",
       "imdb_id": "tt21285562",
       "plot": "After the world's population has been ravaged by a pandemic, a man lives a lonesome existence in a Colorado airplane hangar with his dog and a dour gunman he has befriended. When a mysterious transmission comes through on the radio while he’s flying his old Cessna, it sparks a hunt for the provenance of the sound.",
-      "date_added": "2026-09-01T12:17:43.725409+00:00"
+      "date_added": "2026-09-01T12:17:43.725409+00:00",
+      "original_language": "en",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/3k7GzxOdLZkN3eZsuhLi2eRzkXO.jpg",
+      "trailer_key": "-xSxaE1ClEE",
+      "director": "Ridley Scott",
+      "cast": "Jacob Elordi, Josh Brolin, Margaret Qualley, Guy Pearce"
     },
     {
       "guid": "https://www.scnsrc.me/?p=544214",
@@ -5265,7 +5357,8 @@
       "plot": "A bitter, lonely man undergoes a personality-altering medical procedure in the hope that it will make him worthy of love.",
       "date_added": "2026-09-04T11:56:27.921193+00:00",
       "director": "Andrew Zappin",
-      "cast": "Harriet Sansom Harris, DJ Qualls, Kathleen Wilhoite, Margaret Cho"
+      "cast": "Harriet Sansom Harris, DJ Qualls, Kathleen Wilhoite, Margaret Cho",
+      "original_language": "en"
     },
     {
       "guid": "https://www.scnsrc.me/?p=544543",
@@ -5301,7 +5394,7 @@
       "title": "Marshmallow",
       "year": "2025",
       "rating": "5.6",
-      "poster": "https://images.scnsrc.me/images/2026/09/05/f3cbe8943959d91b2165f94679a621bf.jpg",
+      "poster": "https://image.tmdb.org/t/p/w500/qZseaOw1BgLkJsfiEmNpS1KhH8d.jpg",
       "backdrop": "https://image.tmdb.org/t/p/w1280/x6p8NZGyQt9dP7RDTLi1IXdqvtC.jpg",
       "trailer_key": "U4chD0nN0hU",
       "director": "Daniel DelPurgatorio",
@@ -5310,7 +5403,8 @@
       "runtime": "93 min",
       "imdb_id": "tt15220066",
       "plot": "At a secluded summer camp, timid and introverted 12-year-old Morgan is thrust into a waking nightmare when a once-fabled campfire tale becomes real. As a mysterious figure descends upon the camp, Morgan and his newfound friends must embark on a treacherous journey and uncover a sinister reality buried beneath the surface.",
-      "date_added": "2026-09-05T11:05:32.975260+00:00"
+      "date_added": "2026-09-05T11:05:32.975260+00:00",
+      "original_language": "en"
     },
     {
       "guid": "https://www.scnsrc.me/?p=544039",
@@ -5491,7 +5585,7 @@
       "title": "Onslaught",
       "year": "2026",
       "rating": "5.4",
-      "poster": "https://images.scnsrc.me/images/2026/09/07/5488dcf9856db9b2d0d3811b7d810a69.jpg",
+      "poster": "https://image.tmdb.org/t/p/w500/eAs7G3yFaULpfwfVdGvPo5HmFJS.jpg",
       "backdrop": "https://image.tmdb.org/t/p/w1280/pmPXXniQlb4EdYY0gVZO90rf54F.jpg",
       "trailer_key": "AMLCbpM1fRQ",
       "director": "Adam Wingard",
@@ -5500,7 +5594,8 @@
       "runtime": "92 min",
       "imdb_id": "tt32268691",
       "plot": "When a rogue squad of genetically engineered super soldiers break loose in the desert, a badass Army sniper must unleash hell to protect her young daughter.",
-      "date_added": "2026-09-08T11:56:21.985173+00:00"
+      "date_added": "2026-09-08T11:56:21.985173+00:00",
+      "original_language": "en"
     },
     {
       "guid": "https://www.scnsrc.me/?p=545044",
@@ -5777,15 +5872,16 @@
       "year": "2026",
       "rating": "5.9",
       "poster": "https://image.tmdb.org/t/p/w500/nZgeDr0o7fMvLYUMooTLQ9zkD3g.jpg",
-      "backdrop": null,
-      "trailer_key": null,
+      "backdrop": "https://image.tmdb.org/t/p/w1280/5Ns6yUiwDyrDig2jGK1Xpzd7yiV.jpg",
+      "trailer_key": "UFJKO3wqUxA",
       "director": "Michael Matteo Rossi",
       "cast": "Rachel Pizzolato, Vanessa Angel, Francis Capra, Marnette Patterson",
       "genre": "Science Fiction",
       "runtime": "Unknown",
       "imdb_id": "tt28477511",
       "plot": "In 2030, a group of former employees band together to take down a corrupt medical giant determined to increase the levels of crime throughout the country.",
-      "date_added": "2026-09-12T11:25:32.086138+00:00"
+      "date_added": "2026-09-12T11:25:32.086138+00:00",
+      "original_language": "en"
     },
     {
       "guid": "https://www.scnsrc.me/?p=545409",
@@ -5833,16 +5929,17 @@
       "title": "Little Lorraine",
       "year": "2025",
       "rating": "6.0",
-      "poster": "https://images.scnsrc.me/images/2026/09/12/65fcafa78a2c07fffd5ff9cc6e4c1e83.jpg",
+      "poster": "https://image.tmdb.org/t/p/w500/rUzBqWq7idfMTBLCWs55Hkt9lpq.jpg",
       "backdrop": "https://image.tmdb.org/t/p/w1280/utpd4H566GFpw6hjufRxEuoSIIg.jpg",
-      "trailer_key": null,
+      "trailer_key": "Bksje0gVC80",
       "director": "Andy Hines",
       "cast": "Stephen Amell, Sean Astin, J Balvin, Matt Walsh",
       "genre": "Crime, Drama",
       "runtime": "115 min",
       "imdb_id": "tt30420705",
       "plot": "Little Lorraine, a North Atlantic seaside town with a population of 60, becomes embroiled in an international cocaine smuggling operation under the noses of multiple governments, distributed in coffins through a network of funeral homes.",
-      "date_added": "2026-09-12T11:25:32.945848+00:00"
+      "date_added": "2026-09-12T11:25:32.945848+00:00",
+      "original_language": "en"
     },
     {
       "guid": "https://www.scnsrc.me/?p=545398",
@@ -6263,25 +6360,6 @@
       "date_added": "2026-09-18T12:01:53.800016+00:00"
     },
     {
-      "guid": "https://www.scnsrc.me/?p=546071",
-      "source_url": "https://www.scnsrc.me/?p=546071",
-      "raw_title": "Kangaroo 2025 1080p BluRay H264-COCAIN",
-      "slug": "kangaroo",
-      "title": "Kangaroo",
-      "year": "2025",
-      "rating": "6.5",
-      "poster": "https://images.scnsrc.me/images/2026/09/18/9ae06a86067c391dd15069f3b1f1b072.png",
-      "backdrop": "https://image.tmdb.org/t/p/w1280/eRCQlvPGmrm6wciksedf1RDNhwM.jpg",
-      "trailer_key": "RvmaXOvLJNc",
-      "director": "Kate Woods",
-      "cast": "Lily Whiteley, Ryan Corr, Rachel House, Brooke Satchwell",
-      "genre": "Family, Comedy",
-      "runtime": "107 min",
-      "imdb_id": "tt20204886",
-      "plot": "Ex TV personality, Chris Masterman, becomes stranded in an Outback town outside Alice Springs. There, he teams up with 12-year-old Indigenous girl Charlie. The pair form an unlikely friendship and work together to rescue and rehabilitate orphaned joeys in the remote but stunning Outback community—an endeavour that proves to be life-changing for them both.",
-      "date_added": "2026-09-19T11:45:01.281109+00:00"
-    },
-    {
       "guid": "https://www.scnsrc.me/?p=546034",
       "source_url": "https://www.scnsrc.me/?p=546034",
       "raw_title": "Resident Evil 2026 TELESYNC x264-MUSiCANA",
@@ -6299,25 +6377,6 @@
       "imdb_id": "tt35538033",
       "plot": "Medical courier Bryan unwittingly finds himself fighting for survival as one fateful, horrifying night collapses around him in chaos.",
       "date_added": "2026-09-19T11:45:01.699446+00:00"
-    },
-    {
-      "guid": "https://www.scnsrc.me/?p=546197",
-      "source_url": "https://www.scnsrc.me/?p=546197",
-      "raw_title": "Souleymanes Story 2024 720p BluRay x264-VETO",
-      "slug": "souleymanesstory",
-      "title": "Souleymanes Story",
-      "year": "2024",
-      "rating": "7.6",
-      "poster": "https://images.scnsrc.me/images/2026/09/20/fc3e8d7998c8198432b253f4291fb57c.png",
-      "backdrop": "https://image.tmdb.org/t/p/w1280/pq6IdEEXEfrcT8O1dzuqkPCUvVM.jpg",
-      "trailer_key": "Rbs53_uMw9o",
-      "director": "Boris Lojkine",
-      "cast": "Abou Sangare, Nina Meurisse, Alpha Oumar Sow, Emmanuel Yovanie",
-      "genre": "Drama",
-      "runtime": "94 min",
-      "imdb_id": "tt32086046",
-      "plot": "As he pedals through the streets of Paris to deliver meals, Souleymane recounts his story. In two days, he has to go through his asylum application interview, the key to obtaining papers, but Souleymane is not ready.",
-      "date_added": "2026-09-21T13:32:35.460276+00:00"
     },
     {
       "guid": "https://www.scnsrc.me/?p=546182",
@@ -6441,16 +6500,17 @@
       "title": "Heart Of The Beast",
       "year": "2026",
       "rating": "7.1",
-      "poster": "https://images.scnsrc.me/images/2026/09/21/de558d02b176452df02fb5b12e5bc95e.jpg",
-      "backdrop": "https://image.tmdb.org/t/p/w1280/bicMU6xVD5deVyKP2azpyx7xkmH.jpg",
+      "poster": "https://image.tmdb.org/t/p/w500/6sYemVUn79UPKz1ZsSG6kPU4RVy.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/6uVRPFflyJpo8Cx872olmlGTWla.jpg",
       "trailer_key": "UkMuGKqAux4",
       "director": "David Ayer",
-      "cast": "Brad Pitt, J.K. Simmons, Anna Lambe",
+      "cast": "Brad Pitt, J.K. Simmons, Anna Lambe, Justin Melnick",
       "genre": "Adventure, Thriller",
       "runtime": "101 min",
       "imdb_id": "tt7526136",
       "plot": "After a harrowing plane crash, Special Forces officer James Belmont and his combat dog, Odin, find themselves stranded deep in the Alaskan wilderness. Together, they are forced into a brutal fight for survival against the elements.",
-      "date_added": "2026-09-22T12:17:33.712687+00:00"
+      "date_added": "2026-09-22T12:17:33.712687+00:00",
+      "original_language": "en"
     },
     {
       "guid": "https://www.scnsrc.me/?p=546259",
@@ -6499,15 +6559,16 @@
       "year": "2026",
       "rating": "6.2",
       "poster": "https://image.tmdb.org/t/p/w500/39aMkR8Y5vhCG9dTkjiqRl8AVqp.jpg",
-      "backdrop": "https://image.tmdb.org/t/p/w1280/58D9nalUYW5L5K0guw7hcpsEJBH.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/XohTvvPXiGhUKhiQSvmoMTnj2z.jpg",
       "trailer_key": "B3tR6qQjbgI",
       "director": "Janus Metz",
-      "cast": "Russell Crowe, Shailene Woodley, Jacob Tremblay, Annabelle Wallis",
+      "cast": "Russell Crowe, Jacob Tremblay, Shailene Woodley, Annabelle Wallis",
       "genre": "Thriller, Drama, Crime",
       "runtime": "101 min",
       "imdb_id": "tt6933238",
       "plot": "Follow Ted Kaczynski's transformation from Harvard prodigy into the infamous Unabomber. Subjected to controversial psychological experiments by Professor Henry Murray, Kaczynski's troubled past resurfaces decades later when his manhunt, led by FBI agent Joanne Miller, brings to light the chilling consequences of ambition and isolation.",
-      "date_added": "2026-09-25T12:30:38.347606+00:00"
+      "date_added": "2026-09-25T12:30:38.347606+00:00",
+      "original_language": "en"
     },
     {
       "guid": "https://www.scnsrc.me/?p=546612",
@@ -6650,16 +6711,17 @@
       "title": "Your Mother Your Mother Your Mother",
       "year": "2026",
       "rating": "6.7",
-      "poster": "https://images.scnsrc.me/images/2026/09/27/d080c5b7f07d9b029c8b9d873df44002.jpg",
-      "backdrop": "https://image.tmdb.org/t/p/w1280/jiFLiatBtBALlAzV5R72gzspBad.jpg",
+      "poster": "https://image.tmdb.org/t/p/w500/4KaPZSKnInnArErTTgy9Oy14leR.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/45Mbs6dmn2W0hvuyxXPDkKREHpP.jpg",
       "trailer_key": "uEcoV-ngH38",
       "director": "Bassam Tariq",
       "cast": "Mahershala Ali, John Cho, Giancarlo Esposito, Abubakr Ali",
-      "genre": "Action, Crime, Drama",
-      "runtime": "111 min",
+      "genre": "Drama, Crime, Thriller",
+      "runtime": "112 min",
       "imdb_id": "tt35856037",
       "plot": "Latif, a devoutly religious hitman, struggles to balance work, faith and fatherhood. When his wife dies, he embarks on a desperate journey across Houston to protect his children, confronting the forces closing in around him – and the beliefs threatening to unravel within.",
-      "date_added": "2026-09-28T14:51:20.915982+00:00"
+      "date_added": "2026-09-28T14:51:20.915982+00:00",
+      "original_language": "en"
     },
     {
       "guid": "https://www.scnsrc.me/?p=546798",
@@ -6669,16 +6731,17 @@
       "title": "Primetime",
       "year": "2026",
       "rating": "6.9",
-      "poster": "https://images.scnsrc.me/images/2026/09/27/e1e3706dc8de1737db6928bd3135a36c.jpg",
-      "backdrop": "https://image.tmdb.org/t/p/w1280/4E5RVsSUG1A4Adwbqupu5w6kofZ.jpg",
+      "poster": "https://image.tmdb.org/t/p/w500/lmrulvLbmaejTix1YaMxo1oGhH1.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/sEsMwSDUWGIx9EfNxzM6KzVSsSQ.jpg",
       "trailer_key": "C0NZa01qTRU",
       "director": "Lance Oppenheim",
-      "cast": "Robert Pattinson, Skyler Gisondo, Merritt Wever, Phoebe Bridgers",
-      "genre": "Crime, Thriller, Drama",
+      "cast": "Robert Pattinson, Merritt Wever, Skyler Gisondo, Matthew Maher",
+      "genre": "Thriller, Drama, Crime",
       "runtime": "110 min",
       "imdb_id": "tt34206385",
-      "plot": "In 2006, To Catch a Predator host Chris Hansen sets out to make television history, turning an undercover investigation into one of the most controversial cultural phenomena of the decade.",
-      "date_added": "2026-09-28T14:51:21.344117+00:00"
+      "plot": "In 2006, To Catch a Predator host Chris Hansen sets out to make television history. When a high stakes operation goes fatally wrong, his veneered dream of fame curdles into a nightmare of performative justice.",
+      "date_added": "2026-09-28T14:51:21.344117+00:00",
+      "original_language": "en"
     },
     {
       "guid": "https://www.scnsrc.me/?p=546792",
@@ -6735,7 +6798,8 @@
       "runtime": "100 min",
       "imdb_id": "tt46060457",
       "plot": "A look at the controversial 2004 reality series The Swan, which took self-proclaimed 'ugly ducklings' and set out to make them... not that.",
-      "date_added": "2026-09-29T13:40:12.387808+00:00"
+      "date_added": "2026-09-29T13:40:12.387808+00:00",
+      "original_language": "en"
     },
     {
       "guid": "https://www.scnsrc.me/?p=546933",
@@ -6916,7 +6980,7 @@
       "title": "Nirvanna The Band The Show The Movie",
       "year": "2025",
       "rating": "7.6",
-      "poster": "https://images.scnsrc.me/images/2026/09/30/d919409f3055f1049940b7726abb17a0.png",
+      "poster": "https://image.tmdb.org/t/p/w500/sm5TGX8WbnCd9Uo26cLyTxVwA1n.jpg",
       "backdrop": "https://image.tmdb.org/t/p/w1280/hs4QXgPuKJ4PPwYBWNTod61RKiA.jpg",
       "trailer_key": "y2K9ccMREOI",
       "director": "Matt Johnson",
@@ -6925,7 +6989,8 @@
       "runtime": "100 min",
       "imdb_id": "tt35522483",
       "plot": "When their plan to book a show at the Rivoli goes horribly wrong, Matt and Jay accidentally travel back to the year 2008.",
-      "date_added": "2026-09-30T13:15:32.408466+00:00"
+      "date_added": "2026-09-30T13:15:32.408466+00:00",
+      "original_language": "en"
     },
     {
       "guid": "https://www.scnsrc.me/?p=547171",
@@ -7125,16 +7190,17 @@
       "title": "Doing Life",
       "year": "2026",
       "rating": "6.6",
-      "poster": "https://images.scnsrc.me/images/2026/10/02/9fed688476e92298e4246a2bd085e03f.jpg",
+      "poster": "https://image.tmdb.org/t/p/w500/5nZVjsCk5tWyyhLGt5U2TxsR85w.jpg",
       "backdrop": "https://image.tmdb.org/t/p/w1280/nDScZ6YR2nfNCeK5bmJ1ujb355b.jpg",
       "trailer_key": "zrOtmDQawas",
       "director": "Tyler Perry",
       "cast": "Naomi Baker, Jay Reeves, Tamberla Perry, Karen Obilom",
-      "genre": "Drama, Romance",
+      "genre": "Romance, Drama",
       "runtime": "112 min",
       "imdb_id": "tt36429458",
       "plot": "A single mother and an incarcerated man forge an unlikely bond through heartfelt letters, unlocking a door to redemption, hope and love against all odds.",
-      "date_added": "2026-10-02T13:27:19.895492+00:00"
+      "date_added": "2026-10-02T13:27:19.895492+00:00",
+      "original_language": "en"
     },
     {
       "guid": "https://www.scnsrc.me/?p=547284",
@@ -7182,8 +7248,8 @@
       "title": "Union County",
       "year": "2026",
       "rating": "6.4",
-      "poster": "https://images.scnsrc.me/images/2026/10/02/2247e1c9fec32aa2cdaf80314d49a08e.jpg",
-      "backdrop": "https://image.tmdb.org/t/p/w1280/96S1Sm5tsHsFJXpTKkH0czQoEVJ.jpg",
+      "poster": "https://image.tmdb.org/t/p/w500/1HW5lVwsuLo6CHW3i9Cm240jLL2.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/xrSKUFhwZ6eughI0fYtLUFjnOLc.jpg",
       "trailer_key": "uA6Fnr2VXkw",
       "director": "Adam Meeks",
       "cast": "Will Poulter, Noah Centineo, Elise Kibler, Emily Meade",
@@ -7191,7 +7257,8 @@
       "runtime": "97 min",
       "imdb_id": "tt36981462",
       "plot": "Assigned to a county-mandated drug court program, Cody Parsons embarks on the tenuous journey toward recovery amid the opioid epidemic in rural Ohio.",
-      "date_added": "2026-10-02T13:27:21.227033+00:00"
+      "date_added": "2026-10-02T13:27:21.227033+00:00",
+      "original_language": "en"
     },
     {
       "guid": "https://www.scnsrc.me/?p=547264",
@@ -7239,16 +7306,17 @@
       "title": "Verity",
       "year": "2026",
       "rating": "6.0",
-      "poster": "https://images.scnsrc.me/images/2026/10/01/cb9c7660eda48102a21e8b25e69b28c3.jpg",
-      "backdrop": "https://image.tmdb.org/t/p/w1280/3BoHXmGAfC2qO4wnCpMYV0BzpHD.jpg",
+      "poster": "https://image.tmdb.org/t/p/w500/rmaNMA1seHqpjtnYKzyynFAr1g8.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/cKetrF2dAnQ0AMV5i4BMOs41I5P.jpg",
       "trailer_key": "xdPMKhjMSFs",
       "director": "Michael Showalter",
       "cast": "Dakota Johnson, Anne Hathaway, Josh Hartnett, Brady Wagner",
       "genre": "Mystery, Thriller",
-      "runtime": "114 min",
+      "runtime": "117 min",
       "imdb_id": "tt32261958",
-      "plot": "Lowen Ashleigh is hired by Jeremy Crawford to ghostwrite novels for his bestselling author wife Verity, who is unable to finish following an accident. Lowen gradually uncovers Verity's disturbing truths while residing at the Crawfords' home to work.",
-      "date_added": "2026-10-02T13:27:22.405492+00:00"
+      "plot": "Lowen Ashleigh, hired to ghostwrite for best-selling author Verity Crawford, uncovers Verity's autobiographical notes, and becomes involved in what may prove to be a lethal conspiracy.",
+      "date_added": "2026-10-02T13:27:22.405492+00:00",
+      "original_language": "en"
     },
     {
       "guid": "https://www.scnsrc.me/?p=547229",
@@ -7258,8 +7326,8 @@
       "title": "Digger",
       "year": "2026",
       "rating": "7.5",
-      "poster": "https://images.scnsrc.me/images/2026/10/01/b4066bd822f7fe1607747305fb6bf2ec.jpg",
-      "backdrop": "https://image.tmdb.org/t/p/w1280/b7t3r39Oll5qPxBKzLZ8eHMBD7l.jpg",
+      "poster": "https://image.tmdb.org/t/p/w500/1ATXKrIPJyKNwnJ6lcG088Sa6zi.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/vC5IxhgO6cVmw9O4QgkraRzfHvh.jpg",
       "trailer_key": "job8V254NAE",
       "director": "Alejandro G. Iñárritu",
       "cast": "Tom Cruise, Riz Ahmed, John Goodman, Sandra Hüller",
@@ -7267,7 +7335,8 @@
       "runtime": "129 min",
       "imdb_id": "tt31450459",
       "plot": "The most powerful man in the world embarks on a frantic mission to prove he is humanity's savior before the disaster he's unleashed destroys everything.",
-      "date_added": "2026-10-02T13:27:22.828808+00:00"
+      "date_added": "2026-10-02T13:27:22.828808+00:00",
+      "original_language": "en"
     },
     {
       "guid": "https://www.scnsrc.me/?p=547599",
@@ -7315,16 +7384,17 @@
       "title": "Matchbox The Movie",
       "year": "2026",
       "rating": "5.6",
-      "poster": "https://images.scnsrc.me/images/2026/10/08/d64f42bbbc6d96bc9674e764a7a8271b.jpg",
+      "poster": "https://image.tmdb.org/t/p/w500/aHhHRz6nOpwkqJs5ASeRGAdK2dt.jpg",
       "backdrop": "https://image.tmdb.org/t/p/w1280/jdJsnhHfkIi3J7jwfiCFT4gXNx5.jpg",
       "trailer_key": "7xfqITrMDcI",
       "director": "Sam Hargrave",
-      "cast": "John Cena, Jessica Biel, Sam Richardson, Arturo Castro",
+      "cast": "John Cena, Jessica Biel, Arturo Castro, Sam Richardson",
       "genre": "Action, Comedy, Adventure",
       "runtime": "127 min",
       "imdb_id": "tt28498219",
       "plot": "When a group of former childhood friends reconnect, their reunion takes a wild turn as they stumble upon a dangerous international plot—and must save the world.",
-      "date_added": "2026-10-09T14:03:49.803764+00:00"
+      "date_added": "2026-10-09T14:03:49.803764+00:00",
+      "original_language": "en"
     },
     {
       "guid": "https://www.scnsrc.me/?p=547988",
@@ -7353,7 +7423,7 @@
       "title": "The Incomer",
       "year": "2026",
       "rating": "7.0",
-      "poster": "https://images.scnsrc.me/images/2026/10/12/794180d0a3a7570736e97f1e5e5e6e9a.jpg",
+      "poster": "https://image.tmdb.org/t/p/w500/iccroKK1eUTdCnLfmp7I3YXwAKF.jpg",
       "backdrop": "https://image.tmdb.org/t/p/w1280/tcm829PtxDSomGOEXxzO7c0sK3p.jpg",
       "trailer_key": "vJ6TSvmnUEE",
       "director": "Louis Paxton",
@@ -7361,8 +7431,9 @@
       "genre": "Comedy, Drama",
       "runtime": "102 min",
       "imdb_id": "tt36980182",
-      "plot": "On an Orkney isle, two siblings survive by hunting seabirds, retelling the stories of their ancestors, and defending the isle from dreaded \"incomers\". Their world is upended with the arrival of an awkward council worker who has come to uproot them from their homeland.",
-      "date_added": "2026-10-12T16:23:57.705482+00:00"
+      "plot": "On an Orkney isle, siblings Isla and Sandy survive by hunting seabirds, retelling the stories of their ancestors, and defending the isle from dreaded \"Incomers\". Their world is upended with the arrival of an awkward council worker who has come to uproot them from their homeland.",
+      "date_added": "2026-10-12T16:23:57.705482+00:00",
+      "original_language": "en"
     },
     {
       "guid": "https://www.scnsrc.me/?p=548111",
@@ -7543,16 +7614,17 @@
       "title": "Love of Your Life",
       "year": "2026",
       "rating": "6.5",
-      "poster": "https://images.scnsrc.me/images/2026/10/14/0016239fafb89b5208eece0e176aa2eb.jpg",
-      "backdrop": "https://image.tmdb.org/t/p/w1280/mTUWpyf15tLs4YLvy3nirbn6xA9.jpg",
+      "poster": "https://image.tmdb.org/t/p/w500/dL3Tcv4FU2K85bgnGRBgLjFSrLr.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/4hneB0UFKOZAGJHqJ3VhDcG72uH.jpg",
       "trailer_key": "HzGx48E64Xg",
       "director": "Rachel Morrison",
-      "cast": "Margaret Qualley, Aaron Pierre, Gabriel Basso, Patrick Schwarzenegger",
-      "genre": "Drama, Romance",
-      "runtime": "106 min",
+      "cast": "Margaret Qualley, Gabriel Basso, Aaron Pierre, Patrick Schwarzenegger",
+      "genre": "Romance, Drama",
+      "runtime": "109 min",
       "imdb_id": "tt34384900",
       "plot": "After a chance encounter sparks a sweeping romance, Maya's future is suddenly upended, sending her on an unexpected journey to love and live again.",
-      "date_added": "2026-10-14T12:36:29.603254+00:00"
+      "date_added": "2026-10-14T12:36:29.603254+00:00",
+      "original_language": "en"
     },
     {
       "guid": "https://www.scnsrc.me/?p=548396",
@@ -7562,16 +7634,17 @@
       "title": "Street Fighter",
       "year": "2026",
       "rating": "6.2",
-      "poster": "https://images.scnsrc.me/images/2026/10/15/a8995892aecf9881ba4e58dce55cc797.jpg",
-      "backdrop": "https://image.tmdb.org/t/p/w1280/zDE9hd1SG9695YncbZGjSf7Z9Jk.jpg",
+      "poster": "https://image.tmdb.org/t/p/w500/dJPT2Uf12X6aFg8i5N67NTpIZ9t.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/3BBjkQmdGacKYZtpmK2vIfuDmON.jpg",
       "trailer_key": "U6sbm1OaJb8",
       "director": "Kitao Sakurai",
-      "cast": "Andrew Koji, Noah Centineo, Callina Liang, Joe Anoa'i",
+      "cast": "Andrew Koji, Noah Centineo, Callina Liang, David Dastmalchian",
       "genre": "Action, Fantasy",
       "runtime": "120 min",
       "imdb_id": "tt27419420",
       "plot": "In 1993, estranged Street Fighters Ryu and Ken Masters are thrown back into combat when the mysterious Chun-Li recruits them for the next World Warrior Tournament: a brutal clash of fists, fate, and fury. But behind this battle royale lies a deadly conspiracy that forces them to face off against each other and the demons of their past. And if they don't, it's GAME OVER!",
-      "date_added": "2026-10-15T12:23:21.906644+00:00"
+      "date_added": "2026-10-15T12:23:21.906644+00:00",
+      "original_language": "en"
     },
     {
       "guid": "https://www.scnsrc.me/?p=548384",
@@ -7638,16 +7711,17 @@
       "title": "Tenzing",
       "year": "2026",
       "rating": "7.4",
-      "poster": "https://images.scnsrc.me/images/2026/10/15/67619f611bed8c27ecbae36299033289.jpg",
-      "backdrop": "https://image.tmdb.org/t/p/w1280/9MdxBPjI58xkzA7RtKX9xRKvlZp.jpg",
+      "poster": "https://image.tmdb.org/t/p/w500/eI0QW02PYqhnmIvLRdn9vrfVVP7.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/tKvVgMfM6GS4AGZn2KhP8bX1mJm.jpg",
       "trailer_key": "KkYCY5YR12U",
       "director": "Jennifer Peedom",
-      "cast": "Genden Phuntsok, Tom Hiddleston, Willem Dafoe, Caitríona Balfe",
-      "genre": "Drama, History",
+      "cast": "Genden Phuntsok, Tom Hiddleston, Willem Dafoe, Samdrup Dorje Lama",
+      "genre": "Drama, History, Adventure",
       "runtime": "126 min",
       "imdb_id": "tt6262770",
       "plot": "A determined man embarks on a high-stakes quest—and defies seemingly impossible odds—to fulfill his dream of being the first to reach the summit of Mount Everest.",
-      "date_added": "2026-10-16T12:03:22.027696+00:00"
+      "date_added": "2026-10-16T12:03:22.027696+00:00",
+      "original_language": "en"
     },
     {
       "guid": "https://www.scnsrc.me/?p=548436",
@@ -7657,16 +7731,17 @@
       "title": "Masterplan",
       "year": "2026",
       "rating": "5.4",
-      "poster": "https://images.scnsrc.me/images/2026/10/15/b4797f0d347b3442b00113929cbf6edf.jpg",
-      "backdrop": "https://image.tmdb.org/t/p/w1280/dgUDj84BWtW6EZzee8BkgKnjDhh.jpg",
+      "poster": "https://image.tmdb.org/t/p/w500/5xmXVd7nCK3tAo34XkO58SxUCip.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/fAlQZsCOCvxOj0PmFmt4i8IWR2u.jpg",
       "trailer_key": "gc0t8AfMP6k",
       "director": "Thomas Vincent",
       "cast": "Stanley Tucci, Simona Tabasco, Victor Belmondo, Eliott Margueron",
       "genre": "Action, Thriller",
-      "runtime": "109 min",
+      "runtime": "110 min",
       "imdb_id": "tt38672588",
       "plot": "When a legendary thief sets his sights on the Mona Lisa, he recruits two young strangers to help him before revealing they are long-lost siblings… and oh yes, by the way, he is their father. Thrown into a chaotic reunion they never asked for, this new family must learn to work together — and try not to kill each other — if they want any chance at pulling off the heist of the century.",
-      "date_added": "2026-10-16T12:03:22.429180+00:00"
+      "date_added": "2026-10-16T12:03:22.429180+00:00",
+      "original_language": "en"
     },
     {
       "guid": "https://www.scnsrc.me/?p=548540",
@@ -7771,8 +7846,8 @@
       "title": "The Beast",
       "year": "2026",
       "rating": "5.1",
-      "poster": "https://images.scnsrc.me/images/2026/10/20/5db8472169308b0c034c2675f87ffd88.jpg",
-      "backdrop": "https://image.tmdb.org/t/p/w1280/v5Wb9NoE0s1mGmC5wVeQR1OK22V.jpg",
+      "poster": "https://image.tmdb.org/t/p/w500/ocg5JfJP19fodcv5uQUApkmZMdI.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/tv4GxpgGF4n8bhBYgJg0ZyAUylF.jpg",
       "trailer_key": "5ckqV_uf8E0",
       "director": "Renny Harlin",
       "cast": "Samuel L. Jackson, Joel Kinnaman, Guy Burnet, Eoin Macken",
@@ -7780,7 +7855,8 @@
       "runtime": "99 min",
       "imdb_id": "tt29256561",
       "plot": "When a militia of unidentified hostiles coordinates a coup against the United States, the president must fight back by utilizing the highly classified offensive capabilities of his armored limousine, nicknamed The Beast.",
-      "date_added": "2026-10-21T12:38:49.793438+00:00"
+      "date_added": "2026-10-21T12:38:49.793438+00:00",
+      "original_language": "en"
     },
     {
       "guid": "https://www.scnsrc.me/?p=548799",
@@ -7847,16 +7923,17 @@
       "title": "Clean Hands",
       "year": "2026",
       "rating": "6.3",
-      "poster": "https://images.scnsrc.me/images/2026/10/21/76e1cb41d98f1f805d988bb80e77bace.jpg",
+      "poster": "https://image.tmdb.org/t/p/w500/szIEtkFLOMsPX6AVQSfzalNEEDd.jpg",
       "backdrop": "https://image.tmdb.org/t/p/w1280/py3XG3mFkdVMcw7VwfZ4HaXZIIU.jpg",
       "trailer_key": "p0izMCPGdGE",
       "director": "Jake Allyn",
-      "cast": "Zach Braff, Esther McGregor, Abigail Spencer, Lucas Till",
+      "cast": "Zach Braff, Esther McGregor, Holt McCallany, Abigail Spencer",
       "genre": "Crime, Drama",
       "runtime": "108 min",
       "imdb_id": "tt36271247",
       "plot": "Based on a true story, a veteran narcotics officer turned recovery advocate and his daughter, who struggles with addiction, confront the American drug crisis from opposing sides of the law while navigating their complicated family bond.",
-      "date_added": "2026-10-22T12:43:14.518801+00:00"
+      "date_added": "2026-10-22T12:43:14.518801+00:00",
+      "original_language": "en"
     },
     {
       "guid": "https://www.scnsrc.me/?p=549062",
@@ -7866,7 +7943,7 @@
       "title": "Whalefall",
       "year": "2026",
       "rating": "6.6",
-      "poster": "https://images.scnsrc.me/images/2026/10/22/4e4f2e0569b384fbe7c1ec53b80702d9.jpg",
+      "poster": "https://image.tmdb.org/t/p/w500/vjTYUTgh9nO88i6HZ4YPRhiFL05.jpg",
       "backdrop": "https://image.tmdb.org/t/p/w1280/shW2jHkQLZVv4Fko2rJDqTGU0gx.jpg",
       "trailer_key": "Dw-5ZGapGTQ",
       "director": "Brian Duffield",
@@ -7875,7 +7952,8 @@
       "runtime": "106 min",
       "imdb_id": "tt28535715",
       "plot": "Following the death of his father, Jay Gardiner goes diving off the central Coast of California in search of his remains, but is swallowed by a massive sperm whale. While trapped inside its belly with only one hour of oxygen left, Jay comes to realize that the hard-earned lessons his father imparted may be the key to his escape.",
-      "date_added": "2026-10-23T12:20:39.685240+00:00"
+      "date_added": "2026-10-23T12:20:39.685240+00:00",
+      "original_language": "en"
     },
     {
       "guid": "https://www.scnsrc.me/?p=549055",
@@ -7904,8 +7982,8 @@
       "title": "Clayface",
       "year": "2026",
       "rating": "7.5",
-      "poster": "https://images.scnsrc.me/images/2026/10/22/09d3c48ed8fef4e26c21b1745ce18c7b.jpg",
-      "backdrop": "https://image.tmdb.org/t/p/w1280/uL4cIrNi2uaUnWIOQQ28EVnkETG.jpg",
+      "poster": "https://image.tmdb.org/t/p/w500/9l1NuFjel2j89hiuiJbsxfblqjy.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/VnT9D7NogVWrmN2UuT30exIYPh.jpg",
       "trailer_key": "f7jlCqdtwdM",
       "director": "James Watkins",
       "cast": "Tom Rhys Harries, Naomi Ackie, Eddie Marsan, Max Minghella",
@@ -7913,7 +7991,8 @@
       "runtime": "109 min",
       "imdb_id": "tt34890576",
       "plot": "Matt Hagen's meteoric rise from Gotham street kid to Hollywood leading man is tragically cut short when a local crime boss's actions leave him horribly disfigured. Abandoned by his team and with nothing left, Matt seeks out a cutting edge treatment that miraculously returns him to his former self… but also unexpectedly affects his grip on reality, spiraling him down a destructive path of all-consuming revenge.",
-      "date_added": "2026-10-23T12:20:40.352140+00:00"
+      "date_added": "2026-10-23T12:20:40.352140+00:00",
+      "original_language": "en"
     },
     {
       "guid": "https://www.scnsrc.me/?p=549234",
@@ -7923,16 +8002,17 @@
       "title": "I Play Rocky",
       "year": "2026",
       "rating": "8.0",
-      "poster": "https://images.scnsrc.me/images/2026/10/24/80b72e447f056b443e382778dabfcb52.jpg",
+      "poster": "https://image.tmdb.org/t/p/w500/xE5tY3lppZUyG7WKKThsuYHuAHr.jpg",
       "backdrop": "https://image.tmdb.org/t/p/w1280/1lnnjBCRLZzKRhQipK5zm61YkPe.jpg",
       "trailer_key": "jq5oCjhQtIc",
       "director": "Peter Farrelly",
-      "cast": "Anthony Ippolito, AnnaSophia Robb, Stephan James, Matt Dillon",
+      "cast": "Anthony Ippolito, AnnaSophia Robb, P.J. Byrne, Toby Kebbell",
       "genre": "Drama, History",
       "runtime": "128 min",
       "imdb_id": "tt11995650",
       "plot": "The electrifying true story about an unknown actor with an unshakable belief that he wasn't just meant to write Rocky—he was meant to be Rocky Balboa. Told \"no\" at every turn, Sylvester Stallone bets everything on himself, holding the line on playing the lead against seemingly impossible odds.",
-      "date_added": "2026-10-24T11:48:08.483460+00:00"
+      "date_added": "2026-10-24T11:48:08.483460+00:00",
+      "original_language": "en"
     },
     {
       "guid": "https://www.scnsrc.me/?p=549228",
@@ -7961,8 +8041,8 @@
       "title": "Klara And The Sun",
       "year": "2026",
       "rating": "6.4",
-      "poster": "https://images.scnsrc.me/images/2026/10/24/1469617f795efc2b1805eec717bf6d5f.jpg",
-      "backdrop": "https://image.tmdb.org/t/p/w1280/s4E7NDJCOG3wqc5psv2RLr9QfUm.jpg",
+      "poster": "https://image.tmdb.org/t/p/w500/xqovj2p6HRsgHxN81qYAYF4StgM.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/2Zk5jRXUlrfkU3RsutMPMHey1Y.jpg",
       "trailer_key": "wixzainceAE",
       "director": "Taika Waititi",
       "cast": "Jenna Ortega, Mia Tharia, Amy Adams, Natasha Lyonne",
@@ -7970,7 +8050,8 @@
       "runtime": "116 min",
       "imdb_id": "tt14371256",
       "plot": "When Klara, an Artificial Friend who wants nothing more than to find the perfect home, meets Josie, each immediately senses a kindred spirit in the other. Josie has a fraught relationship with her mother and they've suffered great loss, but Klara's innocent wonder and unwavering loyalty begin to heal the family and bring light to Josie's complicated world.",
-      "date_added": "2026-10-24T11:48:09.280066+00:00"
+      "date_added": "2026-10-24T11:48:09.280066+00:00",
+      "original_language": "en"
     },
     {
       "guid": "https://www.scnsrc.me/?p=549153",
@@ -7980,7 +8061,7 @@
       "title": "The Exit State",
       "year": "2026",
       "rating": "3.5",
-      "poster": "https://images.scnsrc.me/images/2026/10/23/80b1f453f57e920659ee45b9844e489c.jpg",
+      "poster": "https://image.tmdb.org/t/p/w500/80oQCwA8SJrjBiFarxzkEXZxxDT.jpg",
       "backdrop": "https://image.tmdb.org/t/p/w1280/9mRvuRKCmF4af1JlaN8vOvV8wzb.jpg",
       "trailer_key": "0eH051yoikY",
       "director": "Gabriela Ledesma",
@@ -7989,7 +8070,8 @@
       "runtime": "92 min",
       "imdb_id": "tt38453653",
       "plot": "In the not-too-distant future, a group of American citizens attempt to flee the country to escape an authoritarian regime, but their path to freedom quickly becomes a dystopian nightmare.",
-      "date_added": "2026-10-24T11:48:09.669055+00:00"
+      "date_added": "2026-10-24T11:48:09.669055+00:00",
+      "original_language": "en"
     },
     {
       "guid": "https://www.scnsrc.me/?p=549148",
@@ -8018,16 +8100,17 @@
       "title": "Shaun the Sheep The Beast of Mossy Bottom",
       "year": "2026",
       "rating": "7.1",
-      "poster": "https://images.scnsrc.me/images/2026/10/23/e5396edb360a055a28362c9f96a84e18.jpg",
+      "poster": "https://image.tmdb.org/t/p/w500/gayX49siwXf8eNs16rtk1fI91Ey.jpg",
       "backdrop": "https://image.tmdb.org/t/p/w1280/mG8tVv1RPAKnARWxKTND5dRgMpw.jpg",
       "trailer_key": "daZMq0AyOMc",
       "director": "Steve Cox, Matthew Walker",
       "cast": "Justin Fletcher, John Sparkes, Nina Sosanya, Kate Harbour",
-      "genre": "Animation, Science Fiction, Comedy",
+      "genre": "Animation, Science Fiction, Comedy, Family",
       "runtime": "81 min",
       "imdb_id": "tt36841161",
       "plot": "On Halloween Eve at Mossy Bottom Farm, excitement turns to dismay when the clumsy Farmer ruins the pumpkin patch. Shaun tries fixing it with science experiments, but things go awry when a wild beast appears in the woods.",
-      "date_added": "2026-10-24T11:48:10.491172+00:00"
+      "date_added": "2026-10-24T11:48:10.491172+00:00",
+      "original_language": "en"
     },
     {
       "guid": "https://www.scnsrc.me/?p=549312",
@@ -8037,16 +8120,17 @@
       "title": "Wicker",
       "year": "2026",
       "rating": "7.4",
-      "poster": "https://img3.pixhost.cc/images/6706/792588192_wicker-2026-720p-cam-h264-cinemacity.jpg",
+      "poster": "https://image.tmdb.org/t/p/w500/6FcBZOKvyrLCKGCyBG0ySCR4okt.jpg",
       "backdrop": "https://image.tmdb.org/t/p/w1280/xVh1ypMoVkMf5IB7y3hnRplJ14c.jpg",
       "trailer_key": "kA9NfV4pM_Q",
-      "director": "Eleanor Wilson, Alex Huston Fischer",
+      "director": "Alex Huston Fischer, Eleanor Wilson",
       "cast": "Olivia Colman, Alexander Skarsgård, Peter Dinklage, Elizabeth Debicki",
       "genre": "Romance, Fantasy, Comedy",
       "runtime": "105 min",
       "imdb_id": "tt29611136",
       "plot": "On the outskirts of a village by the sea, lives a Fisherwoman; smelly, single and perpetually ridiculed. One day, fed up with her stuffy, small-minded neighbours, she commissions herself a husband to be made from wicker. In an otherwise conservative town, this unconventional romance sparks outrage, jealousy and chaos.",
-      "date_added": "2026-10-26T13:47:38.922233+00:00"
+      "date_added": "2026-10-26T13:47:38.922233+00:00",
+      "original_language": "en"
     },
     {
       "guid": "https://www.scnsrc.me/?p=549269",
@@ -8056,16 +8140,17 @@
       "title": "The Only Living Pickpocket In New York",
       "year": "2026",
       "rating": "7.3",
-      "poster": "https://images.scnsrc.me/images/2026/10/25/4b3380001f8c04f518f18f7803050122.jpg",
-      "backdrop": "https://image.tmdb.org/t/p/w1280/nZLt2sLZTEOyK50TjwNlGqzWsp5.jpg",
+      "poster": "https://image.tmdb.org/t/p/w500/pNdB9va2AEPQe9UfhKAdIt8nus9.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/oahXjJ0UxnkJthITntGMrXVXQsJ.jpg",
       "trailer_key": "iXA7BmrBBxs",
       "director": "Noah Segan",
-      "cast": "John Turturro, Giancarlo Esposito, Will Price, Tatiana Maslany",
+      "cast": "John Turturro, Will Price, Steve Buscemi, Giancarlo Esposito",
       "genre": "Crime, Drama, Thriller",
       "runtime": "88 min",
       "imdb_id": "tt36482679",
       "plot": "Harry Lehman is an aging pickpocket who plies his trade with ever-diminishing returns in a drastically changed New York. Wallets stuffed with cash have been replaced by easily cancelled credit cards, and Harry struggles to make ends meet as he cares for his disabled wife, Rosie. When he unwittingly purloins and fences a valuable USB stick, Harry finds himself in a race against time to return the loot or face the rage of a vengeful crime family.",
-      "date_added": "2026-10-26T13:47:39.264913+00:00"
+      "date_added": "2026-10-26T13:47:39.264913+00:00",
+      "original_language": "en"
     },
     {
       "guid": "https://www.scnsrc.me/?p=549263",
@@ -8075,16 +8160,17 @@
       "title": "You Can See Everything",
       "year": "2026",
       "rating": "9.0",
-      "poster": "https://images.scnsrc.me/images/2026/10/25/0a4ffab661699439513f8d554d776f14.jpg",
+      "poster": "https://image.tmdb.org/t/p/w500/Ap8QwmKfSjYbWC4XIP8w9pdn72O.jpg",
       "backdrop": "https://image.tmdb.org/t/p/w1280/nhIL3O4W9h5V5JbNQm7yjoDk3So.jpg",
       "trailer_key": "IEx8D1Wb__U",
       "director": "Nathan Fielder, Lance Oppenheim",
       "cast": "Elizabeth Holmes, Nathan Fielder, Billy Evans, Amanda Seyfried",
-      "genre": "Documentary, Horror, Drama",
-      "runtime": "174 min",
+      "genre": "Documentary",
+      "runtime": "175 min",
       "imdb_id": "tt45368240",
       "plot": "Thirty-four days before she's sent to prison, notorious Silicon Valley founder Elizabeth Holmes invites a skeptical film crew to document her every move. What begins as an intimate portrait of an enigmatic felon becomes a mind-bending three-year journey into the abyss.",
-      "date_added": "2026-10-26T13:47:39.625436+00:00"
+      "date_added": "2026-10-26T13:47:39.625436+00:00",
+      "original_language": "en"
     },
     {
       "guid": "https://www.scnsrc.me/?p=549370",
@@ -8094,8 +8180,8 @@
       "title": "The Lost Ones",
       "year": "2026",
       "rating": "4.5",
-      "poster": "https://image.tmdb.org/t/p/w500/vJgnRh06pvQUOW2s455CsiJE3bN.jpg",
-      "backdrop": "https://image.tmdb.org/t/p/w1280/nf17pBx2EU8PFHKvnwnogbz1F4j.jpg",
+      "poster": "https://image.tmdb.org/t/p/w500/nxd6gOGEaxMC2QBMDcRqzVH1On.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/a6UkZokyApBEZQH1ZUImptNguEg.jpg",
       "trailer_key": "sq7zxDAhRE0",
       "director": "Andrew Baird",
       "cast": "Henry Golding, Alex Pettyfer, Laura Haddock, Saise Quinn",
@@ -8103,26 +8189,8 @@
       "runtime": "Unknown",
       "imdb_id": "tt37028623",
       "plot": "When a perfect family relocates to rural America, their isolated idyll quickly becomes threatened by a disturbingly volatile neighbor.",
-      "date_added": "2026-10-27T12:54:54.251573+00:00"
-    },
-    {
-      "guid": "https://www.scnsrc.me/?p=549555",
-      "source_url": "https://www.scnsrc.me/?p=549555",
-      "raw_title": "Drive The Pretenders 2026 720p WEB H264-NoRBiT",
-      "slug": "drivethepretenders",
-      "title": "Drive The Pretenders",
-      "year": "2026",
-      "rating": "5.6",
-      "poster": "https://image.tmdb.org/t/p/w500/s9syckECnUYhKePQ1A0DC0mFVZ9.jpg",
-      "backdrop": "https://image.tmdb.org/t/p/w1280/hbz4aeVsjnKb2HRoFbbr46Egh8y.jpg",
-      "trailer_key": "-sV69CJwUwU",
-      "director": "Sergej Moya",
-      "cast": "Lisa-Marie Koroll, Amin Baahmed, Gustav Schmidt, Mišel Matičević",
-      "genre": "Romance, Thriller",
-      "runtime": "103 min",
-      "imdb_id": "tt37180686",
-      "plot": "A young race car mechanic fakes an engagement with racing's most scandalous star - officially for his reputation, secretly for her own shot behind the wheel. But soon the lie threatens to destroy everything - including what's already become so much more than just a deal.",
-      "date_added": "2026-10-28T13:44:00.386259+00:00"
+      "date_added": "2026-10-27T12:54:54.251573+00:00",
+      "original_language": "en"
     },
     {
       "guid": "https://www.scnsrc.me/?p=549540",
@@ -8132,16 +8200,17 @@
       "title": "Ali G Who Iz I",
       "year": "2026",
       "rating": "5.0",
-      "poster": "https://images.scnsrc.me/images/2026/10/28/9441a908dfa7f83b0584d618474547b0.jpg",
-      "backdrop": "https://image.tmdb.org/t/p/w1280/hJcGJLi34zE4RhzsiDR6f7pw50K.jpg",
+      "poster": "https://image.tmdb.org/t/p/w500/uTyVxPeWX8Ai30IQoyDDQONNcq.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/h7gas4rrcaSitLgF2ODry3Wz9KZ.jpg",
       "trailer_key": "pV32AcPa-iA",
       "director": "Sacha Baron Cohen",
-      "cast": "Sacha Baron Cohen, Morgana Robinson, C. Stewart Rodeheaver, Allan Lichtman",
+      "cast": "Sacha Baron Cohen, Morgana Robinson, Alpha Miknas, Clive Russell",
       "genre": "Comedy",
       "runtime": "89 min",
       "imdb_id": "tt43655467",
       "plot": "After twenty years spent \"chillin', tokin' and bonin'\", Ali G is shocked to discover that his long-term girlfriend, Julie, is 8 months pregnant. Faced with an extra mouth to feed, he gets off his batty and heads to America to reclaim his former glory… but soon encounters adversaries who will ultimately threaten his and his child's very existence.",
-      "date_added": "2026-10-28T13:44:00.677204+00:00"
+      "date_added": "2026-10-28T13:44:00.677204+00:00",
+      "original_language": "en"
     },
     {
       "guid": "https://www.scnsrc.me/?p=549460",
@@ -8151,7 +8220,7 @@
       "title": "Concessions",
       "year": "2025",
       "rating": "5.0",
-      "poster": "https://images.scnsrc.me/images/2026/10/27/257763e1849a2e6f6170ad45c33cc370.jpg",
+      "poster": "https://image.tmdb.org/t/p/w500/ooH1RBIh9tSp8XmEuIstc0h6cyF.jpg",
       "backdrop": "https://image.tmdb.org/t/p/w1280/tNfV5u9VuYm8wbmfVbTzRuVLR6y.jpg",
       "trailer_key": "I-f_uynUdLA",
       "director": "Mas Bouzidi",
@@ -8160,7 +8229,8 @@
       "runtime": "90 min",
       "imdb_id": "tt18468926",
       "plot": "As the Royal Alamo Cinema closes its doors for good, jaded staff, eccentric patrons, and an unhinged manager stumble through one last night at the movies—grappling with busted dreams, bad popcorn, and hard goodbyes.",
-      "date_added": "2026-10-28T13:44:00.962688+00:00"
+      "date_added": "2026-10-28T13:44:00.962688+00:00",
+      "original_language": "en"
     },
     {
       "guid": "https://www.scnsrc.me/?p=549452",
@@ -8170,7 +8240,7 @@
       "title": "Mum Im Alien Pregnant",
       "year": "2026",
       "rating": "6.0",
-      "poster": "https://images.scnsrc.me/images/2026/10/27/03e0cbdb110e8a0911369d19bb644410.jpg",
+      "poster": "https://image.tmdb.org/t/p/w500/1UWjL6OnlZXAQev3ZTjn83ZCs59.jpg",
       "backdrop": "https://image.tmdb.org/t/p/w1280/2ASkOyNYZvDs3M9xzKhckYmcRz4.jpg",
       "trailer_key": "usXu0Zf5-Tg",
       "director": "Jordan Mark Windsor, Sean Wallace",
@@ -8179,7 +8249,8 @@
       "runtime": "95 min",
       "imdb_id": "tt28784376",
       "plot": "When a messy underachiever accidentally gets alien-pregnant, she must overcome skeptical doctors, a useless baby daddy, and her oversharing mum in order to survive and reclaim her life.",
-      "date_added": "2026-10-28T13:44:01.255499+00:00"
+      "date_added": "2026-10-28T13:44:01.255499+00:00",
+      "original_language": "en"
     },
     {
       "guid": "https://www.scnsrc.me/?p=549430",
@@ -8189,92 +8260,17 @@
       "title": "Sense and Sensibility",
       "year": "2026",
       "rating": "7.2",
-      "poster": "https://images.scnsrc.me/images/2026/10/27/bd3a6c5eb9b9a920fb5295dc6666e955.jpg",
+      "poster": "https://image.tmdb.org/t/p/w500/czsyPHosFNbh4PPqXfqWu1aBXnA.jpg",
       "backdrop": "https://image.tmdb.org/t/p/w1280/tIcONOFK9D3F89ETK8DBS1hIwVF.jpg",
       "trailer_key": "OFLyW0lxFU0",
       "director": "Georgia Oakley",
-      "cast": "Daisy Edgar-Jones, Esmé Creed-Miles, Caitríona Balfe, Bodhi Rae Breathnach",
+      "cast": "Daisy Edgar-Jones, Esmé Creed-Miles, Caitríona Balfe, Frank Dillane",
       "genre": "Drama, Romance",
       "runtime": "132 min",
       "imdb_id": "tt13609648",
       "plot": "A charming, witty, and deeply relatable story of love and sisterhood.",
-      "date_added": "2026-10-28T13:44:01.542254+00:00"
-    },
-    {
-      "guid": "https://www.scnsrc.me/?p=549639",
-      "source_url": "https://www.scnsrc.me/?p=549639",
-      "raw_title": "You Me Us 2026 1080p WEB H264-9Minus5in",
-      "slug": "youmeus",
-      "title": "You Me Us",
-      "year": "2026",
-      "rating": "6.3",
-      "poster": "https://image.tmdb.org/t/p/w500/4Gw8ukw5aAUP1uzNtYZ0CNTUy5A.jpg",
-      "backdrop": "https://image.tmdb.org/t/p/w1280/u2Fiz8KC804t9Go2jG2KRxiGzRZ.jpg",
-      "trailer_key": "XjUt3Fv_f-Y",
-      "director": "Daniele Luchetti",
-      "cast": "Elio Germano, Maria Chiara Giannetta, Lidia Vitale, Anna Bonaiuto",
-      "genre": "Drama, Comedy",
-      "runtime": "107 min",
-      "imdb_id": "tt38504402",
-      "plot": "A couple faces the difficult path to adoption, determined to become parents despite their complex vulnerabilities.",
-      "date_added": "2026-10-29T13:53:46.389655+00:00"
-    },
-    {
-      "guid": "https://www.scnsrc.me/?p=549879",
-      "source_url": "https://www.scnsrc.me/?p=549879",
-      "raw_title": "Kraken 2026 1080p Blu-ray Remux AVC DTS-HD MA 5.1-HDT",
-      "slug": "kraken",
-      "title": "Kraken",
-      "year": "2026",
-      "rating": "4.9",
-      "poster": "https://images.scnsrc.me/images/2026/10/31/529e3f3db274b7013f11cfabeed5e2e6.jpg",
-      "backdrop": "https://image.tmdb.org/t/p/w1280/oV472EbPedkc5QzqolGc7sCgCnn.jpg",
-      "trailer_key": "EUTatY1-oBI",
-      "director": "Pål Øie",
-      "cast": "Sara Khorami, Mikkel Bratt Silset, Ingvild Holthe Bygdnes, Øyvind Brandtzæg",
-      "genre": "Horror, Action, Thriller",
-      "runtime": "94 min",
-      "imdb_id": "tt19838566",
-      "plot": "A marine biologist is doing research on a fish farm when she encounters several strange occurrences. Along with the brutal deaths of two teenagers, all signs point to the deep fjord; can there be more to the depths than the eye can see?",
-      "date_added": "2026-10-31T13:14:54.949520+00:00"
-    },
-    {
-      "guid": "https://www.scnsrc.me/?p=549861",
-      "source_url": "https://www.scnsrc.me/?p=549861",
-      "raw_title": "The Birthday Gift 2026 1080p WEB H264-9Minus5in",
-      "slug": "thebirthdaygift",
-      "title": "The Birthday Gift",
-      "year": "2026",
-      "rating": "4.9",
-      "poster": "https://images.scnsrc.me/images/2026/10/30/45178ee9557705131e977af4e67b50b3.jpg",
-      "backdrop": "https://image.tmdb.org/t/p/w1280/eBtITrrdFo1EG7t6TSG5U5c4P2e.jpg",
-      "trailer_key": null,
-      "director": "Vanessa Jopp",
-      "cast": "Jeanne Goursaud, Edin Hasanović, Heiner Lauterbach, Levin Wopp",
-      "genre": "Comedy",
-      "runtime": "86 min",
-      "imdb_id": "tt38999812",
-      "plot": "Single mother Marlene Frischmann organizes a birthday party for her son Theo at her brother's chic country villa, which quickly spirals into family drama, world-view quarrels, and chaos.",
-      "date_added": "2026-10-31T13:14:55.197044+00:00"
-    },
-    {
-      "guid": "https://www.scnsrc.me/?p=549858",
-      "source_url": "https://www.scnsrc.me/?p=549858",
-      "raw_title": "Collision Course 2026 1080p WEB H264-9Minus5in",
-      "slug": "collisioncourse",
-      "title": "Collision Course",
-      "year": "2026",
-      "rating": "5.7",
-      "poster": "https://images.scnsrc.me/images/2026/10/30/46788da57217ab7430e139785ed7c402.jpg",
-      "backdrop": "https://image.tmdb.org/t/p/w1280/uI3kWI7kGW5E0F8WduewgQYPt34.jpg",
-      "trailer_key": "8hVLhaK619k",
-      "director": "Daniel Sánchez Arévalo",
-      "cast": "Laia Costa, Karra Elejalde, Luis Zahera, Tamar Novas",
-      "genre": "Drama, Action, Crime",
-      "runtime": "122 min",
-      "imdb_id": "tt38793125",
-      "plot": "Spain, 2013. After robbing a bank, a getaway crash reveals the hidden side of each thief, exposing betrayals and lies that began long before the heist.",
-      "date_added": "2026-10-31T13:14:55.448293+00:00"
+      "date_added": "2026-10-28T13:44:01.542254+00:00",
+      "original_language": "en"
     },
     {
       "guid": "https://www.scnsrc.me/?p=549856",
@@ -8284,35 +8280,17 @@
       "title": "SCTV The Greatest Show Youve Never Heard Of",
       "year": "2026",
       "rating": "7.6",
-      "poster": "https://images.scnsrc.me/images/2026/10/30/8ec2f019c5d9e7cc02c375f0448ffb3a.jpg",
+      "poster": "https://image.tmdb.org/t/p/w500/vBqVyTpzv5RzHSsQdu8ECxAqSvd.jpg",
       "backdrop": "https://image.tmdb.org/t/p/w1280/4EKa1ordKkch7bAYlV4e3fwsVCj.jpg",
       "trailer_key": "5vri0LVrMIE",
       "director": "Jason Hehir",
-      "cast": "Martin Short, Eugene Levy, John Candy, Andrea Martin",
+      "cast": "Andrea Martin, Martin Short, Eugene Levy, Dave Thomas",
       "genre": "Documentary",
       "runtime": "88 min",
       "imdb_id": "tt44825373",
-      "plot": "Legendary \"SCTV\" cast members reunite in this documentary for a funny and heartfelt celebration of how a scrappy Canadian sketch show made comedy history.",
-      "date_added": "2026-10-31T13:14:55.704908+00:00"
-    },
-    {
-      "guid": "https://www.scnsrc.me/?p=549850",
-      "source_url": "https://www.scnsrc.me/?p=549850",
-      "raw_title": "Apocalypse Z New World 2026 DV 2160p WEB H265-9Minus5in",
-      "slug": "apocalypseznewworld",
-      "title": "Apocalypse Z New World",
-      "year": "2026",
-      "rating": "5.1",
-      "poster": "https://images.scnsrc.me/images/2026/10/30/3e630eef8dc242ded2886a70cc205043.jpg",
-      "backdrop": "https://image.tmdb.org/t/p/w1280/o3XwuDUj0n8qnK91p6q8LKfr6rj.jpg",
-      "trailer_key": "BIEzwpyawtw",
-      "director": "Carles Torrens",
-      "cast": "Carlos Alcaide, Julia Martínez, Mario Mayo, Mónica López",
-      "genre": "Action, Thriller, Horror",
-      "runtime": "96 min",
-      "imdb_id": "tt37522541",
-      "plot": "The Canary Islands have become Europe’s last refuge following the outbreak of the TSJ virus. When a special mission sets out for the mainland in search of vital supplies, Roberto joins the team with questionable intentions. The dangerous operation turns into a desperate race for survival, and Roberto and his companions find themselves caught between hordes of infected and divided loyalties.",
-      "date_added": "2026-10-31T13:14:55.959746+00:00"
+      "plot": "Second City Television cast members reunite in this documentary for a funny and heartfelt celebration of how a scrappy Canadian sketch show made comedy history.",
+      "date_added": "2026-10-31T13:14:55.704908+00:00",
+      "original_language": "en"
     },
     {
       "guid": "https://www.scnsrc.me/?p=549903",
@@ -8322,8 +8300,8 @@
       "title": "Wild Horse Nine",
       "year": "2026",
       "rating": "8.1",
-      "poster": "https://images.scnsrc.me/images/2026/10/31/d085a7b9b2021d3b1cd468cc411c739b.jpg",
-      "backdrop": "https://image.tmdb.org/t/p/w1280/b17UWf3LqHgKolQkXckne32qv0.jpg",
+      "poster": "https://image.tmdb.org/t/p/w500/dNJFRtVg3xLQ7dbNIQ55cmmIniD.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/3uLA0ujne91bkzFStZICCYeqhnt.jpg",
       "trailer_key": "kqxuamKxRTo",
       "director": "Martin McDonagh",
       "cast": "John Malkovich, Sam Rockwell, Steve Buscemi, Mariana di Girolamo",
@@ -8331,7 +8309,8 @@
       "runtime": "117 min",
       "imdb_id": "tt15799564",
       "plot": "Shortly before the 1973 Chilean coup, CIA agents Chris and Lee are dispatched from Santiago to Easter Island by their bureau chief, MJ. Amongst the Island's iconic statues, and as the longtime partners wrestle with their dark pasts and present conspiracies, Chris's newfound bond with a pair of rebellious students threatens to send everyone’s trip to this remote paradise sideways.",
-      "date_added": "2026-11-01T13:58:20.461078+00:00"
+      "date_added": "2026-11-01T13:58:20.461078+00:00",
+      "original_language": "en"
     },
     {
       "guid": "https://www.scnsrc.me/?p=549897",
@@ -8341,16 +8320,17 @@
       "title": "Wildwood",
       "year": "2026",
       "rating": "8.6",
-      "poster": "https://images.scnsrc.me/images/2026/10/31/c88d37bf8732f4b864a5183858629484.jpg",
+      "poster": "https://image.tmdb.org/t/p/w500/snFM00mpNAfUzUtkdEW0uDEvXA0.jpg",
       "backdrop": "https://image.tmdb.org/t/p/w1280/sl5NJ1vtyhP9Vr88bB4blULsJYp.jpg",
       "trailer_key": "bJQGtSeLPII",
       "director": "Travis Knight",
       "cast": "Peyton Elizabeth Lee, Jacob Tremblay, Carey Mulligan, Mahershala Ali",
-      "genre": "Animation, Adventure, Fantasy",
+      "genre": "Animation, Fantasy, Adventure, Drama",
       "runtime": "132 min",
       "imdb_id": "tt2056785",
       "plot": "Prue and her classmate Curtis are drawn into a magical forest filled with enchanted creatures, loyal allies, and formidable adversaries as they embark on a desperate quest to rescue Prue's abducted baby brother from a murder of crows led by a mysterious woman named Alexandra.",
-      "date_added": "2026-11-01T13:58:20.735745+00:00"
+      "date_added": "2026-11-01T13:58:20.735745+00:00",
+      "original_language": "en"
     },
     {
       "guid": "https://www.scnsrc.me/?p=550114",
@@ -8360,16 +8340,17 @@
       "title": "Scorpion",
       "year": "2026",
       "rating": "4.3",
-      "poster": "https://images.scnsrc.me/images/2026/11/02/e4be8e17a814a7f8de13701945581df7.jpg",
-      "backdrop": null,
-      "trailer_key": null,
+      "poster": "https://image.tmdb.org/t/p/w500/dOO8M71ROj5V8gsC2O2gRt52YDV.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/4HGguU2fNzhw3GRa1KQ6vGiHLWB.jpg",
+      "trailer_key": "VJE5jMF0oFM",
       "director": "Brian Skiba",
-      "cast": "Aaron Eckhart, Kaitlyn Kemp, Timothy V. Murphy",
+      "cast": "Aaron Eckhart, Kaitlyn Kemp, Timothy V. Murphy, Laurie Love",
       "genre": "Thriller",
       "runtime": "90 min",
       "imdb_id": "tt33473834",
       "plot": "A teen’s mistake exposes her father as Scorpion, a retired CIA assassin, forcing them on the run from his former mentor and the deadly operatives of The Zoo.",
-      "date_added": "2026-11-02T16:45:18.999075+00:00"
+      "date_added": "2026-11-02T16:45:18.999075+00:00",
+      "original_language": "en"
     },
     {
       "guid": "https://www.scnsrc.me/?p=550111",
@@ -8379,16 +8360,17 @@
       "title": "Beware Boiuna",
       "year": "2026",
       "rating": "5.7",
-      "poster": "https://images.scnsrc.me/images/2026/11/02/d295670dea336c41e4d442b53f9a18f2.jpg",
+      "poster": "https://image.tmdb.org/t/p/w500/uW5YMPxJUzT9bkafrCKHXjPTCoQ.jpg",
       "backdrop": "https://image.tmdb.org/t/p/w1280/9nU0FKNefmhbgi2xXlvZchZsqwm.jpg",
       "trailer_key": "MQKqgFVU4dQ",
       "director": "Mike P. Nelson",
-      "cast": "Logan Marshall-Green, Kiana Madeira, Jessica Rothe, Jackson Bews",
-      "genre": "Horror, Thriller",
-      "runtime": "104 min",
+      "cast": "Kiana Madeira, Jessica Rothe, Will Close, Juan Pablo Shuk",
+      "genre": "Horror, Thriller, Action",
+      "runtime": "103 min",
       "imdb_id": "tt10377864",
       "plot": "A medical mission deep in the Amazon becomes a desperate fight for survival when a colossal ancient predator awakens, turning the jungle into a deadly battleground where nature decides who lives and dies.",
-      "date_added": "2026-11-02T16:45:19.363860+00:00"
+      "date_added": "2026-11-02T16:45:19.363860+00:00",
+      "original_language": "en"
     },
     {
       "guid": "https://www.scnsrc.me/?p=550088",
@@ -8417,8 +8399,8 @@
       "title": "The Mosquito Bowl",
       "year": "2026",
       "rating": "6.7",
-      "poster": "https://images.scnsrc.me/images/2026/11/02/0450c15ac7d359969a911cad10f5bfec.jpg",
-      "backdrop": "https://image.tmdb.org/t/p/w1280/6BQf817glhR9motzKeCPynPGySi.jpg",
+      "poster": "https://image.tmdb.org/t/p/w500/zbT4sxoCEeFWlQG4SC5X9Q8v6PC.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/k2djfMwL3LhpvZMfPN7IFX4DG5N.jpg",
       "trailer_key": "F6YDzPfjH4I",
       "director": "Peter Berg",
       "cast": "Nicholas Galitzine, Bill Skarsgård, Ray Nicholson, Tom Francis",
@@ -8426,7 +8408,8 @@
       "runtime": "128 min",
       "imdb_id": "tt36413910",
       "plot": "In the aftermath of Pearl Harbor, four college football stars enlist in the US Marines, discovering the strength of brotherhood and the cost of war.",
-      "date_added": "2026-11-02T16:45:20.103305+00:00"
+      "date_added": "2026-11-02T16:45:20.103305+00:00",
+      "original_language": "en"
     },
     {
       "guid": "https://www.scnsrc.me/?p=550031",
@@ -8436,16 +8419,17 @@
       "title": "Rough Draft",
       "year": "2026",
       "rating": "4.4",
-      "poster": "https://images.scnsrc.me/images/2026/11/01/0c3a23aa618ad97e5902d1320a8a6ce6.jpg",
-      "backdrop": null,
+      "poster": "https://image.tmdb.org/t/p/w500/VrMM7ysYlPoiT6plKJNMtdUX2j.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/4bkFU1ayO8bQysqn8rwh9Vdl0ch.jpg",
       "trailer_key": "3ze829iAC6g",
       "director": "Michael Caissie",
       "cast": "Jeff Fahey, Mena Suvari, Lochlyn Munro, Siena Bjornerud",
       "genre": "Horror, Thriller",
-      "runtime": "Unknown",
+      "runtime": "88 min",
       "imdb_id": "tt32269489",
       "plot": "Much to his wife’s chagrin, Michael can’t seem to settle on the ending to his latest novel. Even though he has owed the publisher for some time now, he keeps deleting and tweaking the ending to his tale of horror, with each change ultimately affecting the outcome of the group of teens who are being killed one by one by an unknown killer in his story.",
-      "date_added": "2026-11-02T16:45:20.520852+00:00"
+      "date_added": "2026-11-02T16:45:20.520852+00:00",
+      "original_language": "en"
     },
     {
       "guid": "https://www.scnsrc.me/?p=550028",
@@ -8455,7 +8439,7 @@
       "title": "Dead Lover",
       "year": "2025",
       "rating": "5.7",
-      "poster": "https://images.scnsrc.me/images/2026/11/01/804e3a197cb833344208faaf0a6b26b5.jpg",
+      "poster": "https://image.tmdb.org/t/p/w500/mbvP4f6BU923NGfqjpOJcJih3i6.jpg",
       "backdrop": "https://image.tmdb.org/t/p/w1280/tyTEwvNWY6Uxo7bGBPpV10wREQR.jpg",
       "trailer_key": "cYWuLpEyWqA",
       "director": "Grace Glowicki",
@@ -8464,7 +8448,8 @@
       "runtime": "84 min",
       "imdb_id": "tt27378311",
       "plot": "A lonely gravedigger who stinks of corpses finally meets her dream man, but their whirlwind affair is cut short when he tragically drowns at sea. Grief-stricken, she goes to morbid lengths to resurrect him through madcap scientific experiments, resulting in grave consequences and unlikely love.",
-      "date_added": "2026-11-02T16:45:20.890891+00:00"
+      "date_added": "2026-11-02T16:45:20.890891+00:00",
+      "original_language": "en"
     },
     {
       "guid": "https://www.scnsrc.me/?p=550304",
@@ -8474,7 +8459,7 @@
       "title": "Charlie Harper",
       "year": "2026",
       "rating": "6.1",
-      "poster": "https://images.scnsrc.me/images/2026/11/03/594c7c9d5eafcdc98b8f503cd31dc163.jpg",
+      "poster": "https://image.tmdb.org/t/p/w500/9Nf8Pluoi1JrT6S0qDsDMndFnlz.jpg",
       "backdrop": "https://image.tmdb.org/t/p/w1280/wNj3vgm13CyKb04xIq7NQ8zTY1e.jpg",
       "trailer_key": "Syp1bGpWTSs",
       "director": "Tom Dean, Mac Eldridge",
@@ -8483,7 +8468,8 @@
       "runtime": "102 min",
       "imdb_id": "tt27739255",
       "plot": "As an ambitious chef and her struggling partner move to a new city to start fresh, the stark divide in their drives tests the limits of their love.",
-      "date_added": "2026-11-03T14:48:29.627861+00:00"
+      "date_added": "2026-11-03T14:48:29.627861+00:00",
+      "original_language": "en"
     },
     {
       "guid": "https://www.scnsrc.me/?p=550453",
@@ -8493,7 +8479,7 @@
       "title": "A Dogs Perfect Christmas",
       "year": "2026",
       "rating": "6.4",
-      "poster": "https://image.tmdb.org/t/p/w500/wCBlcfbVPiK0mc13mgJDEoxRBHB.jpg",
+      "poster": "https://image.tmdb.org/t/p/w500/zvsNAohDHRWcGvbPSD7r3WojpKb.jpg",
       "backdrop": "https://image.tmdb.org/t/p/w1280/hhQT0TySg3LXCE8BEPpfPJ5zJA2.jpg",
       "trailer_key": "L18ih13Bf-U",
       "director": "Cathryn Michon",
@@ -8502,7 +8488,8 @@
       "runtime": "102 min",
       "imdb_id": "tt38515310",
       "plot": "When a medical emergency pulls the Goss family apart, determined dog Winstead will do all he can to bring his humans back together before Christmas Eve.",
-      "date_added": "2026-11-04T15:00:31.211185+00:00"
+      "date_added": "2026-11-04T15:00:31.211185+00:00",
+      "original_language": "en"
     },
     {
       "guid": "https://www.scnsrc.me/?p=550337",
@@ -8512,8 +8499,8 @@
       "title": "Model Citizen",
       "year": "2026",
       "rating": "3.7",
-      "poster": "https://images.scnsrc.me/images/2026/11/03/86a3f08e78261162731434a93f3b3632.jpg",
-      "backdrop": "https://image.tmdb.org/t/p/w1280/5MBdRdiGv3AKzZDGbni88xc6JFi.jpg",
+      "poster": "https://image.tmdb.org/t/p/w500/7SE0LBwgqiqZzkm9gKVbBAbcNQL.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/mC5Y5jmodmTp7T7eyQ8tTBnQRg5.jpg",
       "trailer_key": "VczwWXoMKL0",
       "director": "Tag Mendillo",
       "cast": "Aaron Eckhart, Emmanuelle Chriqui, Paul Braunstein, David Hewlett",
@@ -8521,26 +8508,8 @@
       "runtime": "93 min",
       "imdb_id": "tt13884466",
       "plot": "With his memories gone and his past a blur, ex-cop Steven Bay seeks treatment for his amnesia while working on an isolated farm. Instead, he's met with rising hostility, strange surveillance, and instincts he can’t fully control. When the pressure becomes unbearable, Bay begins a desperate hunt for the truth behind his fractured reality.",
-      "date_added": "2026-11-04T15:00:31.621846+00:00"
-    },
-    {
-      "guid": "https://www.scnsrc.me/?p=550325",
-      "source_url": "https://www.scnsrc.me/?p=550325",
-      "raw_title": "The Poet 2025 1080p AMZN WEB-DL H264-SCOPE",
-      "slug": "thepoet",
-      "title": "The Poet",
-      "year": "2025",
-      "rating": "6.0",
-      "poster": "https://images.scnsrc.me/images/2026/11/03/dcfb3c998f81dfae95278d17e044da7d.jpg",
-      "backdrop": "https://image.tmdb.org/t/p/w1280/mdFrkufYmXcoohvFxvoALidSqJ1.jpg",
-      "trailer_key": "S_YWsmV3wA0",
-      "director": "Felix Umarov",
-      "cast": "Yura Borisov, Alyona Dolgolenko, Roman Vasilev, Ilya Vinogorsky",
-      "genre": "Romance, Music",
-      "runtime": "137 min",
-      "imdb_id": "tt24218224",
-      "plot": "Alexander Pushkin is young, brash and adored by high society. He is the star at every ball he attends, his fans revere his poetic talent, and young women dream of winning his attention. However, not even his aristocratic patrons and loyal friends, nor his growing fame can keep him from dueling, getting exiled, and becoming destitute. Only when he meets his true love does he find meaning in life, and his genius develops to make him the legend the world knows today.",
-      "date_added": "2026-11-04T15:00:32.079377+00:00"
+      "date_added": "2026-11-04T15:00:31.621846+00:00",
+      "original_language": "en"
     },
     {
       "guid": "https://www.scnsrc.me/?p=550616",
@@ -8562,63 +8531,6 @@
       "date_added": "2026-11-05T15:06:21.302279+00:00"
     },
     {
-      "guid": "https://www.scnsrc.me/?p=550614",
-      "source_url": "https://www.scnsrc.me/?p=550614",
-      "raw_title": "Overacting 2026 1080p WEB H264-9Minus5in",
-      "slug": "overacting",
-      "title": "Overacting",
-      "year": "2026",
-      "rating": "5.4",
-      "poster": "https://image.tmdb.org/t/p/w500/rve2a7JXJbXivl0JakEWgc9Fhwh.jpg",
-      "backdrop": "https://image.tmdb.org/t/p/w1280/5pMZA0EdgE66jcSCkfDCAtWiizk.jpg",
-      "trailer_key": "a28p9c4zTdI",
-      "director": "Prueksa Amaruji",
-      "cast": "Pongsak Pongsuwan, Maylada Susri, Akkharadech Yodjampa, Gornpop Janjaroen",
-      "genre": "Action, Adventure, Comedy",
-      "runtime": "116 min",
-      "imdb_id": "tt39750664",
-      "plot": "When her father's memories as a retired top cop resurface, a struggling actress stages wild missions to keep him from pursuing his elusive archnemesis.",
-      "date_added": "2026-11-05T15:06:21.671909+00:00"
-    },
-    {
-      "guid": "https://www.scnsrc.me/?p=550610",
-      "source_url": "https://www.scnsrc.me/?p=550610",
-      "raw_title": "Dilwali Diwali 2026 1080p WEB H264-CUPCAKES",
-      "slug": "dilwalidiwali",
-      "title": "Dilwali Diwali",
-      "year": "2026",
-      "rating": "5.9",
-      "poster": "https://image.tmdb.org/t/p/w500/cV31QO65DA6mk4Hd6S7QncVq85T.jpg",
-      "backdrop": "https://image.tmdb.org/t/p/w1280/jjq0mxPwmyYVGgpIze98WLRoODI.jpg",
-      "trailer_key": "m4aJdzwSOZg",
-      "director": "Ritesh Menon",
-      "cast": "Mihir Ahuja, Manoj Pahwa, Neelu Kohli, Aura Bhatnagar Badoni",
-      "genre": "Comedy",
-      "runtime": "61 min",
-      "imdb_id": "tt50107649",
-      "plot": "Ansh Sikkha returns to his Punjabi family home for Diwali after years working abroad. As the Sikkas gather for the festival, their clashing views on what constitutes a fulfilling life create friction and connection.",
-      "date_added": "2026-11-05T15:06:22.004307+00:00"
-    },
-    {
-      "guid": "https://www.scnsrc.me/?p=550608",
-      "source_url": "https://www.scnsrc.me/?p=550608",
-      "raw_title": "One Year to Live Buy a Man 2026 1080p WEB H264-9Minus5in",
-      "slug": "oneyeartolivebuyaman",
-      "title": "One Year to Live Buy a Man",
-      "year": "2026",
-      "rating": "6.3",
-      "poster": "https://image.tmdb.org/t/p/w500/fez7kLyGzpowduJapTFZZ1feCS0.jpg",
-      "backdrop": "https://image.tmdb.org/t/p/w1280/6vGH7JZFLzFawpwCcnNweF8j3KD.jpg",
-      "trailer_key": "WH-RRKQGdJ8",
-      "director": "Hiroki Kazama",
-      "cast": "Ko Shibasaki, Eiji Akaso, Michitaka Tsutsui, Naomi Nishida",
-      "genre": "Romance, Drama",
-      "runtime": "109 min",
-      "imdb_id": "tt39400541",
-      "plot": "Given a year to live, frugal 40-year-old Yui finally lets herself spend: \"buying\" nightclub host Sena. What begins as a contract takes an unexpected turn.",
-      "date_added": "2026-11-05T15:06:22.342148+00:00"
-    },
-    {
       "guid": "https://www.scnsrc.me/?p=550525",
       "source_url": "https://www.scnsrc.me/?p=550525",
       "raw_title": "Christmas At The Kringles 2026 CAM h264-CinemaCity",
@@ -8626,8 +8538,8 @@
       "title": "Christmas At The Kringles",
       "year": "2026",
       "rating": "4.2",
-      "poster": "https://images.scnsrc.me/images/2026/11/04/99fb8cc3761ed1d71e5b359cba971576.jpg",
-      "backdrop": "https://image.tmdb.org/t/p/w1280/yZq46gEwwXKzJRemlC0qPPBJmvt.jpg",
+      "poster": "https://image.tmdb.org/t/p/w500/oVxkhheRVWSacimUZBuMemQX85E.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/7lEFPOUwk3H1aLx1UqGafAXRUPY.jpg",
       "trailer_key": "IsGccGqcNNE",
       "director": "Kevin Lewis",
       "cast": "Ron Livingston, Rachel Bilson, Rob Riggle, Arden Myrin",
@@ -8635,7 +8547,8 @@
       "runtime": "100 min",
       "imdb_id": "tt42588704",
       "plot": "After moving to a quiet suburban neighborhood, the Seversons meet the Kringles, a family that celebrates Christmas year-round. When Mark, the father, discovers the Kringles' sinister yuletide intentions, he teams up with a badass Santa in a high-stakes, action-packed fight to save his family.",
-      "date_added": "2026-11-05T15:06:22.683221+00:00"
+      "date_added": "2026-11-05T15:06:22.683221+00:00",
+      "original_language": "en"
     },
     {
       "guid": "https://www.scnsrc.me/?p=550482",
@@ -8645,7 +8558,7 @@
       "title": "April X",
       "year": "2025",
       "rating": "5.0",
-      "poster": "https://images.scnsrc.me/images/2026/11/04/c649dafc38cfb5dbb3fe8c315468c003.jpg",
+      "poster": "https://image.tmdb.org/t/p/w500/Aqth7r2pr79YPYj6WPGDs23F4Wb.jpg",
       "backdrop": "https://image.tmdb.org/t/p/w1280/e5HtlJjrEJDoRZOkM6UDXbSokH6.jpg",
       "trailer_key": "1Dbuam1jvw4",
       "director": "Michel K. Parandi",
@@ -8654,7 +8567,8 @@
       "runtime": "92 min",
       "imdb_id": "tt30850718",
       "plot": "When his twin sister April (Lilly Krug) goes missing, Bax (Connor Storrie) searches every corner of their futuristic, post-Soviet cityscape to find her. Ultimately descending into a violent criminal underworld and madness, Bax is forced to confront the cost of identity, love, and survival.",
-      "date_added": "2026-11-05T15:06:23.021904+00:00"
+      "date_added": "2026-11-05T15:06:23.021904+00:00",
+      "original_language": "en"
     },
     {
       "guid": "https://www.scnsrc.me/?p=550851",
@@ -8664,54 +8578,17 @@
       "title": "Musk",
       "year": "2026",
       "rating": "7.1",
-      "poster": "https://images.scnsrc.me/images/2026/11/06/c5baac061c4d5f64ee6fa19c1719e95e.jpg",
+      "poster": "https://image.tmdb.org/t/p/w500/kTOeFV92c3QHJ3bEkT660P7BcWN.jpg",
       "backdrop": "https://image.tmdb.org/t/p/w1280/1CfHIKczBiAauSRBiNQ90bjLsCM.jpg",
       "trailer_key": "eY_8SyndC10",
       "director": "Alex Gibney",
       "cast": "Elon Musk, Alex Gibney, Justine Musk, Ashley St. Clair",
       "genre": "Documentary",
-      "runtime": "235 min",
+      "runtime": "238 min",
       "imdb_id": "tt27041231",
       "plot": "An incisive look behind the legend of Elon Musk, the world's most heralded \"inventor-entrepreneur\" who has enormous influence on the world in which we all live.",
-      "date_added": "2026-11-06T14:44:36.031791+00:00"
-    },
-    {
-      "guid": "https://www.scnsrc.me/?p=550849",
-      "source_url": "https://www.scnsrc.me/?p=550849",
-      "raw_title": "Possible Love 2026 1080p WEB H264-9Minus5in",
-      "slug": "possiblelove",
-      "title": "Possible Love",
-      "year": "2026",
-      "rating": "7.8",
-      "poster": "https://images.scnsrc.me/images/2026/11/06/303993137739d05de313e11fab904d08.jpg",
-      "backdrop": "https://image.tmdb.org/t/p/w1280/kPbyLj2OyjojqvR1jfK1VvXzabg.jpg",
-      "trailer_key": "zd3qXH9qN70",
-      "director": "Lee Chang-dong",
-      "cast": "Jeon Do-yeon, Sul Kyung-gu, Zo In-sung, Cho Yeo-jeong",
-      "genre": "Drama",
-      "runtime": "165 min",
-      "imdb_id": "tt37803364",
-      "plot": "A laid-off worker and his wife cross paths with a documentary filmmaker and her spouse and confront their hidden desires.",
-      "date_added": "2026-11-06T14:44:36.381333+00:00"
-    },
-    {
-      "guid": "https://www.scnsrc.me/?p=550846",
-      "source_url": "https://www.scnsrc.me/?p=550846",
-      "raw_title": "Godzilla Minus Zero 2026 720p CAM h264-CinemaCity",
-      "slug": "godzillaminuszero",
-      "title": "Godzilla Minus Zero",
-      "year": "2026",
-      "rating": "8.0",
-      "poster": "https://images.scnsrc.me/images/2026/11/06/f6a05fb378891b0b945759edb5ae72d3.jpg",
-      "backdrop": "https://image.tmdb.org/t/p/w1280/oqrYIDH4tvfEzPe1yqT4jzmAWHQ.jpg",
-      "trailer_key": "E-Q2tEgJ1ZI",
-      "director": "Takashi Yamazaki",
-      "cast": "Ryunosuke Kamiki, Minami Hamabe, Yuki Yamada, Kuranosuke Sasaki",
-      "genre": "Science Fiction, Horror, Action",
-      "runtime": "135 min",
-      "imdb_id": "tt34384661",
-      "plot": "War reduced Japan to zero, and Godzilla plunged it into minus. Two years have passed since then, and the country has faced agonizing struggles to achieve recovery and finally reclaim its daily life. Just as humanity managed to cling to a hard-won peace, a new threat strikes, crushing hope in an instant. There is no third time. Everything ends here.",
-      "date_added": "2026-11-06T14:44:36.732296+00:00"
+      "date_added": "2026-11-06T14:44:36.031791+00:00",
+      "original_language": "en"
     },
     {
       "guid": "https://www.scnsrc.me/?p=550785",
@@ -8721,7 +8598,7 @@
       "title": "Last Train to Fortune",
       "year": "2025",
       "rating": "5.6",
-      "poster": "https://images.scnsrc.me/images/2026/11/06/461a1eb067af8ee15316f4577012689c.jpg",
+      "poster": "https://image.tmdb.org/t/p/w500/oqBHbggqRIPSD8VoezinVP26t0j.jpg",
       "backdrop": "https://image.tmdb.org/t/p/w1280/8utNndo8XwsjrvcwSjGTPbcbc4R.jpg",
       "trailer_key": "0qVU3wln7PI",
       "director": "Adam Rifkin",
@@ -8730,7 +8607,8 @@
       "runtime": "94 min",
       "imdb_id": "tt27592184",
       "plot": "When schoolteacher Cecil Peachtree misses the last train to Fortune, he strikes a deal with outlaw Dooley to secure safe and timely travel.  On the journey, the two develop an odd friendship through the power of knowledge.",
-      "date_added": "2026-11-06T14:44:37.107779+00:00"
+      "date_added": "2026-11-06T14:44:37.107779+00:00",
+      "original_language": "en"
     },
     {
       "guid": "https://www.scnsrc.me/?p=550728",
@@ -8749,7 +8627,8 @@
       "runtime": "98 min",
       "imdb_id": "tt38258118",
       "plot": "Over the course of one explosive night, a small-town diner becomes the epicenter of a deadly standoff involving rogue federal agents, a fast-talking con man with a dangerous past, and a waitress harboring secrets of her own.",
-      "date_added": "2026-11-06T14:44:37.463740+00:00"
+      "date_added": "2026-11-06T14:44:37.463740+00:00",
+      "original_language": "en"
     },
     {
       "guid": "https://www.scnsrc.me/?p=550943",
@@ -8759,7 +8638,7 @@
       "title": "The Last Temptation Of Becky",
       "year": "2026",
       "rating": "6.2",
-      "poster": "https://images.scnsrc.me/images/2026/11/07/aa9062c7aa5724193c93fd58ed983800.jpg",
+      "poster": "https://image.tmdb.org/t/p/w500/dS2EUbnMyfv1bWsGa6GBgzwp5cF.jpg",
       "backdrop": "https://image.tmdb.org/t/p/w1280/9o9ITSmTuI3Lof4ayV1dQUEez4k.jpg",
       "trailer_key": "aQrxHLuqJCk",
       "director": "Jenn Wexler",
@@ -8768,26 +8647,8 @@
       "runtime": "89 min",
       "imdb_id": "tt40210362",
       "plot": "Now working as a field agent for the CIA, Becky is sent undercover to Poland to infiltrate a family of innkeepers running a tourist venture at The Wolf's Lair, Hitler's WWII bunker. After learning that the father, Wilhelm Reuss, is on a mission to bring about the Fourth Reich, Becky takes matters into her own hands.",
-      "date_added": "2026-11-07T13:42:08.463253+00:00"
-    },
-    {
-      "guid": "https://www.scnsrc.me/?p=551174",
-      "source_url": "https://www.scnsrc.me/?p=551174",
-      "raw_title": "The Good Lawyer 2026 1080p WEB H264-9Minus5in",
-      "slug": "thegoodlawyer",
-      "title": "The Good Lawyer",
-      "year": "2026",
-      "rating": "6.4",
-      "poster": "https://images.scnsrc.me/images/2026/11/09/760da68f01d0309da96cc1b9a24b20a5.jpg",
-      "backdrop": "https://image.tmdb.org/t/p/w1280/fzlch1j1aVGJKI0GB6IdgbG5gpJ.jpg",
-      "trailer_key": null,
-      "director": "Tristan Séguéla",
-      "cast": "Laurent Lafitte, Anthony Bajon, Mélanie Laurent, Carole Bouquet",
-      "genre": "Thriller, Drama",
-      "runtime": "114 min",
-      "imdb_id": "tt39453578",
-      "plot": "Léonard Landry, a flamboyant criminal defence lawyer, overdoses in the middle of the courtroom. After undergoing rehab, he has one week to save his career and prepare for his own trial, reluctantly assisted by a tenacious intern, Noé. This marks the beginning of a frantic race involving legal manoeuvres, temptations and dramatic twists.",
-      "date_added": "2026-11-09T17:02:46.520280+00:00"
+      "date_added": "2026-11-07T13:42:08.463253+00:00",
+      "original_language": "en"
     },
     {
       "guid": "https://www.scnsrc.me/?p=551279",
@@ -8797,7 +8658,7 @@
       "title": "Other Mommy",
       "year": "2026",
       "rating": "5.3",
-      "poster": "https://images.scnsrc.me/images/2026/11/10/475359ba64db29e4fef5d8872a1d6d6c.jpg",
+      "poster": "https://image.tmdb.org/t/p/w500/kNxRgcTeqeU5jauBackTERoO2De.jpg",
       "backdrop": "https://image.tmdb.org/t/p/w1280/ncm7djsVTHQQMX2HEbEVxMUFchG.jpg",
       "trailer_key": "-mnTITqqiT0",
       "director": "Rob Savage",
@@ -8806,45 +8667,8 @@
       "runtime": "93 min",
       "imdb_id": "tt36586020",
       "plot": "Young Bela forms a relationship with a sinister entity in her home that looks uncannily like her own mother, drawing her into a terrifying and increasingly dark world.",
-      "date_added": "2026-11-10T15:22:14.977412+00:00"
-    },
-    {
-      "guid": "https://www.scnsrc.me/?p=551254",
-      "source_url": "https://www.scnsrc.me/?p=551254",
-      "raw_title": "Ramayana Rise Of A Legend 2026 720p CAM H264-CinemaCity",
-      "slug": "ramayanariseofalegend",
-      "title": "Ramayana Rise Of A Legend",
-      "year": "2026",
-      "rating": "8.3",
-      "poster": "https://images.scnsrc.me/images/2026/11/10/732076c29eb86ed1cc1bda4240c675b2.jpg",
-      "backdrop": "https://image.tmdb.org/t/p/w1280/prbMZ3DPf8taS6JYQd6igPnm2mA.jpg",
-      "trailer_key": "AYkPRN874m8",
-      "director": "Nitesh Tiwari",
-      "cast": "Ranbir Kapoor, Yash, Sai Pallavi, Ravi Dubey",
-      "genre": "Fantasy, Action, Adventure",
-      "runtime": "201 min",
-      "imdb_id": "tt27988879",
-      "plot": "An ancient epic follows a young prince and princess whose marriage and subsequent exile mark the beginning of a legendary journey. Their story of love, duty and destiny sets the stage for greater challenges ahead.",
-      "date_added": "2026-11-10T15:22:15.391325+00:00"
-    },
-    {
-      "guid": "https://www.scnsrc.me/?p=551231",
-      "source_url": "https://www.scnsrc.me/?p=551231",
-      "raw_title": "Ha-Chan Shake Your Booty 2026 1080p AMZN WEB-DL DDP5 1 H 264-CHORTLE",
-      "slug": "hachanshakeyourbooty",
-      "title": "Ha Chan Shake Your Booty",
-      "year": "2026",
-      "rating": "7.3",
-      "poster": "https://images.scnsrc.me/images/2026/11/10/db3eecf8b0c73d3f7d09405235596eb1.jpg",
-      "backdrop": "https://image.tmdb.org/t/p/w1280/dEu8lwu4q6k3m8xOLxGJzYoxjix.jpg",
-      "trailer_key": "Ik4lJmXgR6U",
-      "director": "Josef Kubota Wladyka",
-      "cast": "Rinko Kikuchi, Alberto Guerra, Alejandro Edda, YOU",
-      "genre": "Comedy, Drama, Romance",
-      "runtime": "122 min",
-      "imdb_id": "tt39149197",
-      "plot": "Haru and Luis love competing in Tokyo’s ballroom dance scene, but after tragedy strikes, Haru withdraws into isolation. When friends coax her back to the studio, she develops an infatuation with the new instructor. She must face what comes next as sparks fly.",
-      "date_added": "2026-11-10T15:22:15.864200+00:00"
+      "date_added": "2026-11-10T15:22:14.977412+00:00",
+      "original_language": "en"
     },
     {
       "guid": "https://www.scnsrc.me/?p=551219",
@@ -8854,7 +8678,7 @@
       "title": "Falling",
       "year": "2025",
       "rating": "5.5",
-      "poster": "https://images.scnsrc.me/images/2026/11/09/daef5b8ceea0b4eff1c76008b6b9d040.jpg",
+      "poster": "https://image.tmdb.org/t/p/w500/qDcws8pGIRgxwq7CoSL1MbFbvEz.jpg",
       "backdrop": "https://image.tmdb.org/t/p/w1280/qRL4a5J8unmbDbnwdEMFsXWm0J8.jpg",
       "trailer_key": "7e_3_oJktV8",
       "director": "Colin Krisel, James Krisel",
@@ -8863,45 +8687,8 @@
       "runtime": "107 min",
       "imdb_id": "tt32752251",
       "plot": "Jack, while quick-witted, charming, and avoidant, finally risks opening his heart when he starts dating Jillian. He never expected, though, that his best friend Johnny would fall for her, too.",
-      "date_added": "2026-11-10T15:22:16.292137+00:00"
-    },
-    {
-      "guid": "https://www.scnsrc.me/?p=551507",
-      "source_url": "https://www.scnsrc.me/?p=551507",
-      "raw_title": "The Christmas Switch 2026 1080p WEB H264-9Minus5in",
-      "slug": "thechristmasswitch",
-      "title": "The Christmas Switch",
-      "year": "2026",
-      "rating": "9.0",
-      "poster": "https://images.scnsrc.me/images/2026/11/12/77ebb24e0bc56f88cdd2ec63703e5f75.jpg",
-      "backdrop": "https://image.tmdb.org/t/p/w1280/4BsOLok9WaTTTcSpmoMtCLERScS.jpg",
-      "trailer_key": null,
-      "director": "Adam Pålsson",
-      "cast": "Felice Jankell, Happy Jankell, Christian Fandango Sundgren, Celie Sparre",
-      "genre": "Romance, Comedy",
-      "runtime": "103 min",
-      "imdb_id": "tt39313557",
-      "plot": "Craving a change of pace, work-hard-play-hard city girl Freddie swaps lives with her homebody sister Mattie at Christmas time, only to unwrap a whole new kind of mess.",
-      "date_added": "2026-11-12T16:02:23.415419+00:00"
-    },
-    {
-      "guid": "https://www.scnsrc.me/?p=551504",
-      "source_url": "https://www.scnsrc.me/?p=551504",
-      "raw_title": "Never Surrender 2026 1080p WEB H264-9Minus5in",
-      "slug": "neversurrender",
-      "title": "Never Surrender",
-      "year": "2026",
-      "rating": "7.0",
-      "poster": "https://images.scnsrc.me/images/2026/11/12/4022180cac716bb1a6a383d86cabbf8c.jpg",
-      "backdrop": "https://image.tmdb.org/t/p/w1280/umxN2kMcUm6VoxSOdcEcQoXuC4q.jpg",
-      "trailer_key": "o0d1IA85D9o",
-      "director": "Sidharta Tata",
-      "cast": "Lukman Sardi, Callista Arum, Sulthan Hamonangan, Derby Romero",
-      "genre": "Action, Crime, Thriller",
-      "runtime": "137 min",
-      "imdb_id": "tt39370926",
-      "plot": "An ex-soldier and his grandchildren battle against ruthless criminals in a remote village. To survive, they must also confront their fears and regrets.",
-      "date_added": "2026-11-12T16:02:23.756176+00:00"
+      "date_added": "2026-11-10T15:22:16.292137+00:00",
+      "original_language": "en"
     },
     {
       "guid": "https://www.scnsrc.me/?p=551502",
@@ -8911,7 +8698,7 @@
       "title": "Allen",
       "year": "2026",
       "rating": "N/A",
-      "poster": "https://images.scnsrc.me/images/2026/11/12/fe205c8deb2a4a2f5fa5bbabc777312a.jpg",
+      "poster": "https://image.tmdb.org/t/p/w500/alhhrpj1PSAn5bfz4Os1k7Bweoj.jpg",
       "backdrop": "https://image.tmdb.org/t/p/w1280/51fGmBW7WjyJouP9TjIcxRpCUNk.jpg",
       "trailer_key": "P8G5Y25W3eA",
       "director": "Daley Pearson, Jeffrey Walker",
@@ -8920,26 +8707,8 @@
       "runtime": "105 min",
       "imdb_id": "tt37675123",
       "plot": "20 years after his encounter with an alien, Petey never moved on. Now his old friend has returned, and the reason why is complicated — and unexpected.",
-      "date_added": "2026-11-12T16:02:24.140569+00:00"
-    },
-    {
-      "guid": "https://www.scnsrc.me/?p=551411",
-      "source_url": "https://www.scnsrc.me/?p=551411",
-      "raw_title": "The Unthinkable Daughter 2026 1080p WEB H264-9Minus5in",
-      "slug": "theunthinkabledaughter",
-      "title": "The Unthinkable Daughter",
-      "year": "2026",
-      "rating": "7.0",
-      "poster": "https://images.scnsrc.me/images/2026/11/11/ce60121f61f235995acff71a4bafa7a7.jpg",
-      "backdrop": "https://image.tmdb.org/t/p/w1280/bjdgmMhTKcxqFO7RdXYhTlGzffB.jpg",
-      "trailer_key": null,
-      "director": "Lygia M. Barbosa, Paulo Gambale (Maká)",
-      "cast": "Suzane Von Richthofen, Roberto Tardelli, Cíntia Tucunduva, Solange Azevedo",
-      "genre": "Crime, Documentary",
-      "runtime": "100 min",
-      "imdb_id": "tt50817930",
-      "plot": "Decades of questions and a crime that shook Brazil. Suzane von Richthofen, convicted for the murder of her parents, tells the whole story in her own words.",
-      "date_added": "2026-11-12T16:02:24.497955+00:00"
+      "date_added": "2026-11-12T16:02:24.140569+00:00",
+      "original_language": "en"
     },
     {
       "guid": "https://www.scnsrc.me/?p=551409",
@@ -8949,7 +8718,7 @@
       "title": "The Gospel of Christmas",
       "year": "2026",
       "rating": "3.0",
-      "poster": "https://images.scnsrc.me/images/2026/11/11/27233a0ba15e988f75be64a8c86ccbf6.jpg",
+      "poster": "https://image.tmdb.org/t/p/w500/k5OOd5sMEqPlKKhgFnkj1jBhNTf.jpg",
       "backdrop": "https://image.tmdb.org/t/p/w1280/v6HTcvMFbscM0Uz5ab3hoeGWYaY.jpg",
       "trailer_key": "lXh2rNl2wdQ",
       "director": "Tyler Perry",
@@ -8958,7 +8727,8 @@
       "runtime": "103 min",
       "imdb_id": "tt38420997",
       "plot": "A struggling pastor moves his family to a troubled New York neighborhood, where they must save a neglected church from foreclosure before Christmas.",
-      "date_added": "2026-11-12T16:02:24.856398+00:00"
+      "date_added": "2026-11-12T16:02:24.856398+00:00",
+      "original_language": "en"
     },
     {
       "guid": "https://www.scnsrc.me/?p=551406",
@@ -8968,7 +8738,7 @@
       "title": "Avedon",
       "year": "2026",
       "rating": "7.7",
-      "poster": "https://images.scnsrc.me/images/2026/11/11/9c4f0ee2e01d5409766fb66402130df3.jpg",
+      "poster": "https://image.tmdb.org/t/p/w500/ziyEHM0P1TgvhVXIqqguoMAD0TJ.jpg",
       "backdrop": "https://image.tmdb.org/t/p/w1280/8mdZuwDtyhidCrb7ffsfl0FLeoN.jpg",
       "trailer_key": null,
       "director": "Ron Howard",
@@ -8977,7 +8747,8 @@
       "runtime": "104 min",
       "imdb_id": "tt41593493",
       "plot": "Richard Avedon's photographs didn't just reflect culture, they shaped it, and continue to do so. The feature documentary AVEDON traces the life and legacy of an artist who used fashion, portraiture, and commercial photography to explore identity, power, fear and beauty. With unprecedented access to Avedon's archive, including never before seen photos, behind the scenes recordings, and interviews with those who knew him best, AVEDON is a visually stunning examination of the mind of an artist who shaped our collective image of the 20th century.",
-      "date_added": "2026-11-12T16:02:25.217810+00:00"
+      "date_added": "2026-11-12T16:02:25.217810+00:00",
+      "original_language": "en"
     },
     {
       "guid": "https://www.scnsrc.me/?p=551307",
@@ -8987,7 +8758,7 @@
       "title": "Dead Howling",
       "year": "2026",
       "rating": "4.6",
-      "poster": "https://images.scnsrc.me/images/2026/11/10/2f94823a6da191b82760d87241f5edf0.jpg",
+      "poster": "https://image.tmdb.org/t/p/w500/i1vpLPnHVAZq1CyJlpVS8YI7a93.jpg",
       "backdrop": "https://image.tmdb.org/t/p/w1280/bL2mZNrVdeNNOICyuFfPJq7YA4s.jpg",
       "trailer_key": "vtq4FIrKuFo",
       "director": "John V. Soto",
@@ -8996,7 +8767,8 @@
       "runtime": "103 min",
       "imdb_id": "tt36933185",
       "plot": "A werewolf hunts zombies after losing his family. He meets two humans seeking sanctuary and joins their quest, protecting them with his powers. Their journey grows perilous as zombies start evolving.",
-      "date_added": "2026-11-12T16:02:25.626459+00:00"
+      "date_added": "2026-11-12T16:02:25.626459+00:00",
+      "original_language": "en"
     },
     {
       "guid": "https://www.scnsrc.me/?p=551305",
@@ -9006,7 +8778,7 @@
       "title": "Winter Battleground",
       "year": "2026",
       "rating": "2.3",
-      "poster": "https://images.scnsrc.me/images/2026/11/10/af97bb722537c658e1962e6693c51bc2.jpg",
+      "poster": "https://image.tmdb.org/t/p/w500/3IKLg61qUiSsA1tx7SS50XJWa01.jpg",
       "backdrop": "https://image.tmdb.org/t/p/w1280/oPKDTCKUdiKumIH6o6WFbim6y1B.jpg",
       "trailer_key": "NMSbMPElf8w",
       "director": "David Christopher Pitt",
@@ -9015,7 +8787,8 @@
       "runtime": "83 min",
       "imdb_id": "tt39602576",
       "plot": "Hunted by an AI-controlled regime, a rogue soldier hiding in the forest must outfight elite assassins, cybernetic soldiers, and corrupted machines to stop an artificial intelligence from seizing total control of America.",
-      "date_added": "2026-11-12T16:02:26.017605+00:00"
+      "date_added": "2026-11-12T16:02:26.017605+00:00",
+      "original_language": "en"
     }
   ],
   "watchlist": [
