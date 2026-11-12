@@ -37,6 +37,7 @@ MAX_PAGES = int(os.environ.get("MAX_PAGES", "5"))
 TMDB_API_KEY = os.environ.get("TMDB_API_KEY", "")
 TMDB_API_URL = "https://api.themoviedb.org/3"
 IMDB_RATINGS_DATASET_URL = "https://datasets.imdbws.com/title.ratings.tsv.gz"
+ENGLISH_LANGUAGE_CODE = "en"
 
 DATA_PATH = Path(__file__).resolve().parent.parent / "data" / "movies.json"
 
@@ -252,6 +253,7 @@ def fetch_movie_metadata(title, year=None):
         cast_str = ", ".join([c.get("name") for c in cast_list[:4] if c.get("name")]) if cast_list else None
 
         return {
+            "original_language": str(details.get("original_language") or "").lower(),
             "rating": rating_str,
             "genre": genre_str,
             "runtime": runtime_str,
@@ -426,6 +428,18 @@ def save(store):
     DATA_PATH.write_text(json.dumps(store, indent=2, ensure_ascii=False))
 
 
+def remove_known_non_english_movies(store):
+    before = len(store["movies"])
+    store["movies"] = [
+        movie for movie in store["movies"]
+        if not movie.get("original_language")
+        or str(movie.get("original_language") or "").lower() == ENGLISH_LANGUAGE_CODE
+    ]
+    removed = before - len(store["movies"])
+    if removed:
+        log(f"Removed {removed} movie(s) with confirmed non-English original language.")
+
+
 
 def process_feed(payload, store, seen_keys):
     added = 0
@@ -464,6 +478,13 @@ def process_feed(payload, store, seen_keys):
             continue
 
         metadata = fetch_movie_metadata(clean_title, year)
+        original_language = str((metadata or {}).get("original_language") or "").lower()
+        if original_language != ENGLISH_LANGUAGE_CODE:
+            language_label = original_language or "unknown"
+            log(f"Skipped: {clean_title} ({year}) | original language: {language_label}")
+            seen_keys.add(key)
+            continue
+
         poster = extract_poster(desc_node.text if desc_node is not None else "")
 
         rating, genre, runtime, imdb_id, plot = "N/A", "Unknown", "Unknown", None, ""
@@ -500,6 +521,7 @@ def process_feed(payload, store, seen_keys):
             "genre": genre,
             "runtime": runtime,
             "imdb_id": imdb_id,
+            "original_language": original_language,
             "plot": plot,
             "date_added": datetime.now(timezone.utc).isoformat(),
         })
@@ -543,6 +565,7 @@ def main():
         log("WARNING: TMDB_API_KEY not set — metadata will be skipped.")
 
     store = load_existing()
+    remove_known_non_english_movies(store)
     excluded_set = set(store.get("excluded", []))
 
     if refetch_all:
@@ -560,6 +583,7 @@ def main():
             log(f"[{i+1}/{len(target_movies)}] Refetching: {clean_title} ({year})...")
             metadata = fetch_movie_metadata(clean_title, year)
             if metadata:
+                m["original_language"] = metadata.get("original_language", "")
                 m["rating"] = metadata.get("rating", "N/A")
                 m["genre"] = metadata.get("genre", "Unknown")
                 m["runtime"] = metadata.get("runtime", "Unknown")
@@ -580,6 +604,7 @@ def main():
             else:
                 log(f"  -> No valid TMDb match found for {clean_title} ({year}).")
             time.sleep(0.2)
+        remove_known_non_english_movies(store)
         sync_official_imdb_ratings(store)
         save(store)
         log(f"Full refetch complete. Re-evaluated {updated_count}/{len(target_movies)} movies.")
@@ -601,6 +626,7 @@ def main():
                 log(f"[{i+1}/{len(unrated_movies)}] Refetching unrated: {clean_title} ({year})...")
                 metadata = fetch_movie_metadata(clean_title, year)
                 if metadata:
+                    m["original_language"] = metadata.get("original_language", "")
                     old_rating = m.get("rating", "N/A")
                     m["rating"] = metadata.get("rating", "N/A")
                     m["genre"] = metadata.get("genre", "Unknown")
@@ -622,6 +648,7 @@ def main():
                 else:
                     log(f"  -> Still no TMDb match for {clean_title} ({year}).")
                 time.sleep(0.2)
+            remove_known_non_english_movies(store)
             sync_official_imdb_ratings(store)
             save(store)
             log(f"Unrated refetch complete. Updated {updated_count}/{len(unrated_movies)} movie(s).")
