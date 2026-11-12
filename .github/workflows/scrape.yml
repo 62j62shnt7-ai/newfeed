@@ -50,7 +50,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright-${{ hashFiles('scripts/requirements.txt') }}
+          key: ${{ runner.os }}-playwright-v2-${{ hashFiles('scripts/requirements.txt') }}
 
       # Install Chromium and system dependencies if cache misses
       - name: Install Playwright Browser & Dependencies
@@ -63,6 +63,12 @@ jobs:
         if: steps.playwright-cache.outputs.cache-hit == 'true'
         timeout-minutes: 5
         run: playwright install-deps chromium
+
+      # Validate/repair the cached browser for this exact pinned Playwright version.
+      - name: Ensure Playwright Browser Is Installed
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        timeout-minutes: 6
+        run: playwright install chromium
 
       - name: Run scraper
         env:
