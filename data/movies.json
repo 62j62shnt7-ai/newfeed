@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-11-20T15:53:22.493441+00:00",
+  "last_updated": "2026-11-21T15:02:28.407014+00:00",
   "movies": [
     {
       "guid": "https://www.scnsrc.me/?p=540506",
@@ -8977,7 +8977,7 @@
       "slug": "longhairedbusinessmen",
       "title": "Long Haired Businessmen",
       "year": "2026",
-      "rating": "6.2",
+      "rating": "6.3",
       "poster": "https://image.tmdb.org/t/p/w500/pAjMZ8AiE4tNsKTwIWv9942z8HC.jpg",
       "backdrop": "https://image.tmdb.org/t/p/w1280/qAeO2UOdLpDfCRGfkeaPKcnrsQQ.jpg",
       "trailer_key": "SBlZFOiwrik",
@@ -8997,7 +8997,7 @@
       "slug": "rollingloudthemovie",
       "title": "Rolling Loud The Movie",
       "year": "2026",
-      "rating": "5.5",
+      "rating": "5.4",
       "poster": "https://images.scnsrc.me/images/2026/11/17/b1cc68a704bc22c6c499c8c06bdcfd45.jpg",
       "backdrop": "https://image.tmdb.org/t/p/w1280/eQC3h5fyEjNhSULe7yQlFaDkSub.jpg",
       "trailer_key": "o_pIiP1A0RY",
@@ -9017,7 +9017,7 @@
       "slug": "atalentformurder",
       "title": "A Talent for Murder",
       "year": "2026",
-      "rating": "6.5",
+      "rating": "6.4",
       "poster": "https://images.scnsrc.me/images/2026/11/17/80ccbdbd77dd14a74112ecebde3215aa.jpg",
       "backdrop": "https://image.tmdb.org/t/p/w1280/mfpjOQ6hsvMUIFyzWglwerbpgFS.jpg",
       "trailer_key": "2AMYg6UmmjM",
@@ -9037,7 +9037,7 @@
       "slug": "madden",
       "title": "Madden",
       "year": "2026",
-      "rating": "5.7",
+      "rating": "5.6",
       "poster": "https://image.tmdb.org/t/p/w500/bRa83oPFFPqaAF3wrpVWPqqfFel.jpg",
       "backdrop": "https://image.tmdb.org/t/p/w1280/lRsapglJZIyMfGl8oQyNASlZqDC.jpg",
       "trailer_key": "xzh7HzLXXpk",
@@ -9109,6 +9109,26 @@
       "original_language": "en",
       "plot": "Think you know Cinderella's 'evil' stepsisters? Think again! When misunderstood Lilith is blamed for hijacking the Royal Ball with a stolen magic wand, she accidentally turns her sister Margot into a frog and leaves the kingdom in the hands of a prince-obsessed mean girl. Now Lilith must team up with Cinderella — and a surprisingly dreamy troll — to save the kingdom, repair the fractured fairytale, and prove that even so-called villains deserve a shot at happily-ever-after.",
       "date_added": "2026-11-20T15:53:07.390406+00:00"
+    },
+    {
+      "guid": "https://www.scnsrc.me/?p=552503",
+      "source_url": "https://www.scnsrc.me/?p=552503",
+      "raw_title": "Primetime Preachers 2026 1080p WEB H264-GRACE",
+      "slug": "primetimepreachers",
+      "title": "Primetime Preachers",
+      "year": "2026",
+      "rating": "6.8",
+      "poster": "https://images.scnsrc.me/images/2026/11/20/2bc3e8dbdd5b4c38f3ce42d209f47e49.jpg",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/gwrGO8A61CtuxxurWjo3OAl1wcO.jpg",
+      "trailer_key": "bkttnVxwp70",
+      "director": "Joe Berlinger",
+      "cast": null,
+      "genre": "Documentary",
+      "runtime": "Unknown",
+      "imdb_id": "tt48434154",
+      "original_language": "en",
+      "plot": "Chronicles the 1980s golden age of Christian broadcasting, detailing how three of America's most prominent televangelists shifted evangelical Christianity into a massive political force.",
+      "date_added": "2026-11-21T15:02:12.512650+00:00"
     }
   ],
   "watchlist": [
